@@ -17,6 +17,8 @@
     --success: #3fb950;
     --danger: #f85149;
     --gold: #d29922;
+    --pink: #ff7ab8;
+    --blue: #5fa8ff;
     --radius: 10px;
     --shadow: 0 4px 16px rgba(0,0,0,0.35);
     --blur: 14px;
@@ -102,100 +104,43 @@
   /* ============================================================
      КНОПКА ФОНА
      ============================================================ */
-  .bg-controls {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 100;
-  }
+  .bg-controls { position: fixed; top: 16px; right: 16px; z-index: 100; }
   .bg-btn {
-    background: var(--bg-alt);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 13px;
-    font-family: inherit;
-    font-weight: 500;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-    transition: all 0.15s;
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
+    background: var(--bg-alt); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; font-family: inherit; font-weight: 500;
+    cursor: pointer; box-shadow: var(--shadow); transition: all 0.15s;
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
   }
-  .bg-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--bg-hover);
-  }
+  .bg-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--bg-hover); }
   .bg-menu {
-    position: absolute;
-    top: calc(100% + 6px);
-    right: 0;
-    width: 320px;
-    background: rgba(22, 27, 34, 0.95);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 8px;
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
+    position: absolute; top: calc(100% + 6px); right: 0; width: 320px;
+    background: rgba(22, 27, 34, 0.95); border: 1px solid var(--border);
+    border-radius: 10px; padding: 8px; box-shadow: var(--shadow);
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
   }
   .bg-menu[hidden] { display: none; }
-
   .bg-section-label {
-    font-size: 11px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 8px 8px 6px;
-    font-weight: 600;
+    font-size: 11px; color: var(--text-dim); text-transform: uppercase;
+    letter-spacing: 1px; padding: 8px 8px 6px; font-weight: 600;
   }
-  .bg-presets {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    padding: 0 4px 8px;
-  }
+  .bg-presets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 0 4px 8px; }
   .bg-preset {
-    height: 46px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.15s, border-color 0.15s;
-    position: relative;
-    overflow: hidden;
+    height: 46px; border-radius: 8px; border: 1px solid var(--border);
+    cursor: pointer; background-size: cover; background-position: center;
+    transition: transform 0.15s, border-color 0.15s; position: relative; overflow: hidden;
   }
-  .bg-preset:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent);
-  }
+  .bg-preset:hover { transform: translateY(-2px); border-color: var(--accent); }
   .bg-preset .bg-preset-title {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    font-size: 10px;
-    text-align: center;
-    padding: 3px 2px;
-    background: rgba(0,0,0,0.55);
-    color: #fff;
-    font-weight: 500;
+    position: absolute; bottom: 0; left: 0; right: 0; font-size: 10px;
+    text-align: center; padding: 3px 2px; background: rgba(0,0,0,0.55);
+    color: #fff; font-weight: 500;
   }
-
   .bg-menu-item {
-    background: transparent;
-    color: var(--text);
-    border: none;
-    border-radius: 6px;
-    padding: 10px 12px;
-    font-size: 13px;
-    font-family: inherit;
-    text-align: left;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    transition: background 0.12s, color 0.12s;
+    background: transparent; color: var(--text); border: none;
+    border-radius: 6px; padding: 10px 12px; font-size: 13px;
+    font-family: inherit; text-align: left; cursor: pointer;
+    display: block; width: 100%; transition: background 0.12s, color 0.12s;
   }
   .bg-menu-item:hover { background: var(--bg-hover); color: var(--accent); }
   .bg-menu-item.danger:hover { background: rgba(248, 81, 73, 0.1); color: var(--danger); }
@@ -206,84 +151,52 @@
   }
 
   /* ============================================================
-     ПАНЕЛЬ ВКЛАДОК СПРАВА
+     ВКЛАДКИ СПРАВА
      ============================================================ */
   .side-tabs {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    z-index: 90;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    position: fixed; top: 50%; right: 0; transform: translateY(-50%);
+    z-index: 90; display: flex; flex-direction: column; gap: 6px;
     pointer-events: none;
   }
   .tab {
-    --visible: 42px;
-    --width: 180px;
-    position: relative;
-    right: calc(-1 * (var(--width) - var(--visible)));
-    width: var(--width);
-    height: 48px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 14px 0 12px;
-    background: rgba(22, 27, 34, 0.92);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-right: none;
-    border-radius: 10px 0 0 10px;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    text-align: left;
+    --visible: 42px; --width: 180px;
+    position: relative; right: calc(-1 * (var(--width) - var(--visible)));
+    width: var(--width); height: 48px; display: flex; align-items: center;
+    gap: 10px; padding: 0 14px 0 12px;
+    background: rgba(22, 27, 34, 0.92); color: var(--text);
+    border: 1px solid var(--border); border-right: none;
+    border-radius: 10px 0 0 10px; font-family: inherit;
+    font-size: 14px; font-weight: 500; cursor: pointer; text-align: left;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
-    transition:
-      right 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-      background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
+    transition: right 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
     pointer-events: auto;
   }
   .tab:hover {
-    right: 0;
-    background: rgba(28, 35, 48, 0.98);
-    color: var(--accent);
-    border-color: var(--accent);
+    right: 0; background: rgba(28, 35, 48, 0.98);
+    color: var(--accent); border-color: var(--accent);
     box-shadow: 0 6px 20px rgba(88, 166, 255, 0.18);
   }
   .tab:active { transform: translateY(1px); }
   .tab.tab-active {
-    background: linear-gradient(135deg, rgba(26, 39, 68, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%);
-    border-color: var(--accent);
-    color: var(--accent);
+    background: linear-gradient(135deg, rgba(26, 39, 68, 0.9), rgba(22, 33, 62, 0.9));
+    border-color: var(--accent); color: var(--accent);
   }
   .tab.tab-active::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 8px; bottom: 8px;
-    width: 3px; border-radius: 0 2px 2px 0;
-    background: var(--accent);
+    content: ""; position: absolute; left: 0; top: 8px; bottom: 8px;
+    width: 3px; border-radius: 0 2px 2px 0; background: var(--accent);
   }
   .tab-icon { font-size: 18px; flex-shrink: 0; width: 24px; text-align: center; }
   .tab-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   /* ============================================================
-     FADE МЕЖДУ ВКЛАДКАМИ
+     FADE
      ============================================================ */
-  .tab-content {
-    display: none;
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 0.22s ease, transform 0.22s ease;
-  }
+  .tab-content { display: none; opacity: 0; transform: translateY(6px);
+    transition: opacity 0.22s ease, transform 0.22s ease; }
   .tab-content.tab-content-active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
+    display: block; opacity: 1; transform: translateY(0);
     animation: fadeInTab 0.28s ease both;
   }
   @keyframes fadeInTab {
@@ -292,146 +205,86 @@
   }
 
   /* ============================================================
-     LAYOUT: шкала слева + контент справа
+     LAYOUT
      ============================================================ */
   .content-layout {
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 20px;
-    align-items: start;
+    display: grid; grid-template-columns: 110px 1fr;
+    gap: 20px; align-items: start;
   }
 
   /* ============================================================
-     ЛЕВАЯ ШКАЛА
+     ШКАЛА СЛЕВА
      ============================================================ */
   .progress-rail {
-    position: sticky;
-    top: 24px;
-    height: 640px;
-    padding: 20px 14px;
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    position: sticky; top: 24px; height: 640px;
+    padding: 20px 14px; background: var(--bg-alt);
+    border: 1px solid var(--border); border-radius: var(--radius);
     box-shadow: var(--shadow);
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
   }
   .progress-rail-title {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-dim);
-    font-weight: 600;
-    margin-bottom: 4px;
-    text-align: center;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-dim); font-weight: 600; margin-bottom: 4px; text-align: center;
   }
   .progress-rail-value {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1;
-    text-align: center;
-    transition: color 0.3s ease;
+    font-size: 22px; font-weight: 700; color: var(--text);
+    line-height: 1; text-align: center; transition: color 0.3s ease;
   }
   .progress-rail-scale {
-    position: relative;
-    flex: 1;
-    width: 34px;
-    border-radius: 17px;
+    position: relative; flex: 1; width: 34px; border-radius: 17px;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--border);
-    overflow: hidden;
-    margin-top: 6px;
+    border: 1px solid var(--border); overflow: hidden; margin-top: 6px;
   }
   .progress-rail-fill {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 0%;
+    position: absolute; left: 0; right: 0; bottom: 0; height: 0%;
     transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-                background 0.4s ease,
-                box-shadow 0.4s ease;
+                background 0.4s ease, box-shadow 0.4s ease;
     background: #f85149;
     box-shadow: 0 0 12px rgba(248, 81, 73, 0.5);
   }
-  .progress-rail-ticks {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
+  .progress-rail-ticks { position: absolute; inset: 0; pointer-events: none; }
   .progress-rail-tick {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 1px;
+    position: absolute; left: 0; right: 0; height: 1px;
     background: rgba(255, 255, 255, 0.08);
   }
   .progress-rail-tick-label {
-    position: absolute;
-    right: -42px;
-    font-size: 10px;
-    color: var(--text-dim);
-    transform: translateY(-50%);
-    font-weight: 600;
+    position: absolute; right: -42px; font-size: 10px;
+    color: var(--text-dim); transform: translateY(-50%); font-weight: 600;
   }
   .progress-rail-status {
-    font-size: 11px;
-    text-align: center;
-    color: var(--text-dim);
-    margin-top: 6px;
-    line-height: 1.3;
-    min-height: 28px;
+    font-size: 11px; text-align: center; color: var(--text-dim);
+    margin-top: 6px; line-height: 1.3; min-height: 28px;
   }
 
   @media (max-width: 900px) {
-    .content-layout {
-      grid-template-columns: 1fr;
-    }
+    .content-layout { grid-template-columns: 1fr; }
     .progress-rail {
-      position: relative;
-      top: auto;
-      height: auto;
-      padding: 14px 16px;
-      flex-direction: row;
-      gap: 14px;
-      align-items: center;
+      position: relative; top: auto; height: auto;
+      padding: 14px 16px; flex-direction: row; gap: 14px; align-items: center;
     }
-    .progress-rail-scale {
-      flex: 1;
-      height: 18px;
-      width: auto;
-    }
+    .progress-rail-scale { flex: 1; height: 18px; width: auto; }
     .progress-rail-fill {
-      height: 100% !important;
-      width: 0%;
-      top: 0; bottom: 0;
+      height: 100% !important; width: 0%; top: 0; bottom: 0;
       transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s ease;
     }
     .progress-rail-tick { display: none; }
     .progress-rail-ticks { display: none; }
     .progress-rail-value { font-size: 20px; min-width: 60px; }
-    .progress-rail-title,
-    .progress-rail-status { margin: 0; min-height: 0; }
+    .progress-rail-title, .progress-rail-status { margin: 0; min-height: 0; }
   }
 
   /* ============================================================
-     СЕКЦИИ — GLASSMORPHISM
+     СЕКЦИИ
      ============================================================ */
   .section {
     background: var(--bg-alt);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 20px; margin-bottom: 20px;
     box-shadow: var(--shadow);
     backdrop-filter: blur(var(--blur)) saturate(160%);
     -webkit-backdrop-filter: blur(var(--blur)) saturate(160%);
-    transition: border-color 0.2s;
   }
   .section-title {
     font-size: 15px; font-weight: 600; color: var(--accent);
@@ -439,27 +292,21 @@
     margin-bottom: 16px; padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
   }
+  .section-title.pink { color: var(--pink); border-bottom-color: rgba(255, 122, 184, 0.25); }
+  .section-title.blue { color: var(--blue); border-bottom-color: rgba(95, 168, 255, 0.25); }
+  .section-title.gold { color: var(--gold); border-bottom-color: rgba(210, 153, 34, 0.25); }
 
   .row {
-    display: grid;
-    grid-template-columns: 1fr 90px 90px 90px;
-    gap: 10px;
-    align-items: center;
-    padding: 8px 10px;
-    border-radius: 8px;
-    transition: background 0.15s;
+    display: grid; grid-template-columns: 1fr 90px 90px 90px;
+    gap: 10px; align-items: center; padding: 8px 10px;
+    border-radius: 8px; transition: background 0.15s;
   }
   .row:not(.header-row):hover { background: rgba(28, 35, 48, 0.6); }
   .row.active { background: rgba(88, 166, 255, 0.10); }
   .header-row {
-    color: var(--text-dim);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    font-weight: 600;
-    padding-bottom: 4px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 4px;
+    color: var(--text-dim); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600;
+    padding-bottom: 4px; border-bottom: 1px solid var(--border); margin-bottom: 4px;
   }
   .header-row .cell { text-align: center; }
   .header-row .cell:first-child { text-align: left; }
@@ -475,30 +322,21 @@
   }
 
   input[type="number"] {
-    width: 100%;
-    background: rgba(13, 17, 23, 0.7);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 7px 10px;
-    font-size: 14px;
-    font-family: inherit;
+    width: 100%; background: rgba(13, 17, 23, 0.7); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 7px 10px; font-size: 14px; font-family: inherit;
     text-align: center;
     transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
     -moz-appearance: textfield;
   }
   input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none; margin: 0;
-  }
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   input[type="number"]:focus {
-    outline: none;
-    border-color: var(--accent);
+    outline: none; border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
   }
   input[type="number"].over-limit {
-    border-color: var(--danger);
-    background: rgba(248, 81, 73, 0.08);
+    border-color: var(--danger); background: rgba(248, 81, 73, 0.08);
   }
 
   .sum {
@@ -508,26 +346,18 @@
   .sum.positive { color: var(--success); }
   .sum.pop { animation: sumPop 0.3s ease; }
   @keyframes sumPop {
-    0%   { transform: scale(1);   }
-    45%  { transform: scale(1.28); }
-    100% { transform: scale(1);   }
+    0% { transform: scale(1); }
+    45% { transform: scale(1.28); }
+    100% { transform: scale(1); }
   }
 
-  /* ============================================================
-     ИТОГ
-     ============================================================ */
   .total-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(135deg, rgba(26, 39, 68, 0.85) 0%, rgba(22, 33, 62, 0.85) 100%);
-    border: 1px solid var(--accent);
-    border-radius: var(--radius);
-    padding: 20px 24px;
-    margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(135deg, rgba(26, 39, 68, 0.85), rgba(22, 33, 62, 0.85));
+    border: 1px solid var(--accent); border-radius: var(--radius);
+    padding: 20px 24px; margin-bottom: 20px;
     box-shadow: 0 0 0 1px rgba(88, 166, 255, 0.1), var(--shadow);
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
   }
   .total-box .label {
     font-size: 14px; color: var(--text-dim);
@@ -535,141 +365,85 @@
   }
   .total-box .value {
     font-size: 36px; font-weight: 700;
-    color: var(--accent); line-height: 1;
-    transition: transform 0.15s, color 0.3s;
+    color: var(--accent); line-height: 1; transition: transform 0.15s, color 0.3s;
   }
   .total-box .value.pulse { animation: totalPulse 0.35s ease; }
   @keyframes totalPulse {
-    0%   { transform: scale(1);    }
-    45%  { transform: scale(1.12); }
-    100% { transform: scale(1);    }
+    0% { transform: scale(1); }
+    45% { transform: scale(1.12); }
+    100% { transform: scale(1); }
   }
 
-  /* ============================================================
-     КНОПКИ
-     ============================================================ */
   .buttons {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    margin-bottom: 20px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px; margin-bottom: 20px;
   }
   button {
-    background: var(--bg-alt);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.15s;
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
+    background: var(--bg-alt); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 16px; font-size: 14px; font-weight: 500;
+    font-family: inherit; cursor: pointer; transition: all 0.15s;
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
   }
-  button:hover {
-    background: var(--bg-hover);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
+  button:hover { background: var(--bg-hover); border-color: var(--accent); color: var(--accent); }
   button:active { transform: translateY(1px); }
   button.primary {
-    background: var(--accent);
-    color: #0d1117;
-    border-color: var(--accent);
-    font-weight: 600;
+    background: var(--accent); color: #0d1117;
+    border-color: var(--accent); font-weight: 600;
   }
   button.primary:hover {
-    background: var(--accent-hover);
-    border-color: var(--accent-hover);
-    color: #0d1117;
+    background: var(--accent-hover); border-color: var(--accent-hover); color: #0d1117;
   }
   button.danger:hover {
-    background: rgba(248, 81, 73, 0.1);
-    border-color: var(--danger);
-    color: var(--danger);
+    background: rgba(248, 81, 73, 0.1); border-color: var(--danger); color: var(--danger);
   }
 
-  /* ============================================================
-     ОТЧЁТ
-     ============================================================ */
   .report {
     background: rgba(13, 17, 23, 0.75);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    font-family: "Consolas", "Monaco", "Courier New", monospace;
-    font-size: 13px;
-    color: var(--text);
-    white-space: pre-wrap;
-    word-break: break-word;
-    min-height: 120px;
-    max-height: 400px;
-    overflow-y: auto;
-    line-height: 1.6;
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; font-family: "Consolas", "Monaco", "Courier New", monospace;
+    font-size: 13px; color: var(--text); white-space: pre-wrap;
+    word-break: break-word; min-height: 120px; max-height: 400px;
+    overflow-y: auto; line-height: 1.6;
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
   }
   .report:empty::before {
     content: "Отчёт появится здесь после расчёта...";
-    color: var(--text-dim);
-    font-style: italic;
+    color: var(--text-dim); font-style: italic;
   }
 
-  /* ============================================================
-     ПРАВИЛА
-     ============================================================ */
   .rules-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 8px;
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px;
   }
   .rules-list li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    background: rgba(13, 17, 23, 0.55);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 13.5px;
-    color: var(--text-dim);
-    line-height: 1.5;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; background: rgba(13, 17, 23, 0.55);
+    border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13.5px; color: var(--text-dim); line-height: 1.5;
     transition: border-color 0.15s;
   }
   .rules-list li:hover { border-color: var(--accent); }
   .rules-list .arrow { color: var(--accent); font-weight: 700; flex-shrink: 0; }
   .rules-list b { color: var(--text); }
 
-  /* ============================================================
-     HERO / ПЛЕЙСХОЛДЕР
-     ============================================================ */
+  /* Плейсхолдер */
   .placeholder {
-    background: var(--bg-alt);
-    border: 1px dashed var(--border);
-    border-radius: var(--radius);
-    padding: 48px 24px;
-    text-align: center;
-    color: var(--text-dim);
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
+    background: var(--bg-alt); border: 1px dashed var(--border);
+    border-radius: var(--radius); padding: 48px 24px;
+    text-align: center; color: var(--text-dim);
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
   }
   .placeholder h2 { color: var(--accent); font-size: 22px; margin-bottom: 10px; }
   .placeholder p { font-size: 14px; max-width: 500px; margin: 0 auto; line-height: 1.7; }
   .placeholder .icon { font-size: 48px; display: block; margin-bottom: 16px; opacity: 0.7; }
 
+  /* Hero */
   .hero {
-    text-align: center;
-    padding: 40px 24px 32px;
+    text-align: center; padding: 40px 24px 32px;
     background: linear-gradient(135deg, rgba(26, 39, 68, 0.6), rgba(22, 33, 62, 0.6));
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 20px;
-    box-shadow: var(--shadow);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    margin-bottom: 20px; box-shadow: var(--shadow);
     backdrop-filter: blur(var(--blur)) saturate(160%);
     -webkit-backdrop-filter: blur(var(--blur)) saturate(160%);
   }
@@ -684,36 +458,25 @@
   }
   .hero-cta { text-align: center; margin-top: 6px; }
   .cta-btn {
-    background: var(--accent);
-    color: #0d1117;
-    border: 1px solid var(--accent);
-    border-radius: 10px;
-    padding: 14px 32px;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.15s;
+    background: var(--accent); color: #0d1117;
+    border: 1px solid var(--accent); border-radius: 10px;
+    padding: 14px 32px; font-size: 15px; font-weight: 600;
+    font-family: inherit; cursor: pointer; transition: all 0.15s;
     box-shadow: 0 4px 20px rgba(88, 166, 255, 0.25);
   }
   .cta-btn:hover {
-    background: var(--accent-hover);
-    border-color: var(--accent-hover);
+    background: var(--accent-hover); border-color: var(--accent-hover);
     transform: translateY(-1px);
   }
 
   .features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 14px;
   }
   .feature {
-    display: flex;
-    gap: 12px;
-    padding: 14px 16px;
+    display: flex; gap: 12px; padding: 14px 16px;
     background: rgba(13, 17, 23, 0.55);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    border: 1px solid var(--border); border-radius: 8px;
     transition: border-color 0.15s, transform 0.15s;
   }
   .feature:hover { border-color: var(--accent); transform: translateY(-2px); }
@@ -731,50 +494,38 @@
     border: 1px solid var(--border); border-radius: 8px;
   }
   .step-num {
-    flex-shrink: 0; width: 28px; height: 28px;
-    border-radius: 50%; background: var(--accent); color: #0d1117;
+    flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--accent); color: #0d1117;
     display: flex; align-items: center; justify-content: center;
     font-weight: 700; font-size: 14px;
   }
   .step-body { font-size: 14px; color: var(--text-dim); line-height: 1.55; padding-top: 3px; }
   .step-body b { color: var(--text); }
 
-  /* ============================================================
-     TOAST
-     ============================================================ */
   .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
+    position: fixed; bottom: 24px; left: 50%;
     transform: translateX(-50%) translateY(80px);
-    background: rgba(22, 27, 34, 0.95);
-    color: var(--text);
-    border: 1px solid var(--accent);
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-size: 14px;
-    box-shadow: var(--shadow);
-    opacity: 0;
-    transition: transform 0.3s, opacity 0.3s;
-    pointer-events: none;
-    z-index: 2000;
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
+    background: rgba(22, 27, 34, 0.95); color: var(--text);
+    border: 1px solid var(--accent); border-radius: 8px;
+    padding: 12px 20px; font-size: 14px; box-shadow: var(--shadow);
+    opacity: 0; transition: transform 0.3s, opacity 0.3s;
+    pointer-events: none; z-index: 2000;
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
   }
-  .toast.show {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  /* Хинты по нормам */
+  .norm-hint {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--text-dim);
+    background: rgba(88, 166, 255, 0.08);
+    border: 1px solid rgba(88, 166, 255, 0.2);
+    border-radius: 6px; padding: 3px 8px; margin-left: 8px;
   }
 
-  /* ============================================================
-     МОБИЛЬНАЯ ВЕРСИЯ
-     ============================================================ */
   @media (max-width: 640px) {
     body { padding: 16px 10px 40px; }
-    .row {
-      grid-template-columns: 1fr 60px 60px 60px;
-      gap: 6px; padding: 6px 6px;
-    }
+    .row { grid-template-columns: 1fr 60px 60px 60px; gap: 6px; padding: 6px 6px; }
     .name { font-size: 12.5px; }
     .name .limit { display: none; }
     .total-box .value { font-size: 28px; }
@@ -789,13 +540,8 @@
     button { padding: 10px 12px; font-size: 13px; }
     .report { font-size: 12px; padding: 12px; }
     .side-tabs { top: auto; bottom: 12px; transform: none; }
-    .tab {
-      --width: 140px; --visible: 40px;
-      height: 42px; font-size: 13px;
-      padding: 0 10px;
-    }
+    .tab { --width: 140px; --visible: 40px; height: 42px; font-size: 13px; padding: 0 10px; }
     .tab-icon { font-size: 16px; width: 20px; }
-
     .hero { padding: 28px 16px 22px; }
     .hero-title { font-size: 19px; }
     .hero-subtitle { font-size: 13.5px; }
@@ -819,9 +565,6 @@
 </head>
 <body>
 
-<!-- ============================================================
-     ПАНЕЛЬ ВКЛАДОК СПРАВА
-     ============================================================ -->
 <nav class="side-tabs" aria-label="Разделы">
   <button class="tab tab-active" data-tab="main" type="button">
     <span class="tab-icon">🏠</span>
@@ -845,15 +588,11 @@
   </button>
 </nav>
 
-<!-- ============================================================
-     КНОПКА ФОНА
-     ============================================================ -->
 <div class="bg-controls">
   <button class="bg-btn" id="bg-menu-btn" type="button">🎨 Фон</button>
   <div class="bg-menu" id="bg-menu" hidden>
     <div class="bg-section-label">Пресеты</div>
     <div class="bg-presets" id="bg-presets"></div>
-
     <div class="bg-section-label">Свои</div>
     <label class="bg-menu-item">
       📁 Загрузить картинку
@@ -876,17 +615,14 @@
     <p>Введите количество — итог и шкала обновятся автоматически</p>
   </header>
 
-  <!-- ============================================================
-       РАЗДЕЛ 1: Главное меню
-       ============================================================ -->
+  <!-- ================= ГЛАВНОЕ МЕНЮ ================= -->
   <section class="tab-content tab-content-active" id="content-main">
-
     <div class="hero">
       <div class="hero-icon">🏥</div>
       <h2 class="hero-title">Калькуляторы баллов для отделов</h2>
       <p class="hero-subtitle">
-        Инструмент для подсчёта баллов сотрудников медицинских отделов.
-        Слева — визуальная шкала прогресса 100 → 1500 баллов с цветовой индикацией.
+        Инструмент для подсчёта баллов сотрудников отделов PSID, PM, DI и HAD.
+        Слева каждой вкладки — шкала прогресса 100 → 1500 с цветовой индикацией.
       </p>
     </div>
 
@@ -943,12 +679,9 @@
         Перейти к калькулятору PSID →
       </button>
     </div>
-
   </section>
 
-  <!-- ============================================================
-       РАЗДЕЛ 2: PM
-       ============================================================ -->
+  <!-- ================= PM ================= -->
   <section class="tab-content" id="content-pm">
     <div class="content-layout">
       <aside class="progress-rail" data-rail="pm">
@@ -957,21 +690,11 @@
         <div class="progress-rail-scale">
           <div class="progress-rail-fill" data-rail-fill></div>
           <div class="progress-rail-ticks">
-            <div class="progress-rail-tick" style="bottom: 100%;">
-              <span class="progress-rail-tick-label">1500</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 66.66%;">
-              <span class="progress-rail-tick-label">1000</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 33.33%;">
-              <span class="progress-rail-tick-label">500</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 16.66%;">
-              <span class="progress-rail-tick-label">250</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 6.66%;">
-              <span class="progress-rail-tick-label">100</span>
-            </div>
+            <div class="progress-rail-tick" style="bottom: 100%;"><span class="progress-rail-tick-label">1500</span></div>
+            <div class="progress-rail-tick" style="bottom: 66.66%;"><span class="progress-rail-tick-label">1000</span></div>
+            <div class="progress-rail-tick" style="bottom: 33.33%;"><span class="progress-rail-tick-label">500</span></div>
+            <div class="progress-rail-tick" style="bottom: 16.66%;"><span class="progress-rail-tick-label">250</span></div>
+            <div class="progress-rail-tick" style="bottom: 6.66%;"><span class="progress-rail-tick-label">100</span></div>
           </div>
         </div>
         <div class="progress-rail-status" data-rail-status>Начало</div>
@@ -981,54 +704,40 @@
         <div class="section">
           <div class="section-title">🚑 ПМП</div>
           <div class="row header-row">
-            <div class="cell">Действие</div>
-            <div class="cell">Кол-во</div>
-            <div class="cell">Балл</div>
-            <div class="cell">Итог</div>
+            <div class="cell">Действие</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
           </div>
           <div id="pm-pmp-items"></div>
         </div>
-
         <div class="section">
           <div class="section-title">💉 Вакцина</div>
           <div class="row header-row">
-            <div class="cell">Больница</div>
-            <div class="cell">Кол-во</div>
-            <div class="cell">Балл</div>
-            <div class="cell">Итог</div>
+            <div class="cell">Больница</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
           </div>
           <div id="pm-vax-items"></div>
         </div>
-
         <div class="section">
           <div class="section-title">💊 Таблетка</div>
           <div class="row header-row">
-            <div class="cell">Больница</div>
-            <div class="cell">Кол-во</div>
-            <div class="cell">Балл</div>
-            <div class="cell">Итог</div>
+            <div class="cell">Больница</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
           </div>
           <div id="pm-pill-items"></div>
         </div>
-
         <div class="section">
           <div class="section-title">🧾 Справка</div>
           <div class="row header-row">
-            <div class="cell">Больница</div>
-            <div class="cell">Кол-во</div>
-            <div class="cell">Балл</div>
-            <div class="cell">Итог</div>
+            <div class="cell">Больница</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
           </div>
           <div id="pm-med-items"></div>
         </div>
-
         <div class="section">
           <div class="section-title">📝 Дополнительно</div>
           <div class="row header-row">
-            <div class="cell">Действие</div>
-            <div class="cell">Кол-во</div>
-            <div class="cell">Балл</div>
-            <div class="cell">Итог</div>
+            <div class="cell">Действие</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
           </div>
           <div id="pm-extra-items"></div>
         </div>
@@ -1058,9 +767,7 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       РАЗДЕЛ 3: DI
-       ============================================================ -->
+  <!-- ================= DI ================= -->
   <section class="tab-content" id="content-di">
     <div class="content-layout">
       <aside class="progress-rail" data-rail="di">
@@ -1069,39 +776,80 @@
         <div class="progress-rail-scale">
           <div class="progress-rail-fill" data-rail-fill></div>
           <div class="progress-rail-ticks">
-            <div class="progress-rail-tick" style="bottom: 100%;">
-              <span class="progress-rail-tick-label">1500</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 66.66%;">
-              <span class="progress-rail-tick-label">1000</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 33.33%;">
-              <span class="progress-rail-tick-label">500</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 16.66%;">
-              <span class="progress-rail-tick-label">250</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 6.66%;">
-              <span class="progress-rail-tick-label">100</span>
-            </div>
+            <div class="progress-rail-tick" style="bottom: 100%;"><span class="progress-rail-tick-label">1500</span></div>
+            <div class="progress-rail-tick" style="bottom: 66.66%;"><span class="progress-rail-tick-label">1000</span></div>
+            <div class="progress-rail-tick" style="bottom: 33.33%;"><span class="progress-rail-tick-label">500</span></div>
+            <div class="progress-rail-tick" style="bottom: 16.66%;"><span class="progress-rail-tick-label">250</span></div>
+            <div class="progress-rail-tick" style="bottom: 6.66%;"><span class="progress-rail-tick-label">100</span></div>
           </div>
         </div>
         <div class="progress-rail-status" data-rail-status>Начало</div>
       </aside>
 
       <div>
-        <div class="placeholder">
-          <span class="icon">📊</span>
-          <h2>DI</h2>
-          <p>Раздел пока пуст. Скоро здесь появится система баллов DI — шкала уже готова и ждёт данные.</p>
+        <!-- Сотрудники DI -->
+        <div class="section">
+          <div class="section-title pink">🩷 Для сотрудников DI</div>
+          <div class="row header-row">
+            <div class="cell">Действие</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
+          </div>
+          <div id="di-staff-items"></div>
+        </div>
+
+        <!-- Инструкторы DI -->
+        <div class="section">
+          <div class="section-title blue">
+            💙 Для инструкторов DI
+            <span class="norm-hint">норма: 20 действий</span>
+          </div>
+          <div class="row header-row">
+            <div class="cell">Действие</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
+          </div>
+          <div id="di-instr-items"></div>
+        </div>
+
+        <!-- Доп. активность -->
+        <div class="section">
+          <div class="section-title gold">⭐ Дополнительная активность</div>
+          <div class="row header-row">
+            <div class="cell">Действие</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
+          </div>
+          <div id="di-extra-items"></div>
+        </div>
+
+        <div class="total-box">
+          <span class="label">Итого баллов DI</span>
+          <span class="value" id="di-total">0</span>
+        </div>
+
+        <div class="total-box" style="border-color: var(--blue); background: linear-gradient(135deg, rgba(20, 40, 80, 0.85), rgba(15, 30, 60, 0.85));">
+          <span class="label">Действий инструктора</span>
+          <span class="value" id="di-instr-actions" style="color: var(--blue);">0</span>
+        </div>
+
+        <div class="buttons">
+          <button class="primary" id="di-btn-copy" type="button">📋 Копировать отчёт</button>
+          <button id="di-btn-csv" type="button">💾 Скачать CSV</button>
+          <button class="danger" id="di-btn-reset" type="button">↺ Сбросить DI</button>
+        </div>
+
+        <div class="report" id="di-report"></div>
+
+        <div class="section" style="margin-top: 20px;">
+          <div class="section-title">📊 Недельные нормы</div>
+          <ul class="rules-list">
+            <li><b>Сотрудник DI</b> <span class="arrow">→</span> 500 баллов в неделю</li>
+            <li><b>Инструктор DI</b> <span class="arrow">→</span> 20 действий в неделю</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============================================================
-       РАЗДЕЛ 4: PSID
-       ============================================================ -->
+  <!-- ================= PSID ================= -->
   <section class="tab-content" id="content-psid">
     <div class="content-layout">
       <aside class="progress-rail" data-rail="psid">
@@ -1110,21 +858,11 @@
         <div class="progress-rail-scale">
           <div class="progress-rail-fill" data-rail-fill></div>
           <div class="progress-rail-ticks">
-            <div class="progress-rail-tick" style="bottom: 100%;">
-              <span class="progress-rail-tick-label">1500</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 66.66%;">
-              <span class="progress-rail-tick-label">1000</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 33.33%;">
-              <span class="progress-rail-tick-label">500</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 16.66%;">
-              <span class="progress-rail-tick-label">250</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 6.66%;">
-              <span class="progress-rail-tick-label">100</span>
-            </div>
+            <div class="progress-rail-tick" style="bottom: 100%;"><span class="progress-rail-tick-label">1500</span></div>
+            <div class="progress-rail-tick" style="bottom: 66.66%;"><span class="progress-rail-tick-label">1000</span></div>
+            <div class="progress-rail-tick" style="bottom: 33.33%;"><span class="progress-rail-tick-label">500</span></div>
+            <div class="progress-rail-tick" style="bottom: 16.66%;"><span class="progress-rail-tick-label">250</span></div>
+            <div class="progress-rail-tick" style="bottom: 6.66%;"><span class="progress-rail-tick-label">100</span></div>
           </div>
         </div>
         <div class="progress-rail-status" data-rail-status>Начало</div>
@@ -1134,21 +872,16 @@
         <div class="section">
           <div class="section-title">Основная система баллов</div>
           <div class="row header-row">
-            <div class="cell">Услуга</div>
-            <div class="cell">Кол-во</div>
-            <div class="cell">Балл</div>
-            <div class="cell">Итог</div>
+            <div class="cell">Услуга</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
           </div>
           <div id="main-items"></div>
         </div>
-
         <div class="section">
           <div class="section-title">Доп. система — Инструкторы PSID</div>
           <div class="row header-row">
-            <div class="cell">Услуга</div>
-            <div class="cell">Кол-во</div>
-            <div class="cell">Балл</div>
-            <div class="cell">Итог</div>
+            <div class="cell">Услуга</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
           </div>
           <div id="instr-items"></div>
         </div>
@@ -1170,9 +903,7 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       РАЗДЕЛ 5: HAD
-       ============================================================ -->
+  <!-- ================= HAD ================= -->
   <section class="tab-content" id="content-had">
     <div class="content-layout">
       <aside class="progress-rail" data-rail="had">
@@ -1181,21 +912,11 @@
         <div class="progress-rail-scale">
           <div class="progress-rail-fill" data-rail-fill></div>
           <div class="progress-rail-ticks">
-            <div class="progress-rail-tick" style="bottom: 100%;">
-              <span class="progress-rail-tick-label">1500</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 66.66%;">
-              <span class="progress-rail-tick-label">1000</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 33.33%;">
-              <span class="progress-rail-tick-label">500</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 16.66%;">
-              <span class="progress-rail-tick-label">250</span>
-            </div>
-            <div class="progress-rail-tick" style="bottom: 6.66%;">
-              <span class="progress-rail-tick-label">100</span>
-            </div>
+            <div class="progress-rail-tick" style="bottom: 100%;"><span class="progress-rail-tick-label">1500</span></div>
+            <div class="progress-rail-tick" style="bottom: 66.66%;"><span class="progress-rail-tick-label">1000</span></div>
+            <div class="progress-rail-tick" style="bottom: 33.33%;"><span class="progress-rail-tick-label">500</span></div>
+            <div class="progress-rail-tick" style="bottom: 16.66%;"><span class="progress-rail-tick-label">250</span></div>
+            <div class="progress-rail-tick" style="bottom: 6.66%;"><span class="progress-rail-tick-label">100</span></div>
           </div>
         </div>
         <div class="progress-rail-status" data-rail-status>Начало</div>
@@ -1205,32 +926,24 @@
         <div class="section">
           <div class="section-title">Основные действия</div>
           <div class="row header-row">
-            <div class="cell">Действие</div>
-            <div class="cell">Кол-во</div>
-            <div class="cell">Балл</div>
-            <div class="cell">Итог</div>
+            <div class="cell">Действие</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
           </div>
           <div id="had-main-items"></div>
         </div>
-
         <div class="section">
           <div class="section-title">Инструктор HAD</div>
           <div class="row header-row">
-            <div class="cell">Действие</div>
-            <div class="cell">Кол-во</div>
-            <div class="cell">Балл</div>
-            <div class="cell">Итог</div>
+            <div class="cell">Действие</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
           </div>
           <div id="had-instr-items"></div>
         </div>
-
         <div class="section">
           <div class="section-title">Недельный отчёт</div>
           <div class="row header-row">
-            <div class="cell">Услуга</div>
-            <div class="cell">Кол-во</div>
-            <div class="cell">Балл</div>
-            <div class="cell">Итог</div>
+            <div class="cell">Услуга</div><div class="cell">Кол-во</div>
+            <div class="cell">Балл</div><div class="cell">Итог</div>
           </div>
           <div id="had-weekly-items"></div>
         </div>
@@ -1279,52 +992,28 @@
 
 <script>
 /* ============================================================
-   ПРЕСЕТЫ ФОНОВ (data-URI SVG / CSS-градиенты — встроенные)
+   ПРЕСЕТЫ ФОНОВ
    ============================================================ */
 const BG_PRESETS = [
-  {
-    id: "med-blue",
-    title: "Медицина",
-    css: "linear-gradient(135deg, #0a1f3d 0%, #0d2f4a 40%, #0a1f3d 100%)",
-  },
-  {
-    id: "med-soft",
-    title: "Soft",
-    css: "linear-gradient(160deg, #1a2a3a 0%, #0f1e2e 50%, #05111c 100%)",
-  },
-  {
-    id: "dots",
-    title: "Точки",
-    css:
-      "radial-gradient(circle at 25% 25%, rgba(88,166,255,0.12) 1px, transparent 2px) 0 0 / 24px 24px, " +
-      "radial-gradient(circle at 75% 75%, rgba(88,166,255,0.08) 1px, transparent 2px) 12px 12px / 24px 24px, " +
-      "linear-gradient(135deg, #0d1117, #0a0e14)",
-  },
-  {
-    id: "grid",
-    title: "Сетка",
-    css:
-      "linear-gradient(rgba(88,166,255,0.07) 1px, transparent 1px) 0 0 / 40px 40px, " +
-      "linear-gradient(90deg, rgba(88,166,255,0.07) 1px, transparent 1px) 0 0 / 40px 40px, " +
-      "linear-gradient(160deg, #0a0e14, #101828)",
-  },
-  {
-    id: "sunset",
-    title: "Закат",
-    css: "linear-gradient(160deg, #2a1830 0%, #3a1f2a 35%, #1a1428 100%)",
-  },
-  {
-    id: "aurora",
-    title: "Aurora",
-    css:
-      "radial-gradient(ellipse at 20% 20%, rgba(88,166,255,0.35), transparent 50%), " +
-      "radial-gradient(ellipse at 80% 70%, rgba(63,185,80,0.25), transparent 50%), " +
-      "linear-gradient(160deg, #05111c, #0d1117)",
-  },
+  { id: "med-blue", title: "Медицина", css: "linear-gradient(135deg, #0a1f3d 0%, #0d2f4a 40%, #0a1f3d 100%)" },
+  { id: "med-soft", title: "Soft", css: "linear-gradient(160deg, #1a2a3a 0%, #0f1e2e 50%, #05111c 100%)" },
+  { id: "dots", title: "Точки",
+    css: "radial-gradient(circle at 25% 25%, rgba(88,166,255,0.12) 1px, transparent 2px) 0 0 / 24px 24px, " +
+         "radial-gradient(circle at 75% 75%, rgba(88,166,255,0.08) 1px, transparent 2px) 12px 12px / 24px 24px, " +
+         "linear-gradient(135deg, #0d1117, #0a0e14)" },
+  { id: "grid", title: "Сетка",
+    css: "linear-gradient(rgba(88,166,255,0.07) 1px, transparent 1px) 0 0 / 40px 40px, " +
+         "linear-gradient(90deg, rgba(88,166,255,0.07) 1px, transparent 1px) 0 0 / 40px 40px, " +
+         "linear-gradient(160deg, #0a0e14, #101828)" },
+  { id: "sunset", title: "Закат", css: "linear-gradient(160deg, #2a1830 0%, #3a1f2a 35%, #1a1428 100%)" },
+  { id: "aurora", title: "Aurora",
+    css: "radial-gradient(ellipse at 20% 20%, rgba(88,166,255,0.35), transparent 50%), " +
+         "radial-gradient(ellipse at 70% 75%, rgba(255,122,184,0.20), transparent 55%), " +
+         "linear-gradient(160deg, #05111c, #0d1117)" },
 ];
 
 /* ============================================================
-   СПИСКИ УСЛУГ
+   СПИСКИ
    ============================================================ */
 const ITEMS = [
   {key:"pill_day",       name:"Выдача таблетки днём",                   pts:2,  lim:100, sect:1},
@@ -1356,6 +1045,7 @@ const ITEMS = [
 const STORAGE_STATE    = "psid_calc_state_v1";
 const STORAGE_DEFAULTS = "psid_calc_defaults_v1";
 
+/* ---- PM ---- */
 const PM_ITEMS = [
   {key:"pm_pmp_day",      name:"ПМП днём",                              pts:3,   lim:0, sect:1},
   {key:"pm_pmp_night",    name:"ПМП ночью",                             pts:5,   lim:0, sect:1},
@@ -1385,6 +1075,7 @@ const PM_ITEMS = [
 ];
 const STORAGE_PM_STATE = "pm_calc_state_v1";
 
+/* ---- HAD ---- */
 const HAD_ITEMS = [
   {key:"had_reprimand",    name:"Выдача выговоров",                          pts:5,  lim:0,   sect:1},
   {key:"had_walk_check",   name:"Проверка на прогул",                        pts:5,  lim:0,   sect:1},
@@ -1409,8 +1100,45 @@ const HAD_ITEMS = [
 ];
 const STORAGE_HAD_STATE = "had_calc_state_v1";
 
+/* ---- DI ----
+   sect 1: сотрудники DI (pts — баллы)
+   sect 2: инструкторы DI (pts=1 — "1 действие", сумма действий)
+   sect 3: доп. активность (pts — баллы)
+*/
+const DI_ITEMS = [
+  // Сотрудники DI
+  {key:"di_interview",        name:"Проведение собеседования / восстановления / перевода", pts:25, lim:0, sect:1},
+  {key:"di_briefing_intro",   name:"Проведение вводного инструктажа",                       pts:35, lim:0, sect:1},
+  {key:"di_interview_fail",   name:"Неудачное собеседование",                               pts:5,  lim:0, sect:1},
+  {key:"di_application",      name:"Принятие электронного заявления",                       pts:25, lim:0, sect:1},
+  {key:"di_gov_wave",         name:"Гос. волна (1 скрин в отчёте)",                         pts:15, lim:0, sect:1},
+  {key:"di_intern_report",    name:"Проверка отчёта на повышение интерна",                  pts:8,  lim:0, sect:1},
+  {key:"di_recruiter_qual",   name:"Выдача квалификации Рекрутер",                          pts:20, lim:0, sect:1},
+  {key:"di_duty_30",          name:"30 минут дежурства",                                    pts:12, lim:0, sect:1},
+  {key:"di_fire_safety_join", name:"Участие в проверке пожарной безопасности",              pts:40, lim:0, sect:1},
+  {key:"di_fire_check",       name:"Проведение пожарной проверки",                          pts:60, lim:0, sect:1},
+  {key:"di_hospital_duty",    name:"Дежурство в больницах (30 минут)",                      pts:10, lim:0, sect:1},
+
+  // Инструкторы DI — каждая позиция = 1 действие
+  {key:"di_instr_activity",   name:"Любая деятельность по отделу (работа сотрудника DI)",   pts:1, lim:0, sect:2},
+  {key:"di_instr_report",     name:"Проверка отчёта на повышение сотрудника DI",            pts:1, lim:0, sect:2},
+  {key:"di_instr_audit",      name:"Кадровый аудит (повышения и т.д.)",                     pts:1, lim:0, sect:2},
+  {key:"di_instr_craft",      name:"Участие в крафте",                                      pts:1, lim:0, sect:2},
+  {key:"di_instr_other",      name:"Прочие активности из канала поощрений",                 pts:1, lim:0, sect:2},
+
+  // Доп. активность
+  {key:"di_x_pill",       name:"Таблетка в любой больнице",         pts:1,  lim:0, sect:3},
+  {key:"di_x_vax",        name:"Вакцинация",                        pts:2,  lim:0, sect:3},
+  {key:"di_x_med",        name:"Оформление справок",                pts:3,  lim:0, sect:3},
+  {key:"di_x_pmp_day",    name:"Дневные ПМП (8:00–22:00)",          pts:3,  lim:0, sect:3},
+  {key:"di_x_pmp_night",  name:"Ночные ПМП (22:00–8:00)",           pts:4,  lim:0, sect:3},
+  {key:"di_x_qual",       name:"Получение квалификации",            pts:50, lim:0, sect:3},
+  {key:"di_x_specialist", name:"Деятельность хирурга / ветеринара / MCC", pts:50, lim:0, sect:3},
+];
+const STORAGE_DI_STATE = "di_calc_state_v1";
+
 /* ============================================================
-   ОБЩИЕ ХЕЛПЕРЫ
+   ОБЩИЕ
    ============================================================ */
 function toast(msg) {
   const el = document.getElementById("toast");
@@ -1420,7 +1148,6 @@ function toast(msg) {
   clearTimeout(toast._t);
   toast._t = setTimeout(() => el.classList.remove("show"), 2000);
 }
-
 function popIfChanged(el, oldText, newText) {
   if (!el) return;
   if (oldText !== newText) {
@@ -1430,16 +1157,15 @@ function popIfChanged(el, oldText, newText) {
     el.classList.add("pop");
   }
 }
+function pulseEl(el) {
+  if (!el) return;
+  el.classList.remove("pulse");
+  void el.offsetWidth;
+  el.classList.add("pulse");
+}
 
 /* ============================================================
-   ШКАЛА ПРОГРЕССА
-   Шкала логарифмическая на отрезках:
-   0..100  -> 0..6.66%
-   100..250 -> 6.66..16.66%
-   250..500 -> 16.66..33.33%
-   500..1000 -> 33.33..66.66%
-   1000..1500 -> 66.66..100%
-   Цвет: красный → оранжевый → жёлтый → зелёный
+   ШКАЛА
    ============================================================ */
 const RAIL_SEGMENTS = [
   { from: 0,    to: 100,  posFrom: 0,      posTo: 6.66  },
@@ -1448,7 +1174,6 @@ const RAIL_SEGMENTS = [
   { from: 500,  to: 1000, posFrom: 33.33,  posTo: 66.66 },
   { from: 1000, to: 1500, posFrom: 66.66,  posTo: 100   },
 ];
-
 function valueToPercent(total) {
   if (total <= 0) return 0;
   if (total >= 1500) return 100;
@@ -1460,78 +1185,60 @@ function valueToPercent(total) {
   }
   return 100;
 }
-
 function valueToColor(total) {
-  // ключевые точки цветов
   const stops = [
-    { v: 0,    c: [248, 81, 73]  },   // red
-    { v: 100,  c: [248, 81, 73]  },   // red
-    { v: 250,  c: [248, 160, 73] },   // orange
-    { v: 500,  c: [210, 153, 34] },   // gold
-    { v: 1000, c: [120, 200, 100] },  // light green
-    { v: 1500, c: [63, 185, 80]  },   // success
+    { v: 0,    c: [248, 81, 73] },
+    { v: 100,  c: [248, 81, 73] },
+    { v: 250,  c: [248, 160, 73] },
+    { v: 500,  c: [210, 153, 34] },
+    { v: 1000, c: [120, 200, 100] },
+    { v: 1500, c: [63, 185, 80] },
   ];
   if (total <= 0) return "rgb(248, 81, 73)";
   if (total >= 1500) return "rgb(63, 185, 80)";
-
   for (let i = 0; i < stops.length - 1; i++) {
-    const a = stops[i];
-    const b = stops[i + 1];
+    const a = stops[i], b = stops[i + 1];
     if (total >= a.v && total <= b.v) {
       const t = (total - a.v) / (b.v - a.v);
-      const r = Math.round(a.c[0] + (b.c[0] - a.c[0]) * t);
-      const g = Math.round(a.c[1] + (b.c[1] - a.c[1]) * t);
+      const r  = Math.round(a.c[0] + (b.c[0] - a.c[0]) * t);
+      const g  = Math.round(a.c[1] + (b.c[1] - a.c[1]) * t);
       const bl = Math.round(a.c[2] + (b.c[2] - a.c[2]) * t);
       return `rgb(${r}, ${g}, ${bl})`;
     }
   }
   return "rgb(63, 185, 80)";
 }
-
 function statusText(total) {
-  if (total <= 0)      return "Начало";
-  if (total < 100)     return "Старт";
-  if (total < 250)     return "Норма";
-  if (total < 500)     return "Хорошо";
-  if (total < 1000)    return "Отлично";
-  if (total < 1500)    return "Супер";
+  if (total <= 0)   return "Начало";
+  if (total < 100)  return "Старт";
+  if (total < 250)  return "Норма";
+  if (total < 500)  return "Хорошо";
+  if (total < 1000) return "Отлично";
+  if (total < 1500) return "Супер";
   return "Максимум";
 }
-
 function updateRail(sectionId, total) {
   const section = document.getElementById(sectionId);
   if (!section) return;
   const rail = section.querySelector(".progress-rail");
   if (!rail) return;
-
-  const valueEl = rail.querySelector("[data-rail-value]");
-  const fillEl  = rail.querySelector("[data-rail-fill]");
+  const valueEl  = rail.querySelector("[data-rail-value]");
+  const fillEl   = rail.querySelector("[data-rail-fill]");
   const statusEl = rail.querySelector("[data-rail-status]");
-
   const percent = valueToPercent(total);
   const color = valueToColor(total);
 
-  if (valueEl) {
-    const oldText = valueEl.textContent;
-    const newText = String(total);
-    if (oldText !== newText) {
-      valueEl.textContent = newText;
-      valueEl.style.color = color;
-    }
+  if (valueEl && valueEl.textContent !== String(total)) {
+    valueEl.textContent = total;
+    valueEl.style.color = color;
   }
-
   if (fillEl) {
-    // мобильная версия: ширина, десктоп: высота
     const isMobile = window.matchMedia("(max-width: 900px)").matches;
-    if (isMobile) {
-      fillEl.style.width = percent + "%";
-    } else {
-      fillEl.style.height = percent + "%";
-    }
+    if (isMobile) fillEl.style.width = percent + "%";
+    else          fillEl.style.height = percent + "%";
     fillEl.style.background = color;
     fillEl.style.boxShadow = `0 0 14px ${color}`;
   }
-
   if (statusEl) {
     statusEl.textContent = statusText(total);
     statusEl.style.color = color;
@@ -1545,102 +1252,72 @@ function renderItems() {
   const mainEl  = document.getElementById("main-items");
   const instrEl = document.getElementById("instr-items");
   if (!mainEl || !instrEl) return;
-
   ITEMS.forEach(it => {
     const row = document.createElement("div");
-    row.className = "row";
-    row.dataset.key = it.key;
+    row.className = "row"; row.dataset.key = it.key;
     const badge = it.lim > 0 ? `<span class="limit">макс ${it.lim}</span>` : "";
     row.innerHTML = `
       <div class="name">${it.name}${badge}</div>
       <input type="number" min="0" step="1" data-role="count" data-key="${it.key}">
       <input type="number" min="0" step="1" value="${it.pts}" data-role="point" data-key="${it.key}">
-      <div class="sum" data-role="sum" data-key="${it.key}">0</div>
-    `;
+      <div class="sum" data-role="sum" data-key="${it.key}">0</div>`;
     (it.sect === 1 ? mainEl : instrEl).appendChild(row);
   });
   document.querySelectorAll("#content-psid input[type=number]").forEach(inp => inp.addEventListener("input", recalc));
 }
-
 function getValue(key, role) {
   const el = document.querySelector(`#content-psid input[data-role="${role}"][data-key="${key}"]`);
   if (!el) return 0;
-  const v = parseInt(el.value, 10);
-  return isNaN(v) ? 0 : v;
+  const v = parseInt(el.value, 10); return isNaN(v) ? 0 : v;
 }
-
 function recalc() {
   let total = 0;
   const details = { main: [], instr: [], mainSum: 0, instrSum: 0 };
-
   ITEMS.forEach(it => {
     const countEl = document.querySelector(`#content-psid input[data-role="count"][data-key="${it.key}"]`);
     const sumEl   = document.querySelector(`#content-psid div[data-role="sum"][data-key="${it.key}"]`);
     if (!countEl || !sumEl) return;
-
     let count = getValue(it.key, "count");
     const point = getValue(it.key, "point");
     const over = it.lim > 0 && count > it.lim;
     if (over) count = it.lim;
     countEl.classList.toggle("over-limit", over);
-
-    const sum = count * point;
-    total += sum;
+    const sum = count * point; total += sum;
     popIfChanged(sumEl, sumEl.textContent, String(sum));
     sumEl.classList.toggle("positive", sum > 0);
-
     countEl.closest(".row").classList.toggle("active", count > 0);
-
     if (count > 0) {
-      const entry = {name: it.name, count, point, sum};
-      if (it.sect === 1) { details.main.push(entry); details.mainSum += sum; }
-      else               { details.instr.push(entry); details.instrSum += sum; }
+      const e = {name: it.name, count, point, sum};
+      if (it.sect === 1) { details.main.push(e); details.mainSum += sum; }
+      else { details.instr.push(e); details.instrSum += sum; }
     }
   });
-
   const totalEl = document.getElementById("total");
-  if (totalEl && parseInt(totalEl.textContent, 10) !== total) {
-    totalEl.textContent = total;
-    totalEl.classList.remove("pulse");
-    void totalEl.offsetWidth;
-    totalEl.classList.add("pulse");
-  }
-
+  if (totalEl && parseInt(totalEl.textContent, 10) !== total) { totalEl.textContent = total; pulseEl(totalEl); }
   const reportEl = document.getElementById("report");
   if (reportEl) {
     let report = "";
-    if (details.main.length) {
-      report += "── Основные услуги ──\n";
-      details.main.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
-      report += `  Подытог: ${details.mainSum}\n\n`;
-    }
-    if (details.instr.length) {
-      report += "── Инструкторы ──\n";
-      details.instr.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
-      report += `  Подытог: ${details.instrSum}\n\n`;
-    }
+    if (details.main.length) { report += "── Основные услуги ──\n"; details.main.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`); report += `  Подытог: ${details.mainSum}\n\n`; }
+    if (details.instr.length) { report += "── Инструкторы ──\n"; details.instr.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`); report += `  Подытог: ${details.instrSum}\n\n`; }
     if (total > 0) report += `ИТОГО PSID: ${total} баллов`;
     reportEl.textContent = report;
   }
-
   updateRail("content-psid", total);
   saveState();
 }
-
 function saveState() {
-  const state = {};
-  ITEMS.forEach(it => state[it.key] = { count: getValue(it.key, "count"), point: getValue(it.key, "point") });
-  try { localStorage.setItem(STORAGE_STATE, JSON.stringify(state)); } catch (e) {}
+  const s = {};
+  ITEMS.forEach(it => s[it.key] = { count: getValue(it.key, "count"), point: getValue(it.key, "point") });
+  try { localStorage.setItem(STORAGE_STATE, JSON.stringify(s)); } catch (e) {}
 }
 function loadState() {
   try {
-    const raw = localStorage.getItem(STORAGE_STATE);
-    if (!raw) return;
-    const state = JSON.parse(raw);
+    const raw = localStorage.getItem(STORAGE_STATE); if (!raw) return;
+    const s = JSON.parse(raw);
     ITEMS.forEach(it => {
-      if (!state[it.key]) return;
-      const c = state[it.key].count || 0;
-      const p = state[it.key].point != null ? state[it.key].point : it.pts;
+      if (!s[it.key]) return;
+      const c = s[it.key].count || 0;
+      const p = s[it.key].point != null ? s[it.key].point : it.pts;
       const cEl = document.querySelector(`#content-psid input[data-role="count"][data-key="${it.key}"]`);
       const pEl = document.querySelector(`#content-psid input[data-role="point"][data-key="${it.key}"]`);
       if (cEl) cEl.value = c > 0 ? c : "";
@@ -1650,13 +1327,12 @@ function loadState() {
 }
 function loadSavedDefaults() {
   try {
-    const raw = localStorage.getItem(STORAGE_DEFAULTS);
-    if (!raw) return;
-    const defs = JSON.parse(raw);
+    const raw = localStorage.getItem(STORAGE_DEFAULTS); if (!raw) return;
+    const d = JSON.parse(raw);
     ITEMS.forEach(it => {
-      if (defs[it.key] != null) {
+      if (d[it.key] != null) {
         const pEl = document.querySelector(`#content-psid input[data-role="point"][data-key="${it.key}"]`);
-        if (pEl) pEl.value = defs[it.key];
+        if (pEl) pEl.value = d[it.key];
       }
     });
   } catch (e) {}
@@ -1668,8 +1344,7 @@ function resetAll() {
     if (cEl) cEl.value = "";
     if (pEl) pEl.value = it.pts;
   });
-  recalc();
-  toast("PSID сброшен");
+  recalc(); toast("PSID сброшен");
 }
 function saveDefaults() {
   const pts = {};
@@ -1678,59 +1353,46 @@ function saveDefaults() {
   catch (e) { toast("Не удалось сохранить"); }
 }
 function copyReport() {
-  const report = document.getElementById("report").textContent;
-  if (!report) { toast("Сначала введите данные"); return; }
-  navigator.clipboard.writeText("=== ОТЧЁТ PSID ===\n\n" + report)
-    .then(() => toast("Отчёт PSID скопирован"))
-    .catch(() => toast("Не удалось скопировать"));
+  const r = document.getElementById("report").textContent;
+  if (!r) { toast("Сначала введите данные"); return; }
+  navigator.clipboard.writeText("=== ОТЧЁТ PSID ===\n\n" + r)
+    .then(() => toast("Отчёт PSID скопирован")).catch(() => toast("Не удалось"));
 }
 function downloadCSV() {
-  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]];
-  let total = 0;
+  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]]; let total = 0;
   ITEMS.forEach(it => {
-    let c = getValue(it.key, "count");
-    const p = getValue(it.key, "point");
+    let c = getValue(it.key, "count"); const p = getValue(it.key, "point");
     if (it.lim > 0 && c > it.lim) c = it.lim;
     if (c > 0) { const s = c * p; total += s; rows.push([it.name, c, p, s]); }
   });
   rows.push([]); rows.push(["", "", "ИТОГО PSID", total]);
-  const csv = "\uFEFF" + rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(";")).join("\n");
-  downloadBlob(csv, `psid_report_${new Date().toISOString().slice(0,10)}.csv`);
+  downloadBlob("\uFEFF" + rows.map(r => r.map(x => `"${String(x).replace(/"/g,'""')}"`).join(";")).join("\n"), `psid_report_${new Date().toISOString().slice(0,10)}.csv`);
 }
 
 /* ============================================================
    PM
    ============================================================ */
 function renderPmItems() {
-  const buckets = {
-    1: document.getElementById("pm-pmp-items"),
-    2: document.getElementById("pm-vax-items"),
-    3: document.getElementById("pm-pill-items"),
-    4: document.getElementById("pm-med-items"),
-    5: document.getElementById("pm-extra-items"),
-  };
-  if (!buckets[1]) return;
+  const b = { 1: document.getElementById("pm-pmp-items"), 2: document.getElementById("pm-vax-items"),
+              3: document.getElementById("pm-pill-items"), 4: document.getElementById("pm-med-items"),
+              5: document.getElementById("pm-extra-items") };
+  if (!b[1]) return;
   PM_ITEMS.forEach(it => {
-    const container = buckets[it.sect];
-    if (!container) return;
+    const c = b[it.sect]; if (!c) return;
     const row = document.createElement("div");
-    row.className = "row";
-    row.dataset.key = it.key;
+    row.className = "row"; row.dataset.key = it.key;
     row.innerHTML = `
       <div class="name">${it.name}</div>
       <input type="number" min="0" step="1" data-role="count" data-key="${it.key}">
       <input type="number" min="0" step="1" value="${it.pts}" data-role="point" data-key="${it.key}">
-      <div class="sum" data-role="sum" data-key="${it.key}">0</div>
-    `;
-    container.appendChild(row);
+      <div class="sum" data-role="sum" data-key="${it.key}">0</div>`;
+    c.appendChild(row);
   });
   document.querySelectorAll("#content-pm input[type=number]").forEach(inp => inp.addEventListener("input", recalcPm));
 }
 function getPmValue(key, role) {
   const el = document.querySelector(`#content-pm input[data-role="${role}"][data-key="${key}"]`);
-  if (!el) return 0;
-  const v = parseInt(el.value, 10);
-  return isNaN(v) ? 0 : v;
+  if (!el) return 0; const v = parseInt(el.value, 10); return isNaN(v) ? 0 : v;
 }
 function recalcPm() {
   let total = 0;
@@ -1745,35 +1407,21 @@ function recalcPm() {
     const countEl = document.querySelector(`#content-pm input[data-role="count"][data-key="${it.key}"]`);
     const sumEl   = document.querySelector(`#content-pm div[data-role="sum"][data-key="${it.key}"]`);
     if (!countEl || !sumEl) return;
-    let count = getPmValue(it.key, "count");
+    const count = getPmValue(it.key, "count");
     const point = getPmValue(it.key, "point");
-    const sum = count * point;
-    total += sum;
+    const sum = count * point; total += sum;
     popIfChanged(sumEl, sumEl.textContent, String(sum));
     sumEl.classList.toggle("positive", sum > 0);
     countEl.closest(".row").classList.toggle("active", count > 0);
-    if (count > 0) {
-      details[it.sect].items.push({name: it.name, count, point, sum});
-      details[it.sect].sum += sum;
-    }
+    if (count > 0) { details[it.sect].items.push({name: it.name, count, point, sum}); details[it.sect].sum += sum; }
   });
   const totalEl = document.getElementById("pm-total");
-  if (totalEl && parseInt(totalEl.textContent, 10) !== total) {
-    totalEl.textContent = total;
-    totalEl.classList.remove("pulse");
-    void totalEl.offsetWidth;
-    totalEl.classList.add("pulse");
-  }
+  if (totalEl && parseInt(totalEl.textContent, 10) !== total) { totalEl.textContent = total; pulseEl(totalEl); }
   const reportEl = document.getElementById("pm-report");
   if (reportEl) {
     let report = "";
-    [1,2,3,4,5].forEach(n => {
-      const d = details[n];
-      if (!d.items.length) return;
-      report += `── ${d.title} ──\n`;
-      d.items.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
-      report += `  Подытог: ${d.sum}\n\n`;
-    });
+    [1,2,3,4,5].forEach(n => { const d = details[n]; if (!d.items.length) return;
+      report += `── ${d.title} ──\n`; d.items.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`); report += `  Подытог: ${d.sum}\n\n`; });
     if (total > 0) report += `ИТОГО PM: ${total} баллов`;
     reportEl.textContent = report;
   }
@@ -1781,19 +1429,17 @@ function recalcPm() {
   savePmState();
 }
 function savePmState() {
-  const state = {};
-  PM_ITEMS.forEach(it => state[it.key] = { count: getPmValue(it.key, "count"), point: getPmValue(it.key, "point") });
-  try { localStorage.setItem(STORAGE_PM_STATE, JSON.stringify(state)); } catch (e) {}
+  const s = {}; PM_ITEMS.forEach(it => s[it.key] = { count: getPmValue(it.key, "count"), point: getPmValue(it.key, "point") });
+  try { localStorage.setItem(STORAGE_PM_STATE, JSON.stringify(s)); } catch (e) {}
 }
 function loadPmState() {
   try {
-    const raw = localStorage.getItem(STORAGE_PM_STATE);
-    if (!raw) return;
-    const state = JSON.parse(raw);
+    const raw = localStorage.getItem(STORAGE_PM_STATE); if (!raw) return;
+    const s = JSON.parse(raw);
     PM_ITEMS.forEach(it => {
-      if (!state[it.key]) return;
-      const c = state[it.key].count || 0;
-      const p = state[it.key].point != null ? state[it.key].point : it.pts;
+      if (!s[it.key]) return;
+      const c = s[it.key].count || 0;
+      const p = s[it.key].point != null ? s[it.key].point : it.pts;
       const cEl = document.querySelector(`#content-pm input[data-role="count"][data-key="${it.key}"]`);
       const pEl = document.querySelector(`#content-pm input[data-role="point"][data-key="${it.key}"]`);
       if (cEl) cEl.value = c > 0 ? c : "";
@@ -1805,30 +1451,169 @@ function resetPm() {
   PM_ITEMS.forEach(it => {
     const cEl = document.querySelector(`#content-pm input[data-role="count"][data-key="${it.key}"]`);
     const pEl = document.querySelector(`#content-pm input[data-role="point"][data-key="${it.key}"]`);
-    if (cEl) cEl.value = "";
-    if (pEl) pEl.value = it.pts;
+    if (cEl) cEl.value = ""; if (pEl) pEl.value = it.pts;
   });
-  recalcPm();
-  toast("PM сброшен");
+  recalcPm(); toast("PM сброшен");
 }
 function copyPmReport() {
-  const report = document.getElementById("pm-report").textContent;
-  if (!report) { toast("Сначала введите данные"); return; }
-  navigator.clipboard.writeText("=== ОТЧЁТ PM ===\n\n" + report)
-    .then(() => toast("Отчёт PM скопирован"))
-    .catch(() => toast("Не удалось скопировать"));
+  const r = document.getElementById("pm-report").textContent;
+  if (!r) { toast("Сначала введите данные"); return; }
+  navigator.clipboard.writeText("=== ОТЧЁТ PM ===\n\n" + r)
+    .then(() => toast("Отчёт PM скопирован")).catch(() => toast("Не удалось"));
 }
 function downloadPmCsv() {
-  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]];
-  let total = 0;
+  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]]; let total = 0;
   PM_ITEMS.forEach(it => {
-    let c = getPmValue(it.key, "count");
-    const p = getPmValue(it.key, "point");
+    const c = getPmValue(it.key, "count"); const p = getPmValue(it.key, "point");
     if (c > 0) { const s = c * p; total += s; rows.push([it.name, c, p, s]); }
   });
   rows.push([]); rows.push(["", "", "ИТОГО PM", total]);
-  const csv = "\uFEFF" + rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(";")).join("\n");
-  downloadBlob(csv, `pm_report_${new Date().toISOString().slice(0,10)}.csv`);
+  downloadBlob("\uFEFF" + rows.map(r => r.map(x => `"${String(x).replace(/"/g,'""')}"`).join(";")).join("\n"), `pm_report_${new Date().toISOString().slice(0,10)}.csv`);
+}
+
+/* ============================================================
+   DI
+   ============================================================ */
+function renderDiItems() {
+  const elStaff = document.getElementById("di-staff-items");
+  const elInstr = document.getElementById("di-instr-items");
+  const elExtra = document.getElementById("di-extra-items");
+  if (!elStaff || !elInstr || !elExtra) return;
+
+  DI_ITEMS.forEach(it => {
+    const container = it.sect === 1 ? elStaff : (it.sect === 2 ? elInstr : elExtra);
+    const row = document.createElement("div");
+    row.className = "row"; row.dataset.key = it.key;
+    row.innerHTML = `
+      <div class="name">${it.name}</div>
+      <input type="number" min="0" step="1" data-role="count" data-key="${it.key}">
+      <input type="number" min="0" step="1" value="${it.pts}" data-role="point" data-key="${it.key}">
+      <div class="sum" data-role="sum" data-key="${it.key}">0</div>`;
+    container.appendChild(row);
+  });
+  document.querySelectorAll("#content-di input[type=number]").forEach(inp => inp.addEventListener("input", recalcDi));
+}
+function getDiValue(key, role) {
+  const el = document.querySelector(`#content-di input[data-role="${role}"][data-key="${key}"]`);
+  if (!el) return 0; const v = parseInt(el.value, 10); return isNaN(v) ? 0 : v;
+}
+function recalcDi() {
+  let total = 0;         // общие баллы (сотрудники + доп.)
+  let instrActions = 0;  // количество действий инструктора
+
+  const details = {
+    staff: { title: "🩷 Для сотрудников DI", items: [], sum: 0 },
+    instr: { title: "💙 Для инструкторов DI", items: [], sum: 0, actions: 0 },
+    extra: { title: "⭐ Дополнительная активность", items: [], sum: 0 },
+  };
+
+  DI_ITEMS.forEach(it => {
+    const countEl = document.querySelector(`#content-di input[data-role="count"][data-key="${it.key}"]`);
+    const sumEl   = document.querySelector(`#content-di div[data-role="sum"][data-key="${it.key}"]`);
+    if (!countEl || !sumEl) return;
+    const count = getDiValue(it.key, "count");
+    const point = getDiValue(it.key, "point");
+    const sum = count * point;
+
+    popIfChanged(sumEl, sumEl.textContent, String(sum));
+    sumEl.classList.toggle("positive", sum > 0);
+    countEl.closest(".row").classList.toggle("active", count > 0);
+
+    if (it.sect === 1) {
+      total += sum;
+      if (count > 0) { details.staff.items.push({name: it.name, count, point, sum}); details.staff.sum += sum; }
+    } else if (it.sect === 2) {
+      // инструкторы: 1 позиция = 1 действие, баллы не добавляем в общий
+      instrActions += count;
+      if (count > 0) { details.instr.items.push({name: it.name, count, point, sum}); details.instr.sum += sum; details.instr.actions += count; }
+    } else {
+      total += sum;
+      if (count > 0) { details.extra.items.push({name: it.name, count, point, sum}); details.extra.sum += sum; }
+    }
+  });
+
+  // Итог баллов DI
+  const totalEl = document.getElementById("di-total");
+  if (totalEl && parseInt(totalEl.textContent, 10) !== total) { totalEl.textContent = total; pulseEl(totalEl); }
+
+  // Итог действий инструктора
+  const instrEl = document.getElementById("di-instr-actions");
+  if (instrEl && parseInt(instrEl.textContent, 10) !== instrActions) { instrEl.textContent = instrActions; pulseEl(instrEl); }
+
+  // Отчёт
+  const reportEl = document.getElementById("di-report");
+  if (reportEl) {
+    let report = "";
+    if (details.staff.items.length) {
+      report += "── 🩷 Для сотрудников DI ──\n";
+      details.staff.items.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
+      report += `  Подытог: ${details.staff.sum}\n\n`;
+    }
+    if (details.extra.items.length) {
+      report += "── ⭐ Дополнительная активность ──\n";
+      details.extra.items.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
+      report += `  Подытог: ${details.extra.sum}\n\n`;
+    }
+    if (details.instr.items.length) {
+      report += "── 💙 Для инструкторов DI (действия) ──\n";
+      details.instr.items.forEach(e => report += `  ${e.name}: ${e.count} действий\n`);
+      report += `  Подытог: ${details.instr.actions} действий\n\n`;
+    }
+    if (total > 0 || instrActions > 0) {
+      report += `ИТОГО DI: ${total} баллов`;
+      if (instrActions > 0) report += `\nДействий инструктора: ${instrActions}`;
+    }
+    reportEl.textContent = report;
+  }
+
+  updateRail("content-di", total);
+  saveDiState();
+}
+function saveDiState() {
+  const s = {}; DI_ITEMS.forEach(it => s[it.key] = { count: getDiValue(it.key, "count"), point: getDiValue(it.key, "point") });
+  try { localStorage.setItem(STORAGE_DI_STATE, JSON.stringify(s)); } catch (e) {}
+}
+function loadDiState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_DI_STATE); if (!raw) return;
+    const s = JSON.parse(raw);
+    DI_ITEMS.forEach(it => {
+      if (!s[it.key]) return;
+      const c = s[it.key].count || 0;
+      const p = s[it.key].point != null ? s[it.key].point : it.pts;
+      const cEl = document.querySelector(`#content-di input[data-role="count"][data-key="${it.key}"]`);
+      const pEl = document.querySelector(`#content-di input[data-role="point"][data-key="${it.key}"]`);
+      if (cEl) cEl.value = c > 0 ? c : "";
+      if (pEl) pEl.value = p;
+    });
+  } catch (e) {}
+}
+function resetDi() {
+  DI_ITEMS.forEach(it => {
+    const cEl = document.querySelector(`#content-di input[data-role="count"][data-key="${it.key}"]`);
+    const pEl = document.querySelector(`#content-di input[data-role="point"][data-key="${it.key}"]`);
+    if (cEl) cEl.value = ""; if (pEl) pEl.value = it.pts;
+  });
+  recalcDi(); toast("DI сброшен");
+}
+function copyDiReport() {
+  const r = document.getElementById("di-report").textContent;
+  if (!r) { toast("Сначала введите данные"); return; }
+  navigator.clipboard.writeText("=== ОТЧЁТ DI ===\n\n" + r)
+    .then(() => toast("Отчёт DI скопирован")).catch(() => toast("Не удалось"));
+}
+function downloadDiCsv() {
+  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]]; let total = 0; let actions = 0;
+  DI_ITEMS.forEach(it => {
+    const c = getDiValue(it.key, "count"); const p = getDiValue(it.key, "point");
+    if (c > 0) {
+      if (it.sect === 2) { actions += c; rows.push([it.name + " (действие)", c, "—", "—"]); }
+      else { const s = c * p; total += s; rows.push([it.name, c, p, s]); }
+    }
+  });
+  rows.push([]); rows.push(["", "", "ИТОГО DI", total]);
+  if (actions > 0) rows.push(["", "", "Действий инструктора", actions]);
+  downloadBlob("\uFEFF" + rows.map(r => r.map(x => `"${String(x).replace(/"/g,'""')}"`).join(";")).join("\n"), `di_report_${new Date().toISOString().slice(0,10)}.csv`);
 }
 
 /* ============================================================
@@ -1841,15 +1626,13 @@ function renderHadItems() {
   if (!elMain || !elIns || !elWeek) return;
   HAD_ITEMS.forEach(it => {
     const row = document.createElement("div");
-    row.className = "row";
-    row.dataset.key = it.key;
+    row.className = "row"; row.dataset.key = it.key;
     const badge = it.lim > 0 ? `<span class="limit">макс ${it.lim}</span>` : "";
     row.innerHTML = `
       <div class="name">${it.name}${badge}</div>
       <input type="number" min="0" step="1" data-role="count" data-key="${it.key}">
       <input type="number" min="0" step="1" value="${it.pts}" data-role="point" data-key="${it.key}">
-      <div class="sum" data-role="sum" data-key="${it.key}">0</div>
-    `;
+      <div class="sum" data-role="sum" data-key="${it.key}">0</div>`;
     if (it.sect === 1) elMain.appendChild(row);
     else if (it.sect === 2) elIns.appendChild(row);
     else elWeek.appendChild(row);
@@ -1858,9 +1641,7 @@ function renderHadItems() {
 }
 function getHadValue(key, role) {
   const el = document.querySelector(`#content-had input[data-role="${role}"][data-key="${key}"]`);
-  if (!el) return 0;
-  const v = parseInt(el.value, 10);
-  return isNaN(v) ? 0 : v;
+  if (!el) return 0; const v = parseInt(el.value, 10); return isNaN(v) ? 0 : v;
 }
 function recalcHad() {
   let total = 0;
@@ -1874,43 +1655,25 @@ function recalcHad() {
     const over = it.lim > 0 && count > it.lim;
     if (over) count = it.lim;
     countEl.classList.toggle("over-limit", over);
-    const sum = count * point;
-    total += sum;
+    const sum = count * point; total += sum;
     popIfChanged(sumEl, sumEl.textContent, String(sum));
     sumEl.classList.toggle("positive", sum > 0);
     countEl.closest(".row").classList.toggle("active", count > 0);
     if (count > 0) {
-      const entry = {name: it.name, count, point, sum};
-      if (it.sect === 1) { details.main.push(entry); details.mainSum += sum; }
-      else if (it.sect === 2) { details.instr.push(entry); details.instrSum += sum; }
-      else { details.weekly.push(entry); details.weeklySum += sum; }
+      const e = {name: it.name, count, point, sum};
+      if (it.sect === 1) { details.main.push(e); details.mainSum += sum; }
+      else if (it.sect === 2) { details.instr.push(e); details.instrSum += sum; }
+      else { details.weekly.push(e); details.weeklySum += sum; }
     }
   });
   const totalEl = document.getElementById("had-total");
-  if (totalEl && parseInt(totalEl.textContent, 10) !== total) {
-    totalEl.textContent = total;
-    totalEl.classList.remove("pulse");
-    void totalEl.offsetWidth;
-    totalEl.classList.add("pulse");
-  }
+  if (totalEl && parseInt(totalEl.textContent, 10) !== total) { totalEl.textContent = total; pulseEl(totalEl); }
   const reportEl = document.getElementById("had-report");
   if (reportEl) {
     let report = "";
-    if (details.main.length) {
-      report += "── Основные действия ──\n";
-      details.main.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
-      report += `  Подытог: ${details.mainSum}\n\n`;
-    }
-    if (details.instr.length) {
-      report += "── Инструктор HAD ──\n";
-      details.instr.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
-      report += `  Подытог: ${details.instrSum}\n\n`;
-    }
-    if (details.weekly.length) {
-      report += "── Недельный отчёт ──\n";
-      details.weekly.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
-      report += `  Подытог: ${details.weeklySum}\n\n`;
-    }
+    if (details.main.length) { report += "── Основные действия ──\n"; details.main.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`); report += `  Подытог: ${details.mainSum}\n\n`; }
+    if (details.instr.length) { report += "── Инструктор HAD ──\n"; details.instr.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`); report += `  Подытог: ${details.instrSum}\n\n`; }
+    if (details.weekly.length) { report += "── Недельный отчёт ──\n"; details.weekly.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`); report += `  Подытог: ${details.weeklySum}\n\n`; }
     if (total > 0) report += `ИТОГО HAD: ${total} баллов`;
     reportEl.textContent = report;
   }
@@ -1918,19 +1681,17 @@ function recalcHad() {
   saveHadState();
 }
 function saveHadState() {
-  const state = {};
-  HAD_ITEMS.forEach(it => state[it.key] = { count: getHadValue(it.key, "count"), point: getHadValue(it.key, "point") });
-  try { localStorage.setItem(STORAGE_HAD_STATE, JSON.stringify(state)); } catch (e) {}
+  const s = {}; HAD_ITEMS.forEach(it => s[it.key] = { count: getHadValue(it.key, "count"), point: getHadValue(it.key, "point") });
+  try { localStorage.setItem(STORAGE_HAD_STATE, JSON.stringify(s)); } catch (e) {}
 }
 function loadHadState() {
   try {
-    const raw = localStorage.getItem(STORAGE_HAD_STATE);
-    if (!raw) return;
-    const state = JSON.parse(raw);
+    const raw = localStorage.getItem(STORAGE_HAD_STATE); if (!raw) return;
+    const s = JSON.parse(raw);
     HAD_ITEMS.forEach(it => {
-      if (!state[it.key]) return;
-      const c = state[it.key].count || 0;
-      const p = state[it.key].point != null ? state[it.key].point : it.pts;
+      if (!s[it.key]) return;
+      const c = s[it.key].count || 0;
+      const p = s[it.key].point != null ? s[it.key].point : it.pts;
       const cEl = document.querySelector(`#content-had input[data-role="count"][data-key="${it.key}"]`);
       const pEl = document.querySelector(`#content-had input[data-role="point"][data-key="${it.key}"]`);
       if (cEl) cEl.value = c > 0 ? c : "";
@@ -1942,50 +1703,41 @@ function resetHad() {
   HAD_ITEMS.forEach(it => {
     const cEl = document.querySelector(`#content-had input[data-role="count"][data-key="${it.key}"]`);
     const pEl = document.querySelector(`#content-had input[data-role="point"][data-key="${it.key}"]`);
-    if (cEl) cEl.value = "";
-    if (pEl) pEl.value = it.pts;
+    if (cEl) cEl.value = ""; if (pEl) pEl.value = it.pts;
   });
-  recalcHad();
-  toast("HAD сброшен");
+  recalcHad(); toast("HAD сброшен");
 }
 function copyHadReport() {
-  const report = document.getElementById("had-report").textContent;
-  if (!report) { toast("Сначала введите данные"); return; }
-  navigator.clipboard.writeText("=== ОТЧЁТ HAD ===\n\n" + report)
-    .then(() => toast("Отчёт HAD скопирован"))
-    .catch(() => toast("Не удалось скопировать"));
+  const r = document.getElementById("had-report").textContent;
+  if (!r) { toast("Сначала введите данные"); return; }
+  navigator.clipboard.writeText("=== ОТЧЁТ HAD ===\n\n" + r)
+    .then(() => toast("Отчёт HAD скопирован")).catch(() => toast("Не удалось"));
 }
 function downloadHadCsv() {
-  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]];
-  let total = 0;
+  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]]; let total = 0;
   HAD_ITEMS.forEach(it => {
-    let c = getHadValue(it.key, "count");
-    const p = getHadValue(it.key, "point");
+    let c = getHadValue(it.key, "count"); const p = getHadValue(it.key, "point");
     if (it.lim > 0 && c > it.lim) c = it.lim;
     if (c > 0) { const s = c * p; total += s; rows.push([it.name, c, p, s]); }
   });
   rows.push([]); rows.push(["", "", "ИТОГО HAD", total]);
-  const csv = "\uFEFF" + rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(";")).join("\n");
-  downloadBlob(csv, `had_report_${new Date().toISOString().slice(0,10)}.csv`);
+  downloadBlob("\uFEFF" + rows.map(r => r.map(x => `"${String(x).replace(/"/g,'""')}"`).join(";")).join("\n"), `had_report_${new Date().toISOString().slice(0,10)}.csv`);
 }
 
 /* ============================================================
-   ОБЩИЙ СКАЧИВАТЕЛЬ BLOB
+   BLOB
    ============================================================ */
 function downloadBlob(content, filename) {
   const blob = new Blob([content], {type: "text/csv;charset=utf-8"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
 
 /* ============================================================
-   ФОН + ПРЕСЕТЫ
+   ФОН
    ============================================================ */
 (function() {
   const KEY = "psid_bg_v2";
@@ -1997,29 +1749,20 @@ function downloadBlob(content, filename) {
   const inputColor = document.getElementById("bg-color");
   const btnGrad    = document.getElementById("bg-gradient");
   const btnReset   = document.getElementById("bg-reset");
-
   if (!btnMenu || !menu) return;
 
-  // отрисовать пресеты
   if (presetsEl) {
     BG_PRESETS.forEach(p => {
       const el = document.createElement("div");
-      el.className = "bg-preset";
-      el.title = p.title;
+      el.className = "bg-preset"; el.title = p.title;
       el.style.background = p.css;
       el.innerHTML = `<div class="bg-preset-title">${p.title}</div>`;
-      el.addEventListener("click", () => {
-        applyBackground({type: "preset", id: p.id, css: p.css});
-        menu.hidden = true;
-      });
+      el.addEventListener("click", () => { applyBackground({type: "preset", id: p.id, css: p.css}); menu.hidden = true; });
       presetsEl.appendChild(el);
     });
   }
 
-  btnMenu.addEventListener("click", (e) => {
-    e.stopPropagation();
-    menu.hidden = !menu.hidden;
-  });
+  btnMenu.addEventListener("click", (e) => { e.stopPropagation(); menu.hidden = !menu.hidden; });
   document.addEventListener("click", (e) => {
     if (!menu.hidden && !menu.contains(e.target) && e.target !== btnMenu) menu.hidden = true;
   });
@@ -2029,51 +1772,24 @@ function downloadBlob(content, filename) {
     body.style.backgroundColor = "";
     body.style.backgroundImage = "";
     body.style.animation = "";
-
-    if (!cfg || cfg.type === "gradient") {
-      if (persist) save({type: "gradient"});
-      return;
-    }
+    if (!cfg || cfg.type === "gradient") { if (persist) save({type: "gradient"}); return; }
     if (cfg.type === "color") {
       body.style.backgroundImage = "none";
       body.style.backgroundColor = cfg.value;
       body.style.animation = "none";
-      if (persist) save(cfg);
-      return;
+      if (persist) save(cfg); return;
     }
-    if (cfg.type === "preset") {
-      body.classList.add("has-custom-bg");
-      body.style.backgroundImage = cfg.css;
-      if (persist) save(cfg);
-      return;
-    }
-    if (cfg.type === "image") {
-      body.classList.add("has-custom-bg");
-      body.style.backgroundImage = `url("${cfg.value}")`;
-      if (persist) save(cfg);
-    }
+    if (cfg.type === "preset") { body.classList.add("has-custom-bg"); body.style.backgroundImage = cfg.css; if (persist) save(cfg); return; }
+    if (cfg.type === "image")  { body.classList.add("has-custom-bg"); body.style.backgroundImage = `url("${cfg.value}")`; if (persist) save(cfg); }
   }
-
-  function save(cfg) {
-    try { localStorage.setItem(KEY, JSON.stringify(cfg)); }
-    catch (e) { toast("Фон не сохранён (файл слишком большой)"); }
-  }
-  function load() {
-    try {
-      const raw = localStorage.getItem(KEY);
-      return raw ? JSON.parse(raw) : null;
-    } catch (e) { return null; }
-  }
+  function save(cfg) { try { localStorage.setItem(KEY, JSON.stringify(cfg)); } catch (e) { toast("Фон не сохранён (файл слишком большой)"); } }
+  function load() { try { const raw = localStorage.getItem(KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; } }
 
   inputFile.addEventListener("change", (e) => {
-    const file = e.target.files && e.target.files[0];
-    if (!file) return;
+    const file = e.target.files && e.target.files[0]; if (!file) return;
     if (file.size > 4 * 1024 * 1024) toast("Файл > 4 МБ. Может не поместиться.");
     const reader = new FileReader();
-    reader.onload = () => {
-      applyBackground({type: "image", value: reader.result});
-      menu.hidden = true;
-    };
+    reader.onload = () => { applyBackground({type: "image", value: reader.result}); menu.hidden = true; };
     reader.onerror = () => toast("Не удалось прочитать файл");
     reader.readAsDataURL(file);
   });
@@ -2092,87 +1808,74 @@ function downloadBlob(content, filename) {
   const KEY = "psid_active_tab_v2";
   const tabs = document.querySelectorAll(".tab");
   const contents = document.querySelectorAll(".tab-content");
-
   function activate(name) {
     tabs.forEach(t => t.classList.toggle("tab-active", t.dataset.tab === name));
     contents.forEach(c => c.classList.toggle("tab-content-active", c.id === "content-" + name));
     try { localStorage.setItem(KEY, name); } catch (e) {}
-
-    // при переключении — обновить шкалу на случай, если она свёрнута
     setTimeout(() => {
-      if (name === "psid")  recalc();
-      if (name === "pm")    recalcPm();
-      if (name === "had")   recalcHad();
-      if (name === "di")    updateRail("content-di", 0);
+      if (name === "psid") recalc();
+      if (name === "pm")   recalcPm();
+      if (name === "di")   recalcDi();
+      if (name === "had")  recalcHad();
     }, 30);
   }
-
   tabs.forEach(tab => tab.addEventListener("click", () => activate(tab.dataset.tab)));
-
   try {
     const saved = localStorage.getItem(KEY);
     if (saved && document.getElementById("content-" + saved)) activate(saved);
   } catch (e) {}
 })();
 
-/* ---- Кнопка "Перейти к PSID" ---- */
 (function() {
-  const btn = document.getElementById("goto-psid");
-  if (!btn) return;
+  const btn = document.getElementById("goto-psid"); if (!btn) return;
   btn.addEventListener("click", () => {
-    const t = document.querySelector('.tab[data-tab="psid"]');
-    if (t) t.click();
+    const t = document.querySelector('.tab[data-tab="psid"]'); if (t) t.click();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();
 
-/* ---- Ctrl+S ---- */
 document.addEventListener("keydown", (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === "s") {
     e.preventDefault();
     const id = document.querySelector(".tab-content.tab-content-active")?.id;
-    if (id === "content-had")       copyHadReport();
+    if (id === "content-had") copyHadReport();
     else if (id === "content-psid") copyReport();
-    else if (id === "content-pm")   copyPmReport();
+    else if (id === "content-pm") copyPmReport();
+    else if (id === "content-di") copyDiReport();
   }
 });
 
-/* ---- При изменении размера окна обновить ориентацию шкал ---- */
 let resizeT;
 window.addEventListener("resize", () => {
   clearTimeout(resizeT);
-  resizeT = setTimeout(() => {
-    recalc(); recalcPm(); recalcHad(); updateRail("content-di", 0);
-  }, 120);
+  resizeT = setTimeout(() => { recalc(); recalcPm(); recalcDi(); recalcHad(); }, 120);
 });
 
 /* ============================================================
    ИНИЦИАЛИЗАЦИЯ
    ============================================================ */
-renderItems();
-loadSavedDefaults();
-loadState();
+renderItems(); loadSavedDefaults(); loadState();
 document.getElementById("btn-copy").addEventListener("click", copyReport);
 document.getElementById("btn-csv").addEventListener("click", downloadCSV);
 document.getElementById("btn-save").addEventListener("click", saveDefaults);
 document.getElementById("btn-reset").addEventListener("click", resetAll);
 
-renderPmItems();
-loadPmState();
+renderPmItems(); loadPmState();
 document.getElementById("pm-btn-copy").addEventListener("click", copyPmReport);
 document.getElementById("pm-btn-csv").addEventListener("click", downloadPmCsv);
 document.getElementById("pm-btn-reset").addEventListener("click", resetPm);
 
-renderHadItems();
-loadHadState();
+renderDiItems(); loadDiState();
+document.getElementById("di-btn-copy").addEventListener("click", copyDiReport);
+document.getElementById("di-btn-csv").addEventListener("click", downloadDiCsv);
+document.getElementById("di-btn-reset").addEventListener("click", resetDi);
+
+renderHadItems(); loadHadState();
 document.getElementById("had-btn-copy").addEventListener("click", copyHadReport);
 document.getElementById("had-btn-csv").addEventListener("click", downloadHadCsv);
 document.getElementById("had-btn-reset").addEventListener("click", resetHad);
 
-recalc();
-recalcPm();
-recalcHad();
-updateRail("content-di", 0);
+recalc(); recalcPm(); recalcDi(); recalcHad();
 </script>
 </body>
 </html>
