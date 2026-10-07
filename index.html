@@ -22,7 +22,6 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   html, body { min-height: 100vh; }
 
   body {
@@ -33,16 +32,12 @@
     padding: 24px 16px 60px;
     position: relative;
     overflow-x: hidden;
-
-    /* фон по умолчанию: плавный градиент */
     background-image: linear-gradient(-45deg, #0a0e14, #0d1117, #101828, #0d1117);
     background-size: 400% 400%;
     background-attachment: fixed;
     animation: gradientShift 22s ease infinite;
     transition: background-color 0.4s ease;
   }
-
-  /* декоративная сетка поверх градиента, но под контентом */
   body::before {
     content: "";
     position: fixed;
@@ -55,10 +50,7 @@
     background-size: 50px 50px;
     animation: gridMove 30s linear infinite;
   }
-
-  /* если пользователь загрузил свой фон — сетку скрываем */
   body.has-custom-bg::before { display: none; }
-
   body.has-custom-bg {
     background-size: cover !important;
     background-position: center center !important;
@@ -66,8 +58,6 @@
     background-attachment: fixed !important;
     animation: none !important;
   }
-
-  /* затемняющая плёнка поверх пользовательского фона */
   body.has-custom-bg::after {
     content: "";
     position: fixed;
@@ -93,9 +83,6 @@
     z-index: 1;
   }
 
-  /* ============================================================
-     ЗАГОЛОВОК
-     ============================================================ */
   header {
     text-align: center;
     margin-bottom: 28px;
@@ -109,14 +96,8 @@
     margin-bottom: 6px;
     letter-spacing: 0.3px;
   }
-  header p {
-    color: var(--text-dim);
-    font-size: 14px;
-  }
+  header p { color: var(--text-dim); font-size: 14px; }
 
-  /* ============================================================
-     КНОПКА ФОНА
-     ============================================================ */
   .bg-controls {
     position: fixed;
     top: 16px;
@@ -169,27 +150,173 @@
     display: block;
     transition: background 0.12s, color 0.12s;
   }
-  .bg-menu-item:hover {
-    background: var(--bg-hover);
-    color: var(--accent);
-  }
-  .bg-menu-item.danger:hover {
-    background: rgba(248, 81, 73, 0.1);
-    color: var(--danger);
-  }
+  .bg-menu-item:hover { background: var(--bg-hover); color: var(--accent); }
+  .bg-menu-item.danger:hover { background: rgba(248, 81, 73, 0.1); color: var(--danger); }
   .bg-menu-item input[type="color"] {
-    width: 100%;
-    height: 28px;
-    margin-top: 6px;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    cursor: pointer;
+    width: 100%; height: 28px; margin-top: 6px;
+    background: transparent; border: 1px solid var(--border);
+    border-radius: 6px; cursor: pointer;
   }
 
-  /* ============================================================
-     СЕКЦИИ
-     ============================================================ */
+  .side-tabs {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    pointer-events: none;
+  }
+  .tab {
+    --visible: 42px;
+    --width: 180px;
+    position: relative;
+    right: calc(-1 * (var(--width) - var(--visible)));
+    width: var(--width);
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 14px 0 12px;
+    background: rgba(22, 27, 34, 0.92);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition:
+      right 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
+    pointer-events: auto;
+  }
+  .tab:hover {
+    right: 0;
+    background: rgba(28, 35, 48, 0.98);
+    color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 6px 20px rgba(88, 166, 255, 0.18);
+  }
+  .tab:active { transform: translateY(1px); }
+  .tab.tab-active {
+    background: linear-gradient(135deg, #1a2744 0%, #16213e 100%);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .tab.tab-active::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 3px; border-radius: 0 2px 2px 0;
+    background: var(--accent);
+  }
+  .tab-icon {
+    font-size: 18px; flex-shrink: 0; width: 24px; text-align: center;
+  }
+  .tab-label {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .tab-content { display: none; }
+  .tab-content.tab-content-active { display: block; }
+
+  .placeholder {
+    background: var(--bg-alt);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--text-dim);
+  }
+  .placeholder h2 { color: var(--accent); font-size: 22px; margin-bottom: 10px; }
+  .placeholder p { font-size: 14px; max-width: 500px; margin: 0 auto; line-height: 1.7; }
+  .placeholder .icon { font-size: 48px; display: block; margin-bottom: 16px; opacity: 0.7; }
+
+  .hero {
+    text-align: center;
+    padding: 40px 24px 32px;
+    background: linear-gradient(135deg, rgba(26, 39, 68, 0.6), rgba(22, 33, 62, 0.6));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .hero-icon { font-size: 56px; line-height: 1; margin-bottom: 12px; display: block; }
+  .hero-title {
+    font-size: 24px; font-weight: 700; color: var(--accent);
+    margin-bottom: 10px; letter-spacing: 0.3px;
+  }
+  .hero-subtitle {
+    font-size: 15px; color: var(--text-dim);
+    max-width: 640px; margin: 0 auto; line-height: 1.7;
+  }
+  .hero-cta { text-align: center; margin-top: 6px; }
+  .cta-btn {
+    background: var(--accent);
+    color: #0d1117;
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 0 4px 20px rgba(88, 166, 255, 0.25);
+  }
+  .cta-btn:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(88, 166, 255, 0.35);
+  }
+  .cta-btn:active { transform: translateY(0); }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .feature {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .feature:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .feature-icon { font-size: 22px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+  .feature-body h3 { font-size: 14px; color: var(--text); margin-bottom: 4px; font-weight: 600; }
+  .feature-body p { font-size: 13px; color: var(--text-dim); line-height: 1.55; }
+
+  .steps {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .steps li {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 12px 14px; background: var(--bg);
+    border: 1px solid var(--border); border-radius: 8px;
+  }
+  .step-num {
+    flex-shrink: 0; width: 28px; height: 28px;
+    border-radius: 50%; background: var(--accent); color: #0d1117;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+  }
+  .step-body { font-size: 14px; color: var(--text-dim); line-height: 1.55; padding-top: 3px; }
+  .step-body b { color: var(--text); }
+
   .section {
     background: var(--bg-alt);
     border: 1px solid var(--border);
@@ -199,19 +326,12 @@
     box-shadow: var(--shadow);
   }
   .section-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 16px;
-    padding-bottom: 10px;
+    font-size: 15px; font-weight: 600; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 16px; padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
   }
 
-  /* ============================================================
-     СТРОКИ УСЛУГ
-     ============================================================ */
   .row {
     display: grid;
     grid-template-columns: 1fr 90px 90px 90px;
@@ -221,12 +341,8 @@
     border-radius: 8px;
     transition: background 0.15s;
   }
-  .row:not(.header-row):hover {
-    background: var(--bg-hover);
-  }
-  .row.active {
-    background: rgba(88, 166, 255, 0.08);
-  }
+  .row:not(.header-row):hover { background: var(--bg-hover); }
+  .row.active { background: rgba(88, 166, 255, 0.08); }
   .header-row {
     color: var(--text-dim);
     font-size: 12px;
@@ -241,19 +357,13 @@
   .header-row .cell:first-child { text-align: left; }
 
   .name {
-    font-size: 14px;
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 14px; color: var(--text);
+    display: flex; align-items: center; gap: 8px;
   }
   .name .limit {
-    font-size: 11px;
-    color: var(--gold);
+    font-size: 11px; color: var(--gold);
     background: rgba(210, 153, 34, 0.12);
-    padding: 1px 6px;
-    border-radius: 4px;
-    white-space: nowrap;
+    padding: 1px 6px; border-radius: 4px; white-space: nowrap;
   }
 
   input[type="number"] {
@@ -271,8 +381,7 @@
   }
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+    -webkit-appearance: none; margin: 0;
   }
   input[type="number"]:focus {
     outline: none;
@@ -285,17 +394,11 @@
   }
 
   .sum {
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-dim);
-    transition: color 0.15s;
+    text-align: center; font-size: 14px; font-weight: 600;
+    color: var(--text-dim); transition: color 0.15s;
   }
   .sum.positive { color: var(--success); }
 
-  /* ============================================================
-     ИТОГ
-     ============================================================ */
   .total-box {
     display: flex;
     justify-content: space-between;
@@ -308,25 +411,16 @@
     box-shadow: 0 0 0 1px rgba(88, 166, 255, 0.1), var(--shadow);
   }
   .total-box .label {
-    font-size: 14px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 14px; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 1px;
   }
   .total-box .value {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1;
+    font-size: 36px; font-weight: 700;
+    color: var(--accent); line-height: 1;
     transition: transform 0.15s;
   }
-  .total-box .value.pulse {
-    transform: scale(1.08);
-  }
+  .total-box .value.pulse { transform: scale(1.08); }
 
-  /* ============================================================
-     КНОПКИ
-     ============================================================ */
   .buttons {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -351,7 +445,6 @@
     color: var(--accent);
   }
   button:active { transform: translateY(1px); }
-
   button.primary {
     background: var(--accent);
     color: #0d1117;
@@ -369,9 +462,6 @@
     color: var(--danger);
   }
 
-  /* ============================================================
-     ОТЧЁТ
-     ============================================================ */
   .report {
     background: var(--bg);
     border: 1px solid var(--border);
@@ -393,9 +483,31 @@
     font-style: italic;
   }
 
-  /* ============================================================
-     TOAST
-     ============================================================ */
+  .rules-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 8px;
+  }
+  .rules-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    transition: border-color 0.15s;
+  }
+  .rules-list li:hover { border-color: var(--accent); }
+  .rules-list .arrow { color: var(--accent); font-weight: 700; flex-shrink: 0; }
+  .rules-list b { color: var(--text); }
+
   .toast {
     position: fixed;
     bottom: 24px;
@@ -418,15 +530,11 @@
     opacity: 1;
   }
 
-  /* ============================================================
-     МОБИЛЬНАЯ ВЕРСИЯ
-     ============================================================ */
   @media (max-width: 640px) {
     body { padding: 16px 10px 40px; }
     .row {
       grid-template-columns: 1fr 60px 60px 60px;
-      gap: 6px;
-      padding: 6px 6px;
+      gap: 6px; padding: 6px 6px;
     }
     .name { font-size: 12.5px; }
     .name .limit { display: none; }
@@ -441,6 +549,26 @@
     .buttons { grid-template-columns: 1fr 1fr; }
     button { padding: 10px 12px; font-size: 13px; }
     .report { font-size: 12px; padding: 12px; }
+    .side-tabs { top: auto; bottom: 12px; transform: none; }
+    .tab {
+      --width: 140px; --visible: 40px;
+      height: 42px; font-size: 13px;
+      padding: 0 10px;
+    }
+    .tab-icon { font-size: 16px; width: 20px; }
+
+    .hero { padding: 28px 16px 22px; }
+    .hero-title { font-size: 19px; }
+    .hero-subtitle { font-size: 13.5px; }
+    .hero-icon { font-size: 42px; }
+    .features { grid-template-columns: 1fr; }
+    .feature { padding: 12px; }
+    .feature-body h3 { font-size: 13px; }
+    .feature-body p { font-size: 12.5px; }
+    .steps li { padding: 10px 12px; }
+    .step-body { font-size: 13px; }
+    .cta-btn { padding: 12px 22px; font-size: 14px; }
+    .rules-list { grid-template-columns: 1fr; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -451,7 +579,33 @@
 <body>
 
 <!-- ============================================================
-     КНОПКА ВЫБОРА ФОНА
+     ПАНЕЛЬ ВКЛАДОК СПРАВА
+     ============================================================ -->
+<nav class="side-tabs" aria-label="Разделы">
+  <button class="tab tab-active" data-tab="main" type="button">
+    <span class="tab-icon">🏠</span>
+    <span class="tab-label">Главное меню</span>
+  </button>
+  <button class="tab" data-tab="pm" type="button">
+    <span class="tab-icon">📋</span>
+    <span class="tab-label">PM</span>
+  </button>
+  <button class="tab" data-tab="di" type="button">
+    <span class="tab-icon">📊</span>
+    <span class="tab-label">DI</span>
+  </button>
+  <button class="tab" data-tab="psid" type="button">
+    <span class="tab-icon">🏥</span>
+    <span class="tab-label">PSID</span>
+  </button>
+  <button class="tab" data-tab="had" type="button">
+    <span class="tab-icon">💉</span>
+    <span class="tab-label">HAD</span>
+  </button>
+</nav>
+
+<!-- ============================================================
+     КНОПКА ФОНА
      ============================================================ -->
 <div class="bg-controls">
   <button class="bg-btn" id="bg-menu-btn" type="button">🎨 Фон</button>
@@ -473,45 +627,323 @@
 <div class="container">
 
   <header>
-    <h1>PSID — Калькулятор баллов</h1>
+    <h1>Калькулятор баллов — PSID / PM / HAD</h1>
     <p>Введите количество — итог пересчитается автоматически</p>
   </header>
 
-  <div class="section">
-    <div class="section-title">Основная система баллов</div>
-    <div class="row header-row">
-      <div class="cell">Услуга</div>
-      <div class="cell">Кол-во</div>
-      <div class="cell">Балл</div>
-      <div class="cell">Итог</div>
+  <!-- ============================================================
+       РАЗДЕЛ 1: Главное меню
+       ============================================================ -->
+  <section class="tab-content tab-content-active" id="content-main">
+
+    <div class="hero">
+      <div class="hero-icon">🏥</div>
+      <h2 class="hero-title">Калькуляторы баллов для отделов PSID, PM и HAD</h2>
+      <p class="hero-subtitle">
+        Инструмент для быстрого и точного подсчёта баллов за проделанную работу
+        сотрудников медицинских отделов. Всё считается прямо в браузере — без установок,
+        без интернета, с автоматическим сохранением.
+      </p>
     </div>
-    <div id="main-items"></div>
-  </div>
 
-  <div class="section">
-    <div class="section-title">Доп. система — Инструкторы PSID</div>
-    <div class="row header-row">
-      <div class="cell">Услуга</div>
-      <div class="cell">Кол-во</div>
-      <div class="cell">Балл</div>
-      <div class="cell">Итог</div>
+    <div class="section">
+      <div class="section-title">Что умеет калькулятор</div>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-body">
+            <h3>Мгновенный подсчёт</h3>
+            <p>Итог обновляется автоматически при вводе количества — не нужно нажимать «Пересчитать».</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🧮</div>
+          <div class="feature-body">
+            <h3>Учёт лимитов</h3>
+            <p>Автоматически применяются ограничения: таблетки, ПМП, вакцины, медсправки и т.д.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🏥</div>
+          <div class="feature-body">
+            <h3>Три отдела</h3>
+            <p>Отдельные калькуляторы для PSID, PM и HAD — со своими системами баллов.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📋</div>
+          <div class="feature-body">
+            <h3>Готовый отчёт</h3>
+            <p>Одна кнопка — и подробный текстовый отчёт скопирован в буфер обмена.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">💾</div>
+          <div class="feature-body">
+            <h3>Экспорт в CSV</h3>
+            <p>Скачивание отчёта в формате, который без проблем открывается в Excel.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-body">
+            <h3>Автосохранение</h3>
+            <p>Данные и настройки баллов хранятся в браузере и не теряются при перезагрузке.</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="instr-items"></div>
-  </div>
 
-  <div class="total-box">
-    <span class="label">Итого баллов</span>
-    <span class="value" id="total">0</span>
-  </div>
+    <div class="section">
+      <div class="section-title">Как пользоваться</div>
+      <ol class="steps">
+        <li>
+          <span class="step-num">1</span>
+          <div class="step-body">
+            <b>Откройте нужный раздел</b> в панели справа — <b>PM</b>, <b>PSID</b> или <b>HAD</b>.
+          </div>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <div class="step-body">
+            <b>Введите количество</b> напротив каждой услуги, которую сотрудник выполнил за отчётный период.
+          </div>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <div class="step-body">
+            <b>Проверьте балл</b> — при необходимости его можно изменить вручную в столбце «Балл».
+          </div>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <div class="step-body">
+            <b>Скопируйте отчёт</b> или скачайте CSV — готово, можно отправлять руководству.
+          </div>
+        </li>
+      </ol>
+    </div>
 
-  <div class="buttons">
-    <button class="primary" id="btn-copy" type="button">📋 Копировать отчёт</button>
-    <button id="btn-csv" type="button">💾 Скачать CSV</button>
-    <button id="btn-save" type="button">🔒 Сохранить баллы</button>
-    <button class="danger" id="btn-reset" type="button">↺ Сбросить всё</button>
-  </div>
+    <div class="hero-cta">
+      <button class="cta-btn" id="goto-psid" type="button">
+        Перейти к калькулятору PSID →
+      </button>
+    </div>
 
-  <div class="report" id="report"></div>
+  </section>
+
+  <!-- ============================================================
+       РАЗДЕЛ 2: PM — калькулятор
+       ============================================================ -->
+  <section class="tab-content" id="content-pm">
+
+    <div class="section">
+      <div class="section-title">🚑 ПМП</div>
+      <div class="row header-row">
+        <div class="cell">Действие</div>
+        <div class="cell">Кол-во</div>
+        <div class="cell">Балл</div>
+        <div class="cell">Итог</div>
+      </div>
+      <div id="pm-pmp-items"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">💉 Вакцина</div>
+      <div class="row header-row">
+        <div class="cell">Больница</div>
+        <div class="cell">Кол-во</div>
+        <div class="cell">Балл</div>
+        <div class="cell">Итог</div>
+      </div>
+      <div id="pm-vax-items"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">💊 Таблетка</div>
+      <div class="row header-row">
+        <div class="cell">Больница</div>
+        <div class="cell">Кол-во</div>
+        <div class="cell">Балл</div>
+        <div class="cell">Итог</div>
+      </div>
+      <div id="pm-pill-items"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🧾 Справка</div>
+      <div class="row header-row">
+        <div class="cell">Больница</div>
+        <div class="cell">Кол-во</div>
+        <div class="cell">Балл</div>
+        <div class="cell">Итог</div>
+      </div>
+      <div id="pm-med-items"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">📝 Дополнительно</div>
+      <div class="row header-row">
+        <div class="cell">Действие</div>
+        <div class="cell">Кол-во</div>
+        <div class="cell">Балл</div>
+        <div class="cell">Итог</div>
+      </div>
+      <div id="pm-extra-items"></div>
+    </div>
+
+    <div class="total-box">
+      <span class="label">Итого баллов PM</span>
+      <span class="value" id="pm-total">0</span>
+    </div>
+
+    <div class="buttons">
+      <button class="primary" id="pm-btn-copy" type="button">📋 Копировать отчёт</button>
+      <button id="pm-btn-csv" type="button">💾 Скачать CSV</button>
+      <button class="danger" id="pm-btn-reset" type="button">↺ Сбросить PM</button>
+    </div>
+
+    <div class="report" id="pm-report"></div>
+
+    <div class="section" style="margin-top: 20px;">
+      <div class="section-title">🔃 Замены</div>
+      <ul class="rules-list">
+        <li><b>1 вакцина в любой больнице</b> <span class="arrow">=</span> 1 ПМП</li>
+        <li><b>1 ПМП</b> <span class="arrow">=</span> 1 вакцина</li>
+        <li><b>5 таблеток в любой больнице</b> <span class="arrow">=</span> 1 вакцина или 1 ПМП</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       РАЗДЕЛ 3: DI
+       ============================================================ -->
+  <section class="tab-content" id="content-di">
+    <div class="placeholder">
+      <span class="icon">📊</span>
+      <h2>DI</h2>
+      <p>Раздел пока пуст. Скоро здесь появится информация по DI.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       РАЗДЕЛ 4: PSID — калькулятор
+       ============================================================ -->
+  <section class="tab-content" id="content-psid">
+
+    <div class="section">
+      <div class="section-title">Основная система баллов</div>
+      <div class="row header-row">
+        <div class="cell">Услуга</div>
+        <div class="cell">Кол-во</div>
+        <div class="cell">Балл</div>
+        <div class="cell">Итог</div>
+      </div>
+      <div id="main-items"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Доп. система — Инструкторы PSID</div>
+      <div class="row header-row">
+        <div class="cell">Услуга</div>
+        <div class="cell">Кол-во</div>
+        <div class="cell">Балл</div>
+        <div class="cell">Итог</div>
+      </div>
+      <div id="instr-items"></div>
+    </div>
+
+    <div class="total-box">
+      <span class="label">Итого баллов PSID</span>
+      <span class="value" id="total">0</span>
+    </div>
+
+    <div class="buttons">
+      <button class="primary" id="btn-copy" type="button">📋 Копировать отчёт</button>
+      <button id="btn-csv" type="button">💾 Скачать CSV</button>
+      <button id="btn-save" type="button">🔒 Сохранить баллы</button>
+      <button class="danger" id="btn-reset" type="button">↺ Сбросить PSID</button>
+    </div>
+
+    <div class="report" id="report"></div>
+
+  </section>
+
+  <!-- ============================================================
+       РАЗДЕЛ 5: HAD — калькулятор
+       ============================================================ -->
+  <section class="tab-content" id="content-had">
+
+    <div class="section">
+      <div class="section-title">Основные действия</div>
+      <div class="row header-row">
+        <div class="cell">Действие</div>
+        <div class="cell">Кол-во</div>
+        <div class="cell">Балл</div>
+        <div class="cell">Итог</div>
+      </div>
+      <div id="had-main-items"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Инструктор HAD</div>
+      <div class="row header-row">
+        <div class="cell">Действие</div>
+        <div class="cell">Кол-во</div>
+        <div class="cell">Балл</div>
+        <div class="cell">Итог</div>
+      </div>
+      <div id="had-instr-items"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Недельный отчёт</div>
+      <div class="row header-row">
+        <div class="cell">Услуга</div>
+        <div class="cell">Кол-во</div>
+        <div class="cell">Балл</div>
+        <div class="cell">Итог</div>
+      </div>
+      <div id="had-weekly-items"></div>
+    </div>
+
+    <div class="total-box">
+      <span class="label">Итого баллов HAD</span>
+      <span class="value" id="had-total">0</span>
+    </div>
+
+    <div class="buttons">
+      <button class="primary" id="had-btn-copy" type="button">📋 Копировать отчёт</button>
+      <button id="had-btn-csv" type="button">💾 Скачать CSV</button>
+      <button class="danger" id="had-btn-reset" type="button">↺ Сбросить HAD</button>
+    </div>
+
+    <div class="report" id="had-report"></div>
+
+    <div class="section" style="margin-top: 20px;">
+      <div class="section-title">Возможные замены</div>
+      <ul class="rules-list">
+        <li><b>2 выговора</b> <span class="arrow">→</span> 1 проверка перерывов/отпусков</li>
+        <li><b>2 выговора</b> <span class="arrow">→</span> 1 вызов сотрудника по 10-20</li>
+        <li><b>1 проверка на прогул</b> <span class="arrow">→</span> 1 брифинг</li>
+        <li><b>1 проверка склада</b> <span class="arrow">→</span> 2 выговора</li>
+        <li><b>1 брифинг</b> <span class="arrow">→</span> 1 проверка на прогул</li>
+        <li><b>5 выговоров</b> <span class="arrow">→</span> 1 брифинг</li>
+        <li><b>15 ПМП</b> <span class="arrow">→</span> 1 проверка на прогул</li>
+        <li><b>5 ПМП</b> <span class="arrow">→</span> 1 проверка отпусков</li>
+        <li><b>5 вызовов по рации</b> <span class="arrow">→</span> 1 проверка на прогул</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Замены для инструкторов</div>
+      <ul class="rules-list">
+        <li><b>1 отчёт на повышение</b> <span class="arrow">→</span> 30 минут дежурства в больнице</li>
+      </ul>
+    </div>
+
+  </section>
 
 </div>
 
@@ -519,12 +951,7 @@
 
 <script>
 /* ============================================================
-   СПИСОК УСЛУГ
-   key   — ключ
-   name  — отображаемое имя
-   pts   — балл по умолчанию
-   lim   — лимит количества (0 = без лимита)
-   sect  — 1 = основная, 2 = инструкторы
+   PSID — СПИСОК УСЛУГ
    ============================================================ */
 const ITEMS = [
   {key:"pill_day",       name:"Выдача таблетки днём",                   pts:2,  lim:100, sect:1},
@@ -558,11 +985,12 @@ const STORAGE_STATE    = "psid_calc_state_v1";
 const STORAGE_DEFAULTS = "psid_calc_defaults_v1";
 
 /* ============================================================
-   ГЕНЕРАЦИЯ РАЗМЕТКИ
+   PSID — генерация и пересчёт
    ============================================================ */
 function renderItems() {
   const mainEl  = document.getElementById("main-items");
   const instrEl = document.getElementById("instr-items");
+  if (!mainEl || !instrEl) return;
 
   ITEMS.forEach(it => {
     const row = document.createElement("div");
@@ -582,31 +1010,27 @@ function renderItems() {
     else               instrEl.appendChild(row);
   });
 
-  document.querySelectorAll("input[type=number]").forEach(inp => {
+  document.querySelectorAll("#content-psid input[type=number]").forEach(inp => {
     inp.addEventListener("input", recalc);
   });
 }
 
-/* ============================================================
-   ЧТЕНИЕ ЗНАЧЕНИЙ
-   ============================================================ */
 function getValue(key, role) {
-  const el = document.querySelector(`input[data-role="${role}"][data-key="${key}"]`);
+  const el = document.querySelector(`#content-psid input[data-role="${role}"][data-key="${key}"]`);
   if (!el) return 0;
   const v = parseInt(el.value, 10);
   return isNaN(v) ? 0 : v;
 }
 
-/* ============================================================
-   ПЕРЕСЧЁТ
-   ============================================================ */
 function recalc() {
   let total = 0;
   const details = { main: [], instr: [], mainSum: 0, instrSum: 0 };
 
   ITEMS.forEach(it => {
-    const countEl = document.querySelector(`input[data-role="count"][data-key="${it.key}"]`);
-    const sumEl   = document.querySelector(`div[data-role="sum"][data-key="${it.key}"]`);
+    const countEl = document.querySelector(`#content-psid input[data-role="count"][data-key="${it.key}"]`);
+    const sumEl   = document.querySelector(`#content-psid div[data-role="sum"][data-key="${it.key}"]`);
+    if (!countEl || !sumEl) return;
+
     let count = getValue(it.key, "count");
     const point = getValue(it.key, "point");
 
@@ -631,14 +1055,14 @@ function recalc() {
   });
 
   const totalEl = document.getElementById("total");
-  if (parseInt(totalEl.textContent, 10) !== total) {
+  if (totalEl && parseInt(totalEl.textContent, 10) !== total) {
     totalEl.textContent = total;
     totalEl.classList.add("pulse");
     setTimeout(() => totalEl.classList.remove("pulse"), 200);
   }
 
-  // отчёт
   const reportEl = document.getElementById("report");
+  if (!reportEl) return;
   let report = "";
   if (details.main.length) {
     report += "── Основные услуги ──\n";
@@ -654,15 +1078,12 @@ function recalc() {
     });
     report += `  Подытог: ${details.instrSum}\n\n`;
   }
-  if (total > 0) report += `ИТОГО: ${total} баллов`;
+  if (total > 0) report += `ИТОГО PSID: ${total} баллов`;
   reportEl.textContent = report;
 
   saveState();
 }
 
-/* ============================================================
-   СОХРАНЕНИЕ / ЗАГРУЗКА
-   ============================================================ */
 function saveState() {
   const state = {};
   ITEMS.forEach(it => {
@@ -683,8 +1104,8 @@ function loadState() {
       if (!state[it.key]) return;
       const c = state[it.key].count || 0;
       const p = state[it.key].point != null ? state[it.key].point : it.pts;
-      const cEl = document.querySelector(`input[data-role="count"][data-key="${it.key}"]`);
-      const pEl = document.querySelector(`input[data-role="point"][data-key="${it.key}"]`);
+      const cEl = document.querySelector(`#content-psid input[data-role="count"][data-key="${it.key}"]`);
+      const pEl = document.querySelector(`#content-psid input[data-role="point"][data-key="${it.key}"]`);
       if (cEl) cEl.value = c > 0 ? c : "";
       if (pEl) pEl.value = p;
     });
@@ -698,25 +1119,22 @@ function loadSavedDefaults() {
     const defs = JSON.parse(raw);
     ITEMS.forEach(it => {
       if (defs[it.key] != null) {
-        const pEl = document.querySelector(`input[data-role="point"][data-key="${it.key}"]`);
+        const pEl = document.querySelector(`#content-psid input[data-role="point"][data-key="${it.key}"]`);
         if (pEl) pEl.value = defs[it.key];
       }
     });
   } catch (e) {}
 }
 
-/* ============================================================
-   ДЕЙСТВИЯ КНОПОК
-   ============================================================ */
 function resetAll() {
   ITEMS.forEach(it => {
-    const cEl = document.querySelector(`input[data-role="count"][data-key="${it.key}"]`);
-    const pEl = document.querySelector(`input[data-role="point"][data-key="${it.key}"]`);
+    const cEl = document.querySelector(`#content-psid input[data-role="count"][data-key="${it.key}"]`);
+    const pEl = document.querySelector(`#content-psid input[data-role="point"][data-key="${it.key}"]`);
     if (cEl) cEl.value = "";
     if (pEl) pEl.value = it.pts;
   });
   recalc();
-  toast("Всё сброшено");
+  toast("PSID сброшен");
 }
 
 function saveDefaults() {
@@ -724,7 +1142,7 @@ function saveDefaults() {
   ITEMS.forEach(it => { pts[it.key] = getValue(it.key, "point"); });
   try {
     localStorage.setItem(STORAGE_DEFAULTS, JSON.stringify(pts));
-    toast("Баллы сохранены как новые по умолчанию");
+    toast("Баллы PSID сохранены как новые по умолчанию");
   } catch (e) {
     toast("Не удалось сохранить");
   }
@@ -735,7 +1153,7 @@ function copyReport() {
   if (!report) { toast("Сначала введите данные"); return; }
   const full = "=== ОТЧЁТ PSID ===\n\n" + report;
   navigator.clipboard.writeText(full)
-    .then(() => toast("Отчёт скопирован в буфер"))
+    .then(() => toast("Отчёт PSID скопирован"))
     .catch(() => toast("Не удалось скопировать"));
 }
 
@@ -753,7 +1171,7 @@ function downloadCSV() {
     }
   });
   rows.push([]);
-  rows.push(["", "", "ИТОГО", total]);
+  rows.push(["", "", "ИТОГО PSID", total]);
 
   const csv = "\uFEFF" + rows.map(r =>
     r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(";")
@@ -768,7 +1186,444 @@ function downloadCSV() {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  toast("CSV скачан");
+  toast("CSV PSID скачан");
+}
+
+/* ============================================================
+   PM — СПИСОК ПУНКТОВ
+   ============================================================ */
+const PM_ITEMS = [
+  {key:"pm_pmp_day",        name:"ПМП днём",                                     pts:3,   lim:0, sect:1},
+  {key:"pm_pmp_night",      name:"ПМП ночью",                                    pts:5,   lim:0, sect:1},
+  {key:"pm_pmp_hospital",   name:"ПМП в любой больнице и палатах",               pts:1,   lim:0, sect:1},
+  {key:"pm_pmp_rejected",   name:"Отклонённый вызов",                            pts:1,   lim:0, sect:1},
+
+  {key:"pm_vax_elsh",       name:"Вакцина в ELSH",                               pts:3,   lim:0, sect:2},
+  {key:"pm_vax_ss",         name:"Вакцина в Sandy-Shores",                       pts:4,   lim:0, sect:2},
+  {key:"pm_vax_pb",         name:"Вакцина в Paleto-Bay",                         pts:4,   lim:0, sect:2},
+
+  {key:"pm_pill_elsh",      name:"Таблетка в ELSH",                              pts:1,   lim:0, sect:3},
+  {key:"pm_pill_ss",        name:"Таблетка в Sandy-Shores",                      pts:2,   lim:0, sect:3},
+  {key:"pm_pill_pb",        name:"Таблетка в Paleto-Bay",                        pts:2,   lim:0, sect:3},
+
+  {key:"pm_med_elsh",       name:"Справка в ELSH (каждая)",                      pts:3,   lim:0, sect:4},
+  {key:"pm_med_ss",         name:"Справка в Sandy-Shores (каждая)",              pts:4,   lim:0, sect:4},
+  {key:"pm_med_pb",         name:"Справка в Paleto-Bay (каждая)",                pts:4,   lim:0, sect:4},
+
+  {key:"pm_q_therapist",    name:"Получение квалификации «Терапевт»",            pts:50,  lim:0, sect:5},
+  {key:"pm_q_surgeon",      name:"Получение квалификации «Хирург»",              pts:50,  lim:0, sect:5},
+  {key:"pm_q_vet",          name:"Получение квалификации «Ветеринар»",           pts:50,  lim:0, sect:5},
+  {key:"pm_q_recruiter",    name:"Получение квалификации «Рекрутер»",            pts:50,  lim:0, sect:5},
+  {key:"pm_lecture",        name:"Прослушивание лекции",                         pts:10,  lim:0, sect:5},
+  {key:"pm_exam",           name:"Прохождение экзамена",                         pts:10,  lim:0, sect:5},
+  {key:"pm_rp_op",          name:"Проведение 1 РП операции",                     pts:100, lim:0, sect:5},
+  {key:"pm_recruit",        name:"Принятие 1 человека во фракцию",               pts:100, lim:0, sect:5},
+  {key:"pm_animal_check",   name:"Проведение 1 осмотра служебных животных",      pts:100, lim:0, sect:5},
+  {key:"pm_duty_elsh",      name:"Дежурство ELSH (30 минут)",                    pts:10,  lim:0, sect:5},
+  {key:"pm_duty_ss",        name:"Дежурство Sandy-Shores (30 минут)",            pts:15,  lim:0, sect:5},
+  {key:"pm_duty_pb",        name:"Дежурство Paleto-Bay (30 минут)",              pts:15,  lim:0, sect:5},
+];
+
+const STORAGE_PM_STATE = "pm_calc_state_v1";
+
+function renderPmItems() {
+  const buckets = {
+    1: document.getElementById("pm-pmp-items"),
+    2: document.getElementById("pm-vax-items"),
+    3: document.getElementById("pm-pill-items"),
+    4: document.getElementById("pm-med-items"),
+    5: document.getElementById("pm-extra-items"),
+  };
+  if (!buckets[1]) return;
+
+  PM_ITEMS.forEach(it => {
+    const container = buckets[it.sect];
+    if (!container) return;
+
+    const row = document.createElement("div");
+    row.className = "row";
+    row.dataset.key = it.key;
+
+    const limitBadge = it.lim > 0 ? `<span class="limit">макс ${it.lim}</span>` : "";
+
+    row.innerHTML = `
+      <div class="name">${it.name}${limitBadge}</div>
+      <input type="number" min="0" step="1" placeholder="" data-role="count" data-key="${it.key}">
+      <input type="number" min="0" step="1" value="${it.pts}" data-role="point" data-key="${it.key}">
+      <div class="sum" data-role="sum" data-key="${it.key}">0</div>
+    `;
+    container.appendChild(row);
+  });
+
+  document.querySelectorAll("#content-pm input[type=number]").forEach(inp => {
+    inp.addEventListener("input", recalcPm);
+  });
+}
+
+function getPmValue(key, role) {
+  const el = document.querySelector(`#content-pm input[data-role="${role}"][data-key="${key}"]`);
+  if (!el) return 0;
+  const v = parseInt(el.value, 10);
+  return isNaN(v) ? 0 : v;
+}
+
+function recalcPm() {
+  let total = 0;
+  const details = {
+    1: { title: "🚑 ПМП",            items: [], sum: 0 },
+    2: { title: "💉 Вакцина",        items: [], sum: 0 },
+    3: { title: "💊 Таблетка",       items: [], sum: 0 },
+    4: { title: "🧾 Справка",        items: [], sum: 0 },
+    5: { title: "📝 Дополнительно",  items: [], sum: 0 },
+  };
+
+  PM_ITEMS.forEach(it => {
+    const countEl = document.querySelector(`#content-pm input[data-role="count"][data-key="${it.key}"]`);
+    const sumEl   = document.querySelector(`#content-pm div[data-role="sum"][data-key="${it.key}"]`);
+    if (!countEl || !sumEl) return;
+
+    let count = getPmValue(it.key, "count");
+    const point = getPmValue(it.key, "point");
+
+    const overLimit = it.lim > 0 && count > it.lim;
+    if (overLimit) count = it.lim;
+    countEl.classList.toggle("over-limit", overLimit);
+
+    const sum = count * point;
+    total += sum;
+
+    sumEl.textContent = sum;
+    sumEl.classList.toggle("positive", sum > 0);
+
+    const row = countEl.closest(".row");
+    row.classList.toggle("active", count > 0);
+
+    if (count > 0) {
+      details[it.sect].items.push({name: it.name, count, point, sum});
+      details[it.sect].sum += sum;
+    }
+  });
+
+  const totalEl = document.getElementById("pm-total");
+  if (totalEl && parseInt(totalEl.textContent, 10) !== total) {
+    totalEl.textContent = total;
+    totalEl.classList.add("pulse");
+    setTimeout(() => totalEl.classList.remove("pulse"), 200);
+  }
+
+  const reportEl = document.getElementById("pm-report");
+  if (!reportEl) return;
+  let report = "";
+  [1, 2, 3, 4, 5].forEach(n => {
+    const d = details[n];
+    if (!d.items.length) return;
+    report += `── ${d.title} ──\n`;
+    d.items.forEach(e => {
+      report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`;
+    });
+    report += `  Подытог: ${d.sum}\n\n`;
+  });
+  if (total > 0) report += `ИТОГО PM: ${total} баллов`;
+  reportEl.textContent = report;
+
+  savePmState();
+}
+
+function savePmState() {
+  const state = {};
+  PM_ITEMS.forEach(it => {
+    state[it.key] = {
+      count: getPmValue(it.key, "count"),
+      point: getPmValue(it.key, "point"),
+    };
+  });
+  try { localStorage.setItem(STORAGE_PM_STATE, JSON.stringify(state)); } catch (e) {}
+}
+
+function loadPmState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_PM_STATE);
+    if (!raw) return;
+    const state = JSON.parse(raw);
+    PM_ITEMS.forEach(it => {
+      if (!state[it.key]) return;
+      const c = state[it.key].count || 0;
+      const p = state[it.key].point != null ? state[it.key].point : it.pts;
+      const cEl = document.querySelector(`#content-pm input[data-role="count"][data-key="${it.key}"]`);
+      const pEl = document.querySelector(`#content-pm input[data-role="point"][data-key="${it.key}"]`);
+      if (cEl) cEl.value = c > 0 ? c : "";
+      if (pEl) pEl.value = p;
+    });
+  } catch (e) {}
+}
+
+function resetPm() {
+  PM_ITEMS.forEach(it => {
+    const cEl = document.querySelector(`#content-pm input[data-role="count"][data-key="${it.key}"]`);
+    const pEl = document.querySelector(`#content-pm input[data-role="point"][data-key="${it.key}"]`);
+    if (cEl) cEl.value = "";
+    if (pEl) pEl.value = it.pts;
+  });
+  recalcPm();
+  toast("PM сброшен");
+}
+
+function copyPmReport() {
+  const report = document.getElementById("pm-report").textContent;
+  if (!report) { toast("Сначала введите данные"); return; }
+  const full = "=== ОТЧЁТ PM ===\n\n" + report;
+  navigator.clipboard.writeText(full)
+    .then(() => toast("Отчёт PM скопирован"))
+    .catch(() => toast("Не удалось скопировать"));
+}
+
+function downloadPmCsv() {
+  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]];
+  let total = 0;
+  PM_ITEMS.forEach(it => {
+    let count = getPmValue(it.key, "count");
+    const point = getPmValue(it.key, "point");
+    if (it.lim > 0 && count > it.lim) count = it.lim;
+    if (count > 0) {
+      const sum = count * point;
+      total += sum;
+      rows.push([it.name, count, point, sum]);
+    }
+  });
+  rows.push([]);
+  rows.push(["", "", "ИТОГО PM", total]);
+
+  const csv = "\uFEFF" + rows.map(r =>
+    r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(";")
+  ).join("\n");
+
+  const blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `pm_report_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast("CSV PM скачан");
+}
+
+/* ============================================================
+   HAD — СПИСОК ПУНКТОВ
+   ============================================================ */
+const HAD_ITEMS = [
+  {key:"had_reprimand",    name:"Выдача выговоров",                          pts:5,  lim:0,   sect:1},
+  {key:"had_walk_check",   name:"Проверка на прогул",                        pts:5,  lim:0,   sect:1},
+  {key:"had_break_check",  name:"Проверка обедов / отпусков",                pts:3,  lim:0,   sect:1},
+  {key:"had_briefing",     name:"Проведение брифинга",                       pts:20, lim:0,   sect:1},
+  {key:"had_briefing_att", name:"Принять участие в брифинге",                pts:10, lim:0,   sect:1},
+  {key:"had_recert",       name:"Проверить переаттестацию",                  pts:5,  lim:0,   sect:1},
+  {key:"had_radio_call",   name:"Вызвать человека по рации (запрос 10-20)",  pts:3,  lim:0,   sect:1},
+  {key:"had_duty_check",   name:"Проверка дежурств",                         pts:15, lim:0,   sect:1},
+  {key:"had_hospital_duty",name:"Дежурство в больнице 30 мин",               pts:10, lim:0,   sect:1},
+  {key:"had_duty_accept",  name:"Принятие дежурств",                         pts:15, lim:0,   sect:1},
+
+  {key:"had_instr_promo",  name:"Проверка отчёта на повышение",              pts:20, lim:0,   sect:2},
+  {key:"had_instr_weekly", name:"Проверка недельного отчёта",                pts:25, lim:0,   sect:2},
+
+  {key:"had_w_duty",       name:"Дежурство в больнице 30 мин",               pts:10, lim:0,   sect:3},
+  {key:"had_w_accept",     name:"Принятие человека",                         pts:10, lim:0,   sect:3},
+  {key:"had_w_pmp_day",    name:"ПМП днём",                                  pts:2,  lim:100, sect:3},
+  {key:"had_w_pmp_night",  name:"ПМП ночью",                                 pts:4,  lim:100, sect:3},
+  {key:"had_w_vax",        name:"Вакцины",                                   pts:4,  lim:80,  sect:3},
+  {key:"had_w_pills",      name:"Таблетки",                                  pts:1,  lim:100, sect:3},
+  {key:"had_w_med_elsh",   name:"Медсправки в ELSH",                         pts:3,  lim:75,  sect:3},
+  {key:"had_w_med_ss_pb",  name:"Медсправки в SH/PB",                        pts:4,  lim:60,  sect:3},
+];
+
+const STORAGE_HAD_STATE = "had_calc_state_v1";
+
+function renderHadItems() {
+  const elMain = document.getElementById("had-main-items");
+  const elIns  = document.getElementById("had-instr-items");
+  const elWeek = document.getElementById("had-weekly-items");
+  if (!elMain || !elIns || !elWeek) return;
+
+  HAD_ITEMS.forEach(it => {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.dataset.key = it.key;
+
+    const limitBadge = it.lim > 0 ? `<span class="limit">макс ${it.lim}</span>` : "";
+
+    row.innerHTML = `
+      <div class="name">${it.name}${limitBadge}</div>
+      <input type="number" min="0" step="1" placeholder="" data-role="count" data-key="${it.key}">
+      <input type="number" min="0" step="1" value="${it.pts}" data-role="point" data-key="${it.key}">
+      <div class="sum" data-role="sum" data-key="${it.key}">0</div>
+    `;
+
+    if (it.sect === 1)      elMain.appendChild(row);
+    else if (it.sect === 2) elIns.appendChild(row);
+    else                    elWeek.appendChild(row);
+  });
+
+  document.querySelectorAll("#content-had input[type=number]").forEach(inp => {
+    inp.addEventListener("input", recalcHad);
+  });
+}
+
+function getHadValue(key, role) {
+  const el = document.querySelector(`#content-had input[data-role="${role}"][data-key="${key}"]`);
+  if (!el) return 0;
+  const v = parseInt(el.value, 10);
+  return isNaN(v) ? 0 : v;
+}
+
+function recalcHad() {
+  let total = 0;
+  const details = { main: [], instr: [], weekly: [], mainSum: 0, instrSum: 0, weeklySum: 0 };
+
+  HAD_ITEMS.forEach(it => {
+    const countEl = document.querySelector(`#content-had input[data-role="count"][data-key="${it.key}"]`);
+    const sumEl   = document.querySelector(`#content-had div[data-role="sum"][data-key="${it.key}"]`);
+    if (!countEl || !sumEl) return;
+
+    let count = getHadValue(it.key, "count");
+    const point = getHadValue(it.key, "point");
+
+    const overLimit = it.lim > 0 && count > it.lim;
+    if (overLimit) count = it.lim;
+    countEl.classList.toggle("over-limit", overLimit);
+
+    const sum = count * point;
+    total += sum;
+
+    sumEl.textContent = sum;
+    sumEl.classList.toggle("positive", sum > 0);
+
+    const row = countEl.closest(".row");
+    row.classList.toggle("active", count > 0);
+
+    if (count > 0) {
+      const entry = {name: it.name, count, point, sum};
+      if (it.sect === 1)      { details.main.push(entry);   details.mainSum += sum; }
+      else if (it.sect === 2) { details.instr.push(entry);  details.instrSum += sum; }
+      else                    { details.weekly.push(entry); details.weeklySum += sum; }
+    }
+  });
+
+  const totalEl = document.getElementById("had-total");
+  if (totalEl && parseInt(totalEl.textContent, 10) !== total) {
+    totalEl.textContent = total;
+    totalEl.classList.add("pulse");
+    setTimeout(() => totalEl.classList.remove("pulse"), 200);
+  }
+
+  const reportEl = document.getElementById("had-report");
+  if (!reportEl) return;
+  let report = "";
+  if (details.main.length) {
+    report += "── Основные действия ──\n";
+    details.main.forEach(e => {
+      report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`;
+    });
+    report += `  Подытог: ${details.mainSum}\n\n`;
+  }
+  if (details.instr.length) {
+    report += "── Инструктор HAD ──\n";
+    details.instr.forEach(e => {
+      report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`;
+    });
+    report += `  Подытог: ${details.instrSum}\n\n`;
+  }
+  if (details.weekly.length) {
+    report += "── Недельный отчёт ──\n";
+    details.weekly.forEach(e => {
+      report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`;
+    });
+    report += `  Подытог: ${details.weeklySum}\n\n`;
+  }
+  if (total > 0) report += `ИТОГО HAD: ${total} баллов`;
+  reportEl.textContent = report;
+
+  saveHadState();
+}
+
+function saveHadState() {
+  const state = {};
+  HAD_ITEMS.forEach(it => {
+    state[it.key] = {
+      count: getHadValue(it.key, "count"),
+      point: getHadValue(it.key, "point"),
+    };
+  });
+  try { localStorage.setItem(STORAGE_HAD_STATE, JSON.stringify(state)); } catch (e) {}
+}
+
+function loadHadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_HAD_STATE);
+    if (!raw) return;
+    const state = JSON.parse(raw);
+    HAD_ITEMS.forEach(it => {
+      if (!state[it.key]) return;
+      const c = state[it.key].count || 0;
+      const p = state[it.key].point != null ? state[it.key].point : it.pts;
+      const cEl = document.querySelector(`#content-had input[data-role="count"][data-key="${it.key}"]`);
+      const pEl = document.querySelector(`#content-had input[data-role="point"][data-key="${it.key}"]`);
+      if (cEl) cEl.value = c > 0 ? c : "";
+      if (pEl) pEl.value = p;
+    });
+  } catch (e) {}
+}
+
+function resetHad() {
+  HAD_ITEMS.forEach(it => {
+    const cEl = document.querySelector(`#content-had input[data-role="count"][data-key="${it.key}"]`);
+    const pEl = document.querySelector(`#content-had input[data-role="point"][data-key="${it.key}"]`);
+    if (cEl) cEl.value = "";
+    if (pEl) pEl.value = it.pts;
+  });
+  recalcHad();
+  toast("HAD сброшен");
+}
+
+function copyHadReport() {
+  const report = document.getElementById("had-report").textContent;
+  if (!report) { toast("Сначала введите данные"); return; }
+  const full = "=== ОТЧЁТ HAD ===\n\n" + report;
+  navigator.clipboard.writeText(full)
+    .then(() => toast("Отчёт HAD скопирован"))
+    .catch(() => toast("Не удалось скопировать"));
+}
+
+function downloadHadCsv() {
+  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]];
+  let total = 0;
+  HAD_ITEMS.forEach(it => {
+    let count = getHadValue(it.key, "count");
+    const point = getHadValue(it.key, "point");
+    if (it.lim > 0 && count > it.lim) count = it.lim;
+    if (count > 0) {
+      const sum = count * point;
+      total += sum;
+      rows.push([it.name, count, point, sum]);
+    }
+  });
+  rows.push([]);
+  rows.push(["", "", "ИТОГО HAD", total]);
+
+  const csv = "\uFEFF" + rows.map(r =>
+    r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(";")
+  ).join("\n");
+
+  const blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `had_report_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast("CSV HAD скачан");
 }
 
 /* ============================================================
@@ -777,6 +1632,7 @@ function downloadCSV() {
 let toastTimer = null;
 function toast(msg) {
   const el = document.getElementById("toast");
+  if (!el) return;
   el.textContent = msg;
   el.classList.add("show");
   clearTimeout(toastTimer);
@@ -796,6 +1652,8 @@ function toast(msg) {
   const inputColor = document.getElementById("bg-color");
   const btnGrad    = document.getElementById("bg-gradient");
   const btnReset   = document.getElementById("bg-reset");
+
+  if (!btnMenu || !menu) return;
 
   btnMenu.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -830,17 +1688,9 @@ function toast(msg) {
   }
 
   function save(cfg) {
-    try {
-      localStorage.setItem(KEY, JSON.stringify(cfg));
-    } catch (e) {
-      if (e.name === "QuotaExceededError") {
-        toast("Файл слишком большой — фон не сохранён");
-      } else {
-        toast("Не удалось сохранить фон");
-      }
-    }
+    try { localStorage.setItem(KEY, JSON.stringify(cfg)); }
+    catch (e) { toast("Фон не сохранён (файл слишком большой)"); }
   }
-
   function load() {
     try {
       const raw = localStorage.getItem(KEY);
@@ -851,9 +1701,7 @@ function toast(msg) {
   inputFile.addEventListener("change", (e) => {
     const file = e.target.files && e.target.files[0];
     if (!file) return;
-    if (file.size > 4 * 1024 * 1024) {
-      toast("Файл > 4 МБ. Может не поместиться в хранилище.");
-    }
+    if (file.size > 4 * 1024 * 1024) toast("Файл > 4 МБ. Может не поместиться.");
     const reader = new FileReader();
     reader.onload = () => {
       applyBackground({type: "image", value: reader.result});
@@ -866,12 +1714,10 @@ function toast(msg) {
   inputColor.addEventListener("input", (e) => {
     applyBackground({type: "color", value: e.target.value});
   });
-
   btnGrad.addEventListener("click", () => {
     applyBackground({type: "gradient"});
     menu.hidden = true;
   });
-
   btnReset.addEventListener("click", () => {
     applyBackground({type: "color", value: "#0d1117"});
     menu.hidden = true;
@@ -882,12 +1728,55 @@ function toast(msg) {
 })();
 
 /* ============================================================
+   ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+   ============================================================ */
+(function() {
+  const KEY = "psid_active_tab_v1";
+  const tabs = document.querySelectorAll(".tab");
+  const contents = document.querySelectorAll(".tab-content");
+
+  function activate(name) {
+    tabs.forEach(t => t.classList.toggle("tab-active", t.dataset.tab === name));
+    contents.forEach(c => c.classList.toggle(
+      "tab-content-active",
+      c.id === "content-" + name
+    ));
+    try { localStorage.setItem(KEY, name); } catch (e) {}
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => activate(tab.dataset.tab));
+  });
+
+  try {
+    const saved = localStorage.getItem(KEY);
+    if (saved && document.getElementById("content-" + saved)) activate(saved);
+  } catch (e) {}
+})();
+
+/* ============================================================
+   КНОПКА "ПЕРЕЙТИ К PSID"
+   ============================================================ */
+(function() {
+  const btn = document.getElementById("goto-psid");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const psidTab = document.querySelector('.tab[data-tab="psid"]');
+    if (psidTab) psidTab.click();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+
+/* ============================================================
    ГОРЯЧИЕ КЛАВИШИ
    ============================================================ */
 document.addEventListener("keydown", (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === "s") {
     e.preventDefault();
-    copyReport();
+    const activeId = document.querySelector(".tab-content.tab-content-active")?.id;
+    if (activeId === "content-had")       copyHadReport();
+    else if (activeId === "content-psid") copyReport();
+    else if (activeId === "content-pm")   copyPmReport();
   }
 });
 
@@ -895,18 +1784,31 @@ document.addEventListener("keydown", (e) => {
    ИНИЦИАЛИЗАЦИЯ
    ============================================================ */
 renderItems();
-
-// сначала дефолтные баллы (если пользователь их сохранял), потом состояние ввода
 loadSavedDefaults();
 loadState();
 
-// подписываем кнопки
 document.getElementById("btn-copy").addEventListener("click", copyReport);
 document.getElementById("btn-csv").addEventListener("click", downloadCSV);
 document.getElementById("btn-save").addEventListener("click", saveDefaults);
 document.getElementById("btn-reset").addEventListener("click", resetAll);
 
+renderPmItems();
+loadPmState();
+
+document.getElementById("pm-btn-copy").addEventListener("click", copyPmReport);
+document.getElementById("pm-btn-csv").addEventListener("click", downloadPmCsv);
+document.getElementById("pm-btn-reset").addEventListener("click", resetPm);
+
+renderHadItems();
+loadHadState();
+
+document.getElementById("had-btn-copy").addEventListener("click", copyHadReport);
+document.getElementById("had-btn-csv").addEventListener("click", downloadHadCsv);
+document.getElementById("had-btn-reset").addEventListener("click", resetHad);
+
 recalc();
+recalcPm();
+recalcHad();
 </script>
 </body>
 </html>
