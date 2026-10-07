@@ -17,8 +17,6 @@
     --success: #3fb950;
     --danger: #f85149;
     --gold: #d29922;
-    --pink: #ff7ab8;
-    --blue: #5fa8ff;
     --radius: 10px;
     --shadow: 0 4px 16px rgba(0,0,0,0.35);
     --blur: 14px;
@@ -101,9 +99,7 @@
   }
   header p { color: var(--text-dim); font-size: 14px; }
 
-  /* ============================================================
-     КНОПКА ФОНА
-     ============================================================ */
+  /* --------- Кнопка фона --------- */
   .bg-controls { position: fixed; top: 16px; right: 16px; z-index: 100; }
   .bg-btn {
     background: var(--bg-alt); color: var(--text);
@@ -150,9 +146,7 @@
     border-radius: 6px; cursor: pointer;
   }
 
-  /* ============================================================
-     ВКЛАДКИ СПРАВА
-     ============================================================ */
+  /* --------- Вкладки --------- */
   .side-tabs {
     position: fixed; top: 50%; right: 0; transform: translateY(-50%);
     z-index: 90; display: flex; flex-direction: column; gap: 6px;
@@ -190,9 +184,6 @@
   .tab-icon { font-size: 18px; flex-shrink: 0; width: 24px; text-align: center; }
   .tab-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  /* ============================================================
-     FADE
-     ============================================================ */
   .tab-content { display: none; opacity: 0; transform: translateY(6px);
     transition: opacity 0.22s ease, transform 0.22s ease; }
   .tab-content.tab-content-active {
@@ -204,17 +195,13 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ============================================================
-     LAYOUT
-     ============================================================ */
+  /* --------- Layout --------- */
   .content-layout {
     display: grid; grid-template-columns: 110px 1fr;
     gap: 20px; align-items: start;
   }
 
-  /* ============================================================
-     ШКАЛА СЛЕВА
-     ============================================================ */
+  /* --------- Шкала --------- */
   .progress-rail {
     position: sticky; top: 24px; height: 640px;
     padding: 20px 14px; background: var(--bg-alt);
@@ -274,9 +261,7 @@
     .progress-rail-title, .progress-rail-status { margin: 0; min-height: 0; }
   }
 
-  /* ============================================================
-     СЕКЦИИ
-     ============================================================ */
+  /* --------- Секции --------- */
   .section {
     background: var(--bg-alt);
     border: 1px solid var(--border);
@@ -292,9 +277,6 @@
     margin-bottom: 16px; padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
   }
-  .section-title.pink { color: var(--pink); border-bottom-color: rgba(255, 122, 184, 0.25); }
-  .section-title.blue { color: var(--blue); border-bottom-color: rgba(95, 168, 255, 0.25); }
-  .section-title.gold { color: var(--gold); border-bottom-color: rgba(210, 153, 34, 0.25); }
 
   .row {
     display: grid; grid-template-columns: 1fr 90px 90px 90px;
@@ -427,18 +409,6 @@
   .rules-list .arrow { color: var(--accent); font-weight: 700; flex-shrink: 0; }
   .rules-list b { color: var(--text); }
 
-  /* Плейсхолдер */
-  .placeholder {
-    background: var(--bg-alt); border: 1px dashed var(--border);
-    border-radius: var(--radius); padding: 48px 24px;
-    text-align: center; color: var(--text-dim);
-    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
-  }
-  .placeholder h2 { color: var(--accent); font-size: 22px; margin-bottom: 10px; }
-  .placeholder p { font-size: 14px; max-width: 500px; margin: 0 auto; line-height: 1.7; }
-  .placeholder .icon { font-size: 48px; display: block; margin-bottom: 16px; opacity: 0.7; }
-
-  /* Hero */
   .hero {
     text-align: center; padding: 40px 24px 32px;
     background: linear-gradient(135deg, rgba(26, 39, 68, 0.6), rgba(22, 33, 62, 0.6));
@@ -484,24 +454,6 @@
   .feature-body h3 { font-size: 14px; color: var(--text); margin-bottom: 4px; font-weight: 600; }
   .feature-body p { font-size: 13px; color: var(--text-dim); line-height: 1.55; }
 
-  .steps {
-    list-style: none; padding: 0; margin: 0;
-    display: flex; flex-direction: column; gap: 12px;
-  }
-  .steps li {
-    display: flex; align-items: flex-start; gap: 14px;
-    padding: 12px 14px; background: rgba(13, 17, 23, 0.55);
-    border: 1px solid var(--border); border-radius: 8px;
-  }
-  .step-num {
-    flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
-    background: var(--accent); color: #0d1117;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 14px;
-  }
-  .step-body { font-size: 14px; color: var(--text-dim); line-height: 1.55; padding-top: 3px; }
-  .step-body b { color: var(--text); }
-
   .toast {
     position: fixed; bottom: 24px; left: 50%;
     transform: translateX(-50%) translateY(80px);
@@ -513,15 +465,6 @@
     backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
   }
   .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-
-  /* Хинты по нормам */
-  .norm-hint {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 11px; color: var(--text-dim);
-    background: rgba(88, 166, 255, 0.08);
-    border: 1px solid rgba(88, 166, 255, 0.2);
-    border-radius: 6px; padding: 3px 8px; margin-left: 8px;
-  }
 
   @media (max-width: 640px) {
     body { padding: 16px 10px 40px; }
@@ -550,8 +493,6 @@
     .feature { padding: 12px; }
     .feature-body h3 { font-size: 13px; }
     .feature-body p { font-size: 12.5px; }
-    .steps li { padding: 10px 12px; }
-    .step-body { font-size: 13px; }
     .cta-btn { padding: 12px 22px; font-size: 14px; }
     .rules-list { grid-template-columns: 1fr; }
     .bg-presets { grid-template-columns: repeat(2, 1fr); }
@@ -567,24 +508,19 @@
 
 <nav class="side-tabs" aria-label="Разделы">
   <button class="tab tab-active" data-tab="main" type="button">
-    <span class="tab-icon">🏠</span>
-    <span class="tab-label">Главное меню</span>
+    <span class="tab-icon">🏠</span><span class="tab-label">Главное меню</span>
   </button>
   <button class="tab" data-tab="pm" type="button">
-    <span class="tab-icon">📋</span>
-    <span class="tab-label">PM</span>
+    <span class="tab-icon">📋</span><span class="tab-label">PM</span>
   </button>
   <button class="tab" data-tab="di" type="button">
-    <span class="tab-icon">📊</span>
-    <span class="tab-label">DI</span>
+    <span class="tab-icon">📊</span><span class="tab-label">DI</span>
   </button>
   <button class="tab" data-tab="psid" type="button">
-    <span class="tab-icon">🏥</span>
-    <span class="tab-label">PSID</span>
+    <span class="tab-icon">🏥</span><span class="tab-label">PSID</span>
   </button>
   <button class="tab" data-tab="had" type="button">
-    <span class="tab-icon">💉</span>
-    <span class="tab-label">HAD</span>
+    <span class="tab-icon">💉</span><span class="tab-label">HAD</span>
   </button>
 </nav>
 
@@ -625,59 +561,19 @@
         Слева каждой вкладки — шкала прогресса 100 → 1500 с цветовой индикацией.
       </p>
     </div>
-
     <div class="section">
       <div class="section-title">Что умеет калькулятор</div>
       <div class="features">
-        <div class="feature">
-          <div class="feature-icon">📊</div>
-          <div class="feature-body">
-            <h3>Шкала прогресса</h3>
-            <p>Слева каждой вкладки — визуальная шкала от 100 до 1500 баллов с цветом от красного к зелёному.</p>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">⚡</div>
-          <div class="feature-body">
-            <h3>Мгновенный подсчёт</h3>
-            <p>Итог и шкала обновляются автоматически при вводе — с анимацией цифр.</p>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">🧮</div>
-          <div class="feature-body">
-            <h3>Учёт лимитов</h3>
-            <p>Автоматически применяются ограничения на таблетки, ПМП, вакцины и медсправки.</p>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">🎨</div>
-          <div class="feature-body">
-            <h3>Пресеты фонов</h3>
-            <p>6 готовых фонов + загрузка своих картинок, GIF и сплошного цвета.</p>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">💾</div>
-          <div class="feature-body">
-            <h3>Экспорт в CSV</h3>
-            <p>Скачивание отчёта в формате Excel — с русскими буквами и BOM.</p>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">🔒</div>
-          <div class="feature-body">
-            <h3>Автосохранение</h3>
-            <p>Все данные хранятся в браузере отдельно по каждому отделу.</p>
-          </div>
-        </div>
+        <div class="feature"><div class="feature-icon">📊</div><div class="feature-body"><h3>Шкала прогресса</h3><p>Слева каждой вкладки — визуальная шкала от 100 до 1500 баллов с цветом от красного к зелёному.</p></div></div>
+        <div class="feature"><div class="feature-icon">⚡</div><div class="feature-body"><h3>Мгновенный подсчёт</h3><p>Итог и шкала обновляются автоматически при вводе — с анимацией цифр.</p></div></div>
+        <div class="feature"><div class="feature-icon">🧮</div><div class="feature-body"><h3>Учёт лимитов</h3><p>Автоматически применяются ограничения на таблетки, ПМП, вакцины и медсправки.</p></div></div>
+        <div class="feature"><div class="feature-icon">🎨</div><div class="feature-body"><h3>Пресеты фонов</h3><p>6 готовых фонов + загрузка своих картинок, GIF и сплошного цвета.</p></div></div>
+        <div class="feature"><div class="feature-icon">📋</div><div class="feature-body"><h3>Готовый отчёт</h3><p>Одна кнопка — и подробный текстовый отчёт скопирован в буфер обмена.</p></div></div>
+        <div class="feature"><div class="feature-icon">🔒</div><div class="feature-body"><h3>Автосохранение</h3><p>Все данные хранятся в браузере отдельно по каждому отделу.</p></div></div>
       </div>
     </div>
-
     <div class="hero-cta">
-      <button class="cta-btn" id="goto-psid" type="button">
-        Перейти к калькулятору PSID →
-      </button>
+      <button class="cta-btn" id="goto-psid" type="button">Перейти к калькулятору PSID →</button>
     </div>
   </section>
 
@@ -702,39 +598,16 @@
 
       <div>
         <div class="section">
-          <div class="section-title">🚑 ПМП</div>
+          <div class="section-title">Основная система PM</div>
           <div class="row header-row">
             <div class="cell">Действие</div><div class="cell">Кол-во</div>
             <div class="cell">Балл</div><div class="cell">Итог</div>
           </div>
-          <div id="pm-pmp-items"></div>
+          <div id="pm-main-items"></div>
         </div>
+
         <div class="section">
-          <div class="section-title">💉 Вакцина</div>
-          <div class="row header-row">
-            <div class="cell">Больница</div><div class="cell">Кол-во</div>
-            <div class="cell">Балл</div><div class="cell">Итог</div>
-          </div>
-          <div id="pm-vax-items"></div>
-        </div>
-        <div class="section">
-          <div class="section-title">💊 Таблетка</div>
-          <div class="row header-row">
-            <div class="cell">Больница</div><div class="cell">Кол-во</div>
-            <div class="cell">Балл</div><div class="cell">Итог</div>
-          </div>
-          <div id="pm-pill-items"></div>
-        </div>
-        <div class="section">
-          <div class="section-title">🧾 Справка</div>
-          <div class="row header-row">
-            <div class="cell">Больница</div><div class="cell">Кол-во</div>
-            <div class="cell">Балл</div><div class="cell">Итог</div>
-          </div>
-          <div id="pm-med-items"></div>
-        </div>
-        <div class="section">
-          <div class="section-title">📝 Дополнительно</div>
+          <div class="section-title">Дополнительно PM</div>
           <div class="row header-row">
             <div class="cell">Действие</div><div class="cell">Кол-во</div>
             <div class="cell">Балл</div><div class="cell">Итог</div>
@@ -749,7 +622,6 @@
 
         <div class="buttons">
           <button class="primary" id="pm-btn-copy" type="button">📋 Копировать отчёт</button>
-          <button id="pm-btn-csv" type="button">💾 Скачать CSV</button>
           <button class="danger" id="pm-btn-reset" type="button">↺ Сбросить PM</button>
         </div>
 
@@ -787,9 +659,8 @@
       </aside>
 
       <div>
-        <!-- Сотрудники DI -->
         <div class="section">
-          <div class="section-title pink">🩷 Для сотрудников DI</div>
+          <div class="section-title">Для сотрудников DI</div>
           <div class="row header-row">
             <div class="cell">Действие</div><div class="cell">Кол-во</div>
             <div class="cell">Балл</div><div class="cell">Итог</div>
@@ -797,12 +668,8 @@
           <div id="di-staff-items"></div>
         </div>
 
-        <!-- Инструкторы DI -->
         <div class="section">
-          <div class="section-title blue">
-            💙 Для инструкторов DI
-            <span class="norm-hint">норма: 20 действий</span>
-          </div>
+          <div class="section-title">Для инструкторов DI</div>
           <div class="row header-row">
             <div class="cell">Действие</div><div class="cell">Кол-во</div>
             <div class="cell">Балл</div><div class="cell">Итог</div>
@@ -810,9 +677,8 @@
           <div id="di-instr-items"></div>
         </div>
 
-        <!-- Доп. активность -->
         <div class="section">
-          <div class="section-title gold">⭐ Дополнительная активность</div>
+          <div class="section-title">Дополнительная активность</div>
           <div class="row header-row">
             <div class="cell">Действие</div><div class="cell">Кол-во</div>
             <div class="cell">Балл</div><div class="cell">Итог</div>
@@ -825,14 +691,13 @@
           <span class="value" id="di-total">0</span>
         </div>
 
-        <div class="total-box" style="border-color: var(--blue); background: linear-gradient(135deg, rgba(20, 40, 80, 0.85), rgba(15, 30, 60, 0.85));">
+        <div class="total-box">
           <span class="label">Действий инструктора</span>
-          <span class="value" id="di-instr-actions" style="color: var(--blue);">0</span>
+          <span class="value" id="di-instr-actions">0</span>
         </div>
 
         <div class="buttons">
           <button class="primary" id="di-btn-copy" type="button">📋 Копировать отчёт</button>
-          <button id="di-btn-csv" type="button">💾 Скачать CSV</button>
           <button class="danger" id="di-btn-reset" type="button">↺ Сбросить DI</button>
         </div>
 
@@ -893,7 +758,6 @@
 
         <div class="buttons">
           <button class="primary" id="btn-copy" type="button">📋 Копировать отчёт</button>
-          <button id="btn-csv" type="button">💾 Скачать CSV</button>
           <button id="btn-save" type="button">🔒 Сохранить баллы</button>
           <button class="danger" id="btn-reset" type="button">↺ Сбросить PSID</button>
         </div>
@@ -955,7 +819,6 @@
 
         <div class="buttons">
           <button class="primary" id="had-btn-copy" type="button">📋 Копировать отчёт</button>
-          <button id="had-btn-csv" type="button">💾 Скачать CSV</button>
           <button class="danger" id="had-btn-reset" type="button">↺ Сбросить HAD</button>
         </div>
 
@@ -1013,7 +876,7 @@ const BG_PRESETS = [
 ];
 
 /* ============================================================
-   СПИСКИ
+   СПИСКИ УСЛУГ
    ============================================================ */
 const ITEMS = [
   {key:"pill_day",       name:"Выдача таблетки днём",                   pts:2,  lim:100, sect:1},
@@ -1045,37 +908,37 @@ const ITEMS = [
 const STORAGE_STATE    = "psid_calc_state_v1";
 const STORAGE_DEFAULTS = "psid_calc_defaults_v1";
 
-/* ---- PM ---- */
+/* PM: sect 1 = основная система, sect 2 = дополнительно */
 const PM_ITEMS = [
   {key:"pm_pmp_day",      name:"ПМП днём",                              pts:3,   lim:0, sect:1},
   {key:"pm_pmp_night",    name:"ПМП ночью",                             pts:5,   lim:0, sect:1},
   {key:"pm_pmp_hospital", name:"ПМП в любой больнице и палатах",        pts:1,   lim:0, sect:1},
   {key:"pm_pmp_rejected", name:"Отклонённый вызов",                     pts:1,   lim:0, sect:1},
-  {key:"pm_vax_elsh",     name:"Вакцина в ELSH",                        pts:3,   lim:0, sect:2},
-  {key:"pm_vax_ss",       name:"Вакцина в Sandy-Shores",                pts:4,   lim:0, sect:2},
-  {key:"pm_vax_pb",       name:"Вакцина в Paleto-Bay",                  pts:4,   lim:0, sect:2},
-  {key:"pm_pill_elsh",    name:"Таблетка в ELSH",                       pts:1,   lim:0, sect:3},
-  {key:"pm_pill_ss",      name:"Таблетка в Sandy-Shores",               pts:2,   lim:0, sect:3},
-  {key:"pm_pill_pb",      name:"Таблетка в Paleto-Bay",                 pts:2,   lim:0, sect:3},
-  {key:"pm_med_elsh",     name:"Справка в ELSH (каждая)",               pts:3,   lim:0, sect:4},
-  {key:"pm_med_ss",       name:"Справка в Sandy-Shores (каждая)",       pts:4,   lim:0, sect:4},
-  {key:"pm_med_pb",       name:"Справка в Paleto-Bay (каждая)",         pts:4,   lim:0, sect:4},
-  {key:"pm_q_therapist",  name:"Получение квалификации «Терапевт»",     pts:50,  lim:0, sect:5},
-  {key:"pm_q_surgeon",    name:"Получение квалификации «Хирург»",       pts:50,  lim:0, sect:5},
-  {key:"pm_q_vet",        name:"Получение квалификации «Ветеринар»",    pts:50,  lim:0, sect:5},
-  {key:"pm_q_recruiter",  name:"Получение квалификации «Рекрутер»",     pts:50,  lim:0, sect:5},
-  {key:"pm_lecture",      name:"Прослушивание лекции",                  pts:10,  lim:0, sect:5},
-  {key:"pm_exam",         name:"Прохождение экзамена",                  pts:10,  lim:0, sect:5},
-  {key:"pm_rp_op",        name:"Проведение 1 РП операции",              pts:100, lim:0, sect:5},
-  {key:"pm_recruit",      name:"Принятие 1 человека во фракцию",        pts:100, lim:0, sect:5},
-  {key:"pm_animal_check", name:"Проведение 1 осмотра служебных животных",pts:100,lim:0, sect:5},
-  {key:"pm_duty_elsh",    name:"Дежурство ELSH (30 минут)",             pts:10,  lim:0, sect:5},
-  {key:"pm_duty_ss",      name:"Дежурство Sandy-Shores (30 минут)",     pts:15,  lim:0, sect:5},
-  {key:"pm_duty_pb",      name:"Дежурство Paleto-Bay (30 минут)",       pts:15,  lim:0, sect:5},
+  {key:"pm_vax_elsh",     name:"Вакцина в ELSH",                        pts:3,   lim:0, sect:1},
+  {key:"pm_vax_ss",       name:"Вакцина в Sandy-Shores",                pts:4,   lim:0, sect:1},
+  {key:"pm_vax_pb",       name:"Вакцина в Paleto-Bay",                  pts:4,   lim:0, sect:1},
+  {key:"pm_pill_elsh",    name:"Таблетка в ELSH",                       pts:1,   lim:0, sect:1},
+  {key:"pm_pill_ss",      name:"Таблетка в Sandy-Shores",               pts:2,   lim:0, sect:1},
+  {key:"pm_pill_pb",      name:"Таблетка в Paleto-Bay",                 pts:2,   lim:0, sect:1},
+  {key:"pm_med_elsh",     name:"Справка в ELSH (каждая)",               pts:3,   lim:0, sect:1},
+  {key:"pm_med_ss",       name:"Справка в Sandy-Shores (каждая)",       pts:4,   lim:0, sect:1},
+  {key:"pm_med_pb",       name:"Справка в Paleto-Bay (каждая)",         pts:4,   lim:0, sect:1},
+
+  {key:"pm_q_therapist",  name:"Получение квалификации «Терапевт»",     pts:50,  lim:0, sect:2},
+  {key:"pm_q_surgeon",    name:"Получение квалификации «Хирург»",       pts:50,  lim:0, sect:2},
+  {key:"pm_q_vet",        name:"Получение квалификации «Ветеринар»",    pts:50,  lim:0, sect:2},
+  {key:"pm_q_recruiter",  name:"Получение квалификации «Рекрутер»",     pts:50,  lim:0, sect:2},
+  {key:"pm_lecture",      name:"Прослушивание лекции",                  pts:10,  lim:0, sect:2},
+  {key:"pm_exam",         name:"Прохождение экзамена",                  pts:10,  lim:0, sect:2},
+  {key:"pm_rp_op",        name:"Проведение 1 РП операции",              pts:100, lim:0, sect:2},
+  {key:"pm_recruit",      name:"Принятие 1 человека во фракцию",        pts:100, lim:0, sect:2},
+  {key:"pm_animal_check", name:"Проведение 1 осмотра служебных животных",pts:100,lim:0, sect:2},
+  {key:"pm_duty_elsh",    name:"Дежурство ELSH (30 минут)",             pts:10,  lim:0, sect:2},
+  {key:"pm_duty_ss",      name:"Дежурство Sandy-Shores (30 минут)",     pts:15,  lim:0, sect:2},
+  {key:"pm_duty_pb",      name:"Дежурство Paleto-Bay (30 минут)",       pts:15,  lim:0, sect:2},
 ];
 const STORAGE_PM_STATE = "pm_calc_state_v1";
 
-/* ---- HAD ---- */
 const HAD_ITEMS = [
   {key:"had_reprimand",    name:"Выдача выговоров",                          pts:5,  lim:0,   sect:1},
   {key:"had_walk_check",   name:"Проверка на прогул",                        pts:5,  lim:0,   sect:1},
@@ -1100,13 +963,7 @@ const HAD_ITEMS = [
 ];
 const STORAGE_HAD_STATE = "had_calc_state_v1";
 
-/* ---- DI ----
-   sect 1: сотрудники DI (pts — баллы)
-   sect 2: инструкторы DI (pts=1 — "1 действие", сумма действий)
-   sect 3: доп. активность (pts — баллы)
-*/
 const DI_ITEMS = [
-  // Сотрудники DI
   {key:"di_interview",        name:"Проведение собеседования / восстановления / перевода", pts:25, lim:0, sect:1},
   {key:"di_briefing_intro",   name:"Проведение вводного инструктажа",                       pts:35, lim:0, sect:1},
   {key:"di_interview_fail",   name:"Неудачное собеседование",                               pts:5,  lim:0, sect:1},
@@ -1119,14 +976,12 @@ const DI_ITEMS = [
   {key:"di_fire_check",       name:"Проведение пожарной проверки",                          pts:60, lim:0, sect:1},
   {key:"di_hospital_duty",    name:"Дежурство в больницах (30 минут)",                      pts:10, lim:0, sect:1},
 
-  // Инструкторы DI — каждая позиция = 1 действие
   {key:"di_instr_activity",   name:"Любая деятельность по отделу (работа сотрудника DI)",   pts:1, lim:0, sect:2},
   {key:"di_instr_report",     name:"Проверка отчёта на повышение сотрудника DI",            pts:1, lim:0, sect:2},
   {key:"di_instr_audit",      name:"Кадровый аудит (повышения и т.д.)",                     pts:1, lim:0, sect:2},
   {key:"di_instr_craft",      name:"Участие в крафте",                                      pts:1, lim:0, sect:2},
   {key:"di_instr_other",      name:"Прочие активности из канала поощрений",                 pts:1, lim:0, sect:2},
 
-  // Доп. активность
   {key:"di_x_pill",       name:"Таблетка в любой больнице",         pts:1,  lim:0, sect:3},
   {key:"di_x_vax",        name:"Вакцинация",                        pts:2,  lim:0, sect:3},
   {key:"di_x_med",        name:"Оформление справок",                pts:3,  lim:0, sect:3},
@@ -1138,7 +993,7 @@ const DI_ITEMS = [
 const STORAGE_DI_STATE = "di_calc_state_v1";
 
 /* ============================================================
-   ОБЩИЕ
+   ХЕЛПЕРЫ
    ============================================================ */
 function toast(msg) {
   const el = document.getElementById("toast");
@@ -1227,7 +1082,6 @@ function updateRail(sectionId, total) {
   const statusEl = rail.querySelector("[data-rail-status]");
   const percent = valueToPercent(total);
   const color = valueToColor(total);
-
   if (valueEl && valueEl.textContent !== String(total)) {
     valueEl.textContent = total;
     valueEl.style.color = color;
@@ -1358,27 +1212,16 @@ function copyReport() {
   navigator.clipboard.writeText("=== ОТЧЁТ PSID ===\n\n" + r)
     .then(() => toast("Отчёт PSID скопирован")).catch(() => toast("Не удалось"));
 }
-function downloadCSV() {
-  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]]; let total = 0;
-  ITEMS.forEach(it => {
-    let c = getValue(it.key, "count"); const p = getValue(it.key, "point");
-    if (it.lim > 0 && c > it.lim) c = it.lim;
-    if (c > 0) { const s = c * p; total += s; rows.push([it.name, c, p, s]); }
-  });
-  rows.push([]); rows.push(["", "", "ИТОГО PSID", total]);
-  downloadBlob("\uFEFF" + rows.map(r => r.map(x => `"${String(x).replace(/"/g,'""')}"`).join(";")).join("\n"), `psid_report_${new Date().toISOString().slice(0,10)}.csv`);
-}
 
 /* ============================================================
    PM
    ============================================================ */
 function renderPmItems() {
-  const b = { 1: document.getElementById("pm-pmp-items"), 2: document.getElementById("pm-vax-items"),
-              3: document.getElementById("pm-pill-items"), 4: document.getElementById("pm-med-items"),
-              5: document.getElementById("pm-extra-items") };
-  if (!b[1]) return;
+  const elMain  = document.getElementById("pm-main-items");
+  const elExtra = document.getElementById("pm-extra-items");
+  if (!elMain || !elExtra) return;
   PM_ITEMS.forEach(it => {
-    const c = b[it.sect]; if (!c) return;
+    const container = it.sect === 1 ? elMain : elExtra;
     const row = document.createElement("div");
     row.className = "row"; row.dataset.key = it.key;
     row.innerHTML = `
@@ -1386,7 +1229,7 @@ function renderPmItems() {
       <input type="number" min="0" step="1" data-role="count" data-key="${it.key}">
       <input type="number" min="0" step="1" value="${it.pts}" data-role="point" data-key="${it.key}">
       <div class="sum" data-role="sum" data-key="${it.key}">0</div>`;
-    c.appendChild(row);
+    container.appendChild(row);
   });
   document.querySelectorAll("#content-pm input[type=number]").forEach(inp => inp.addEventListener("input", recalcPm));
 }
@@ -1396,13 +1239,7 @@ function getPmValue(key, role) {
 }
 function recalcPm() {
   let total = 0;
-  const details = {
-    1: { title: "🚑 ПМП", items: [], sum: 0 },
-    2: { title: "💉 Вакцина", items: [], sum: 0 },
-    3: { title: "💊 Таблетка", items: [], sum: 0 },
-    4: { title: "🧾 Справка", items: [], sum: 0 },
-    5: { title: "📝 Дополнительно", items: [], sum: 0 },
-  };
+  const details = { main: [], extra: [], mainSum: 0, extraSum: 0 };
   PM_ITEMS.forEach(it => {
     const countEl = document.querySelector(`#content-pm input[data-role="count"][data-key="${it.key}"]`);
     const sumEl   = document.querySelector(`#content-pm div[data-role="sum"][data-key="${it.key}"]`);
@@ -1413,15 +1250,19 @@ function recalcPm() {
     popIfChanged(sumEl, sumEl.textContent, String(sum));
     sumEl.classList.toggle("positive", sum > 0);
     countEl.closest(".row").classList.toggle("active", count > 0);
-    if (count > 0) { details[it.sect].items.push({name: it.name, count, point, sum}); details[it.sect].sum += sum; }
+    if (count > 0) {
+      const e = {name: it.name, count, point, sum};
+      if (it.sect === 1) { details.main.push(e); details.mainSum += sum; }
+      else { details.extra.push(e); details.extraSum += sum; }
+    }
   });
   const totalEl = document.getElementById("pm-total");
   if (totalEl && parseInt(totalEl.textContent, 10) !== total) { totalEl.textContent = total; pulseEl(totalEl); }
   const reportEl = document.getElementById("pm-report");
   if (reportEl) {
     let report = "";
-    [1,2,3,4,5].forEach(n => { const d = details[n]; if (!d.items.length) return;
-      report += `── ${d.title} ──\n`; d.items.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`); report += `  Подытог: ${d.sum}\n\n`; });
+    if (details.main.length) { report += "── Основная система PM ──\n"; details.main.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`); report += `  Подытог: ${details.mainSum}\n\n`; }
+    if (details.extra.length) { report += "── Дополнительно PM ──\n"; details.extra.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`); report += `  Подытог: ${details.extraSum}\n\n`; }
     if (total > 0) report += `ИТОГО PM: ${total} баллов`;
     reportEl.textContent = report;
   }
@@ -1461,15 +1302,6 @@ function copyPmReport() {
   navigator.clipboard.writeText("=== ОТЧЁТ PM ===\n\n" + r)
     .then(() => toast("Отчёт PM скопирован")).catch(() => toast("Не удалось"));
 }
-function downloadPmCsv() {
-  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]]; let total = 0;
-  PM_ITEMS.forEach(it => {
-    const c = getPmValue(it.key, "count"); const p = getPmValue(it.key, "point");
-    if (c > 0) { const s = c * p; total += s; rows.push([it.name, c, p, s]); }
-  });
-  rows.push([]); rows.push(["", "", "ИТОГО PM", total]);
-  downloadBlob("\uFEFF" + rows.map(r => r.map(x => `"${String(x).replace(/"/g,'""')}"`).join(";")).join("\n"), `pm_report_${new Date().toISOString().slice(0,10)}.csv`);
-}
 
 /* ============================================================
    DI
@@ -1479,7 +1311,6 @@ function renderDiItems() {
   const elInstr = document.getElementById("di-instr-items");
   const elExtra = document.getElementById("di-extra-items");
   if (!elStaff || !elInstr || !elExtra) return;
-
   DI_ITEMS.forEach(it => {
     const container = it.sect === 1 ? elStaff : (it.sect === 2 ? elInstr : elExtra);
     const row = document.createElement("div");
@@ -1498,15 +1329,13 @@ function getDiValue(key, role) {
   if (!el) return 0; const v = parseInt(el.value, 10); return isNaN(v) ? 0 : v;
 }
 function recalcDi() {
-  let total = 0;         // общие баллы (сотрудники + доп.)
-  let instrActions = 0;  // количество действий инструктора
-
+  let total = 0;
+  let instrActions = 0;
   const details = {
-    staff: { title: "🩷 Для сотрудников DI", items: [], sum: 0 },
-    instr: { title: "💙 Для инструкторов DI", items: [], sum: 0, actions: 0 },
-    extra: { title: "⭐ Дополнительная активность", items: [], sum: 0 },
+    staff: { title: "Для сотрудников DI", items: [], sum: 0 },
+    instr: { title: "Для инструкторов DI", items: [], actions: 0 },
+    extra: { title: "Дополнительная активность", items: [], sum: 0 },
   };
-
   DI_ITEMS.forEach(it => {
     const countEl = document.querySelector(`#content-di input[data-role="count"][data-key="${it.key}"]`);
     const sumEl   = document.querySelector(`#content-di div[data-role="sum"][data-key="${it.key}"]`);
@@ -1514,58 +1343,36 @@ function recalcDi() {
     const count = getDiValue(it.key, "count");
     const point = getDiValue(it.key, "point");
     const sum = count * point;
-
     popIfChanged(sumEl, sumEl.textContent, String(sum));
     sumEl.classList.toggle("positive", sum > 0);
     countEl.closest(".row").classList.toggle("active", count > 0);
-
     if (it.sect === 1) {
       total += sum;
       if (count > 0) { details.staff.items.push({name: it.name, count, point, sum}); details.staff.sum += sum; }
     } else if (it.sect === 2) {
-      // инструкторы: 1 позиция = 1 действие, баллы не добавляем в общий
       instrActions += count;
-      if (count > 0) { details.instr.items.push({name: it.name, count, point, sum}); details.instr.sum += sum; details.instr.actions += count; }
+      if (count > 0) { details.instr.items.push({name: it.name, count}); details.instr.actions += count; }
     } else {
       total += sum;
       if (count > 0) { details.extra.items.push({name: it.name, count, point, sum}); details.extra.sum += sum; }
     }
   });
-
-  // Итог баллов DI
   const totalEl = document.getElementById("di-total");
   if (totalEl && parseInt(totalEl.textContent, 10) !== total) { totalEl.textContent = total; pulseEl(totalEl); }
-
-  // Итог действий инструктора
   const instrEl = document.getElementById("di-instr-actions");
   if (instrEl && parseInt(instrEl.textContent, 10) !== instrActions) { instrEl.textContent = instrActions; pulseEl(instrEl); }
-
-  // Отчёт
   const reportEl = document.getElementById("di-report");
   if (reportEl) {
     let report = "";
-    if (details.staff.items.length) {
-      report += "── 🩷 Для сотрудников DI ──\n";
-      details.staff.items.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
-      report += `  Подытог: ${details.staff.sum}\n\n`;
-    }
-    if (details.extra.items.length) {
-      report += "── ⭐ Дополнительная активность ──\n";
-      details.extra.items.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
-      report += `  Подытог: ${details.extra.sum}\n\n`;
-    }
-    if (details.instr.items.length) {
-      report += "── 💙 Для инструкторов DI (действия) ──\n";
-      details.instr.items.forEach(e => report += `  ${e.name}: ${e.count} действий\n`);
-      report += `  Подытог: ${details.instr.actions} действий\n\n`;
-    }
+    if (details.staff.items.length) { report += "── Для сотрудников DI ──\n"; details.staff.items.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`); report += `  Подытог: ${details.staff.sum}\n\n`; }
+    if (details.extra.items.length) { report += "── Дополнительная активность ──\n"; details.extra.items.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`); report += `  Подытог: ${details.extra.sum}\n\n`; }
+    if (details.instr.items.length) { report += "── Для инструкторов DI (действия) ──\n"; details.instr.items.forEach(e => report += `  ${e.name}: ${e.count} действий\n`); report += `  Подытог: ${details.instr.actions} действий\n\n`; }
     if (total > 0 || instrActions > 0) {
       report += `ИТОГО DI: ${total} баллов`;
       if (instrActions > 0) report += `\nДействий инструктора: ${instrActions}`;
     }
     reportEl.textContent = report;
   }
-
   updateRail("content-di", total);
   saveDiState();
 }
@@ -1601,19 +1408,6 @@ function copyDiReport() {
   if (!r) { toast("Сначала введите данные"); return; }
   navigator.clipboard.writeText("=== ОТЧЁТ DI ===\n\n" + r)
     .then(() => toast("Отчёт DI скопирован")).catch(() => toast("Не удалось"));
-}
-function downloadDiCsv() {
-  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]]; let total = 0; let actions = 0;
-  DI_ITEMS.forEach(it => {
-    const c = getDiValue(it.key, "count"); const p = getDiValue(it.key, "point");
-    if (c > 0) {
-      if (it.sect === 2) { actions += c; rows.push([it.name + " (действие)", c, "—", "—"]); }
-      else { const s = c * p; total += s; rows.push([it.name, c, p, s]); }
-    }
-  });
-  rows.push([]); rows.push(["", "", "ИТОГО DI", total]);
-  if (actions > 0) rows.push(["", "", "Действий инструктора", actions]);
-  downloadBlob("\uFEFF" + rows.map(r => r.map(x => `"${String(x).replace(/"/g,'""')}"`).join(";")).join("\n"), `di_report_${new Date().toISOString().slice(0,10)}.csv`);
 }
 
 /* ============================================================
@@ -1713,28 +1507,6 @@ function copyHadReport() {
   navigator.clipboard.writeText("=== ОТЧЁТ HAD ===\n\n" + r)
     .then(() => toast("Отчёт HAD скопирован")).catch(() => toast("Не удалось"));
 }
-function downloadHadCsv() {
-  const rows = [["Услуга", "Кол-во", "Балл", "Итог"]]; let total = 0;
-  HAD_ITEMS.forEach(it => {
-    let c = getHadValue(it.key, "count"); const p = getHadValue(it.key, "point");
-    if (it.lim > 0 && c > it.lim) c = it.lim;
-    if (c > 0) { const s = c * p; total += s; rows.push([it.name, c, p, s]); }
-  });
-  rows.push([]); rows.push(["", "", "ИТОГО HAD", total]);
-  downloadBlob("\uFEFF" + rows.map(r => r.map(x => `"${String(x).replace(/"/g,'""')}"`).join(";")).join("\n"), `had_report_${new Date().toISOString().slice(0,10)}.csv`);
-}
-
-/* ============================================================
-   BLOB
-   ============================================================ */
-function downloadBlob(content, filename) {
-  const blob = new Blob([content], {type: "text/csv;charset=utf-8"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url; a.download = filename;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
 
 /* ============================================================
    ФОН
@@ -1761,7 +1533,6 @@ function downloadBlob(content, filename) {
       presetsEl.appendChild(el);
     });
   }
-
   btnMenu.addEventListener("click", (e) => { e.stopPropagation(); menu.hidden = !menu.hidden; });
   document.addEventListener("click", (e) => {
     if (!menu.hidden && !menu.contains(e.target) && e.target !== btnMenu) menu.hidden = true;
@@ -1773,12 +1544,7 @@ function downloadBlob(content, filename) {
     body.style.backgroundImage = "";
     body.style.animation = "";
     if (!cfg || cfg.type === "gradient") { if (persist) save({type: "gradient"}); return; }
-    if (cfg.type === "color") {
-      body.style.backgroundImage = "none";
-      body.style.backgroundColor = cfg.value;
-      body.style.animation = "none";
-      if (persist) save(cfg); return;
-    }
+    if (cfg.type === "color") { body.style.backgroundImage = "none"; body.style.backgroundColor = cfg.value; body.style.animation = "none"; if (persist) save(cfg); return; }
     if (cfg.type === "preset") { body.classList.add("has-custom-bg"); body.style.backgroundImage = cfg.css; if (persist) save(cfg); return; }
     if (cfg.type === "image")  { body.classList.add("has-custom-bg"); body.style.backgroundImage = `url("${cfg.value}")`; if (persist) save(cfg); }
   }
@@ -1796,13 +1562,12 @@ function downloadBlob(content, filename) {
   inputColor.addEventListener("input", (e) => applyBackground({type: "color", value: e.target.value}));
   btnGrad.addEventListener("click", () => { applyBackground({type: "gradient"}); menu.hidden = true; });
   btnReset.addEventListener("click", () => { applyBackground({type: "color", value: "#0d1117"}); menu.hidden = true; });
-
   const saved = load();
   if (saved) applyBackground(saved, false);
 })();
 
 /* ============================================================
-   ВКЛАДКИ
+   ВКЛАДКИ / КНОПКА / CTRL+S / RESIZE
    ============================================================ */
 (function() {
   const KEY = "psid_active_tab_v2";
@@ -1825,7 +1590,6 @@ function downloadBlob(content, filename) {
     if (saved && document.getElementById("content-" + saved)) activate(saved);
   } catch (e) {}
 })();
-
 (function() {
   const btn = document.getElementById("goto-psid"); if (!btn) return;
   btn.addEventListener("click", () => {
@@ -1833,7 +1597,6 @@ function downloadBlob(content, filename) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();
-
 document.addEventListener("keydown", (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === "s") {
     e.preventDefault();
@@ -1844,7 +1607,6 @@ document.addEventListener("keydown", (e) => {
     else if (id === "content-di") copyDiReport();
   }
 });
-
 let resizeT;
 window.addEventListener("resize", () => {
   clearTimeout(resizeT);
@@ -1856,23 +1618,19 @@ window.addEventListener("resize", () => {
    ============================================================ */
 renderItems(); loadSavedDefaults(); loadState();
 document.getElementById("btn-copy").addEventListener("click", copyReport);
-document.getElementById("btn-csv").addEventListener("click", downloadCSV);
 document.getElementById("btn-save").addEventListener("click", saveDefaults);
 document.getElementById("btn-reset").addEventListener("click", resetAll);
 
 renderPmItems(); loadPmState();
 document.getElementById("pm-btn-copy").addEventListener("click", copyPmReport);
-document.getElementById("pm-btn-csv").addEventListener("click", downloadPmCsv);
 document.getElementById("pm-btn-reset").addEventListener("click", resetPm);
 
 renderDiItems(); loadDiState();
 document.getElementById("di-btn-copy").addEventListener("click", copyDiReport);
-document.getElementById("di-btn-csv").addEventListener("click", downloadDiCsv);
 document.getElementById("di-btn-reset").addEventListener("click", resetDi);
 
 renderHadItems(); loadHadState();
 document.getElementById("had-btn-copy").addEventListener("click", copyHadReport);
-document.getElementById("had-btn-csv").addEventListener("click", downloadHadCsv);
 document.getElementById("had-btn-reset").addEventListener("click", resetHad);
 
 recalc(); recalcPm(); recalcDi(); recalcHad();
