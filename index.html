@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PSID — Калькулятор баллов</title>
+<title>Калькулятор баллов — PSID / PM / DI / HAD</title>
 <style>
   :root {
     --bg: #0d1117;
-    --bg-alt: #161b22;
-    --bg-hover: #1c2330;
-    --border: #2a3140;
+    --bg-alt: rgba(22, 27, 34, 0.72);
+    --bg-hover: rgba(28, 35, 48, 0.85);
+    --border: rgba(42, 49, 64, 0.8);
     --text: #e6edf3;
     --text-dim: #8b949e;
     --accent: #58a6ff;
@@ -19,6 +19,7 @@
     --gold: #d29922;
     --radius: 10px;
     --shadow: 0 4px 16px rgba(0,0,0,0.35);
+    --blur: 14px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -77,7 +78,7 @@
   }
 
   .container {
-    max-width: 980px;
+    max-width: 1180px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
@@ -98,6 +99,9 @@
   }
   header p { color: var(--text-dim); font-size: 14px; }
 
+  /* ============================================================
+     КНОПКА ФОНА
+     ============================================================ */
   .bg-controls {
     position: fixed;
     top: 16px;
@@ -116,6 +120,8 @@
     cursor: pointer;
     box-shadow: var(--shadow);
     transition: all 0.15s;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
   }
   .bg-btn:hover {
     border-color: var(--accent);
@@ -126,17 +132,57 @@
     position: absolute;
     top: calc(100% + 6px);
     right: 0;
-    width: 290px;
-    background: var(--bg-alt);
+    width: 320px;
+    background: rgba(22, 27, 34, 0.95);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 6px;
+    padding: 8px;
     box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
   }
   .bg-menu[hidden] { display: none; }
+
+  .bg-section-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 8px 6px;
+    font-weight: 600;
+  }
+  .bg-presets {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 0 4px 8px;
+  }
+  .bg-preset {
+    height: 46px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.15s, border-color 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .bg-preset:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+  }
+  .bg-preset .bg-preset-title {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    font-size: 10px;
+    text-align: center;
+    padding: 3px 2px;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    font-weight: 500;
+  }
+
   .bg-menu-item {
     background: transparent;
     color: var(--text);
@@ -148,6 +194,7 @@
     text-align: left;
     cursor: pointer;
     display: block;
+    width: 100%;
     transition: background 0.12s, color 0.12s;
   }
   .bg-menu-item:hover { background: var(--bg-hover); color: var(--accent); }
@@ -158,6 +205,9 @@
     border-radius: 6px; cursor: pointer;
   }
 
+  /* ============================================================
+     ПАНЕЛЬ ВКЛАДОК СПРАВА
+     ============================================================ */
   .side-tabs {
     position: fixed;
     top: 50%;
@@ -191,8 +241,8 @@
     cursor: pointer;
     text-align: left;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
     transition:
       right 0.25s cubic-bezier(0.22, 1, 0.36, 1),
       background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
@@ -207,7 +257,7 @@
   }
   .tab:active { transform: translateY(1px); }
   .tab.tab-active {
-    background: linear-gradient(135deg, #1a2744 0%, #16213e 100%);
+    background: linear-gradient(135deg, rgba(26, 39, 68, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%);
     border-color: var(--accent);
     color: var(--accent);
   }
@@ -218,105 +268,160 @@
     width: 3px; border-radius: 0 2px 2px 0;
     background: var(--accent);
   }
-  .tab-icon {
-    font-size: 18px; flex-shrink: 0; width: 24px; text-align: center;
+  .tab-icon { font-size: 18px; flex-shrink: 0; width: 24px; text-align: center; }
+  .tab-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* ============================================================
+     FADE МЕЖДУ ВКЛАДКАМИ
+     ============================================================ */
+  .tab-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
   }
-  .tab-label {
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  .tab-content.tab-content-active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeInTab 0.28s ease both;
+  }
+  @keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  .tab-content { display: none; }
-  .tab-content.tab-content-active { display: block; }
+  /* ============================================================
+     LAYOUT: шкала слева + контент справа
+     ============================================================ */
+  .content-layout {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
 
-  .placeholder {
+  /* ============================================================
+     ЛЕВАЯ ШКАЛА
+     ============================================================ */
+  .progress-rail {
+    position: sticky;
+    top: 24px;
+    height: 640px;
+    padding: 20px 14px;
     background: var(--bg-alt);
-    border: 1px dashed var(--border);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 48px 24px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .progress-rail-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-weight: 600;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .progress-rail-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    text-align: center;
+    transition: color 0.3s ease;
+  }
+  .progress-rail-scale {
+    position: relative;
+    flex: 1;
+    width: 34px;
+    border-radius: 17px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .progress-rail-fill {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0%;
+    transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                background 0.4s ease,
+                box-shadow 0.4s ease;
+    background: #f85149;
+    box-shadow: 0 0 12px rgba(248, 81, 73, 0.5);
+  }
+  .progress-rail-ticks {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .progress-rail-tick {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .progress-rail-tick-label {
+    position: absolute;
+    right: -42px;
+    font-size: 10px;
+    color: var(--text-dim);
+    transform: translateY(-50%);
+    font-weight: 600;
+  }
+  .progress-rail-status {
+    font-size: 11px;
     text-align: center;
     color: var(--text-dim);
+    margin-top: 6px;
+    line-height: 1.3;
+    min-height: 28px;
   }
-  .placeholder h2 { color: var(--accent); font-size: 22px; margin-bottom: 10px; }
-  .placeholder p { font-size: 14px; max-width: 500px; margin: 0 auto; line-height: 1.7; }
-  .placeholder .icon { font-size: 48px; display: block; margin-bottom: 16px; opacity: 0.7; }
 
-  .hero {
-    text-align: center;
-    padding: 40px 24px 32px;
-    background: linear-gradient(135deg, rgba(26, 39, 68, 0.6), rgba(22, 33, 62, 0.6));
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 20px;
-    box-shadow: var(--shadow);
+  @media (max-width: 900px) {
+    .content-layout {
+      grid-template-columns: 1fr;
+    }
+    .progress-rail {
+      position: relative;
+      top: auto;
+      height: auto;
+      padding: 14px 16px;
+      flex-direction: row;
+      gap: 14px;
+      align-items: center;
+    }
+    .progress-rail-scale {
+      flex: 1;
+      height: 18px;
+      width: auto;
+    }
+    .progress-rail-fill {
+      height: 100% !important;
+      width: 0%;
+      top: 0; bottom: 0;
+      transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s ease;
+    }
+    .progress-rail-tick { display: none; }
+    .progress-rail-ticks { display: none; }
+    .progress-rail-value { font-size: 20px; min-width: 60px; }
+    .progress-rail-title,
+    .progress-rail-status { margin: 0; min-height: 0; }
   }
-  .hero-icon { font-size: 56px; line-height: 1; margin-bottom: 12px; display: block; }
-  .hero-title {
-    font-size: 24px; font-weight: 700; color: var(--accent);
-    margin-bottom: 10px; letter-spacing: 0.3px;
-  }
-  .hero-subtitle {
-    font-size: 15px; color: var(--text-dim);
-    max-width: 640px; margin: 0 auto; line-height: 1.7;
-  }
-  .hero-cta { text-align: center; margin-top: 6px; }
-  .cta-btn {
-    background: var(--accent);
-    color: #0d1117;
-    border: 1px solid var(--accent);
-    border-radius: 10px;
-    padding: 14px 32px;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.15s;
-    box-shadow: 0 4px 20px rgba(88, 166, 255, 0.25);
-  }
-  .cta-btn:hover {
-    background: var(--accent-hover);
-    border-color: var(--accent-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 24px rgba(88, 166, 255, 0.35);
-  }
-  .cta-btn:active { transform: translateY(0); }
 
-  .features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 14px;
-  }
-  .feature {
-    display: flex;
-    gap: 12px;
-    padding: 14px 16px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    transition: border-color 0.15s, transform 0.15s;
-  }
-  .feature:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .feature-icon { font-size: 22px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
-  .feature-body h3 { font-size: 14px; color: var(--text); margin-bottom: 4px; font-weight: 600; }
-  .feature-body p { font-size: 13px; color: var(--text-dim); line-height: 1.55; }
-
-  .steps {
-    list-style: none; padding: 0; margin: 0;
-    display: flex; flex-direction: column; gap: 12px;
-  }
-  .steps li {
-    display: flex; align-items: flex-start; gap: 14px;
-    padding: 12px 14px; background: var(--bg);
-    border: 1px solid var(--border); border-radius: 8px;
-  }
-  .step-num {
-    flex-shrink: 0; width: 28px; height: 28px;
-    border-radius: 50%; background: var(--accent); color: #0d1117;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 14px;
-  }
-  .step-body { font-size: 14px; color: var(--text-dim); line-height: 1.55; padding-top: 3px; }
-  .step-body b { color: var(--text); }
-
+  /* ============================================================
+     СЕКЦИИ — GLASSMORPHISM
+     ============================================================ */
   .section {
     background: var(--bg-alt);
     border: 1px solid var(--border);
@@ -324,6 +429,9 @@
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: var(--shadow);
+    backdrop-filter: blur(var(--blur)) saturate(160%);
+    -webkit-backdrop-filter: blur(var(--blur)) saturate(160%);
+    transition: border-color 0.2s;
   }
   .section-title {
     font-size: 15px; font-weight: 600; color: var(--accent);
@@ -341,8 +449,8 @@
     border-radius: 8px;
     transition: background 0.15s;
   }
-  .row:not(.header-row):hover { background: var(--bg-hover); }
-  .row.active { background: rgba(88, 166, 255, 0.08); }
+  .row:not(.header-row):hover { background: rgba(28, 35, 48, 0.6); }
+  .row.active { background: rgba(88, 166, 255, 0.10); }
   .header-row {
     color: var(--text-dim);
     font-size: 12px;
@@ -368,7 +476,7 @@
 
   input[type="number"] {
     width: 100%;
-    background: var(--bg);
+    background: rgba(13, 17, 23, 0.7);
     color: var(--text);
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -398,17 +506,28 @@
     color: var(--text-dim); transition: color 0.15s;
   }
   .sum.positive { color: var(--success); }
+  .sum.pop { animation: sumPop 0.3s ease; }
+  @keyframes sumPop {
+    0%   { transform: scale(1);   }
+    45%  { transform: scale(1.28); }
+    100% { transform: scale(1);   }
+  }
 
+  /* ============================================================
+     ИТОГ
+     ============================================================ */
   .total-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(135deg, #1a2744 0%, #16213e 100%);
+    background: linear-gradient(135deg, rgba(26, 39, 68, 0.85) 0%, rgba(22, 33, 62, 0.85) 100%);
     border: 1px solid var(--accent);
     border-radius: var(--radius);
     padding: 20px 24px;
     margin-bottom: 20px;
     box-shadow: 0 0 0 1px rgba(88, 166, 255, 0.1), var(--shadow);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
   }
   .total-box .label {
     font-size: 14px; color: var(--text-dim);
@@ -417,10 +536,18 @@
   .total-box .value {
     font-size: 36px; font-weight: 700;
     color: var(--accent); line-height: 1;
-    transition: transform 0.15s;
+    transition: transform 0.15s, color 0.3s;
   }
-  .total-box .value.pulse { transform: scale(1.08); }
+  .total-box .value.pulse { animation: totalPulse 0.35s ease; }
+  @keyframes totalPulse {
+    0%   { transform: scale(1);    }
+    45%  { transform: scale(1.12); }
+    100% { transform: scale(1);    }
+  }
 
+  /* ============================================================
+     КНОПКИ
+     ============================================================ */
   .buttons {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -438,6 +565,8 @@
     font-family: inherit;
     cursor: pointer;
     transition: all 0.15s;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
   }
   button:hover {
     background: var(--bg-hover);
@@ -462,8 +591,11 @@
     color: var(--danger);
   }
 
+  /* ============================================================
+     ОТЧЁТ
+     ============================================================ */
   .report {
-    background: var(--bg);
+    background: rgba(13, 17, 23, 0.75);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 16px;
@@ -476,6 +608,8 @@
     max-height: 400px;
     overflow-y: auto;
     line-height: 1.6;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
   }
   .report:empty::before {
     content: "Отчёт появится здесь после расчёта...";
@@ -483,6 +617,9 @@
     font-style: italic;
   }
 
+  /* ============================================================
+     ПРАВИЛА
+     ============================================================ */
   .rules-list {
     list-style: none;
     padding: 0;
@@ -496,7 +633,7 @@
     align-items: center;
     gap: 10px;
     padding: 10px 14px;
-    background: var(--bg);
+    background: rgba(13, 17, 23, 0.55);
     border: 1px solid var(--border);
     border-radius: 8px;
     font-size: 13.5px;
@@ -508,12 +645,109 @@
   .rules-list .arrow { color: var(--accent); font-weight: 700; flex-shrink: 0; }
   .rules-list b { color: var(--text); }
 
+  /* ============================================================
+     HERO / ПЛЕЙСХОЛДЕР
+     ============================================================ */
+  .placeholder {
+    background: var(--bg-alt);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--text-dim);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+  }
+  .placeholder h2 { color: var(--accent); font-size: 22px; margin-bottom: 10px; }
+  .placeholder p { font-size: 14px; max-width: 500px; margin: 0 auto; line-height: 1.7; }
+  .placeholder .icon { font-size: 48px; display: block; margin-bottom: 16px; opacity: 0.7; }
+
+  .hero {
+    text-align: center;
+    padding: 40px 24px 32px;
+    background: linear-gradient(135deg, rgba(26, 39, 68, 0.6), rgba(22, 33, 62, 0.6));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(var(--blur)) saturate(160%);
+    -webkit-backdrop-filter: blur(var(--blur)) saturate(160%);
+  }
+  .hero-icon { font-size: 56px; line-height: 1; margin-bottom: 12px; display: block; }
+  .hero-title {
+    font-size: 24px; font-weight: 700; color: var(--accent);
+    margin-bottom: 10px; letter-spacing: 0.3px;
+  }
+  .hero-subtitle {
+    font-size: 15px; color: var(--text-dim);
+    max-width: 640px; margin: 0 auto; line-height: 1.7;
+  }
+  .hero-cta { text-align: center; margin-top: 6px; }
+  .cta-btn {
+    background: var(--accent);
+    color: #0d1117;
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 0 4px 20px rgba(88, 166, 255, 0.25);
+  }
+  .cta-btn:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .feature {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    background: rgba(13, 17, 23, 0.55);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .feature:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .feature-icon { font-size: 22px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+  .feature-body h3 { font-size: 14px; color: var(--text); margin-bottom: 4px; font-weight: 600; }
+  .feature-body p { font-size: 13px; color: var(--text-dim); line-height: 1.55; }
+
+  .steps {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .steps li {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 12px 14px; background: rgba(13, 17, 23, 0.55);
+    border: 1px solid var(--border); border-radius: 8px;
+  }
+  .step-num {
+    flex-shrink: 0; width: 28px; height: 28px;
+    border-radius: 50%; background: var(--accent); color: #0d1117;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+  }
+  .step-body { font-size: 14px; color: var(--text-dim); line-height: 1.55; padding-top: 3px; }
+  .step-body b { color: var(--text); }
+
+  /* ============================================================
+     TOAST
+     ============================================================ */
   .toast {
     position: fixed;
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%) translateY(80px);
-    background: var(--bg-alt);
+    background: rgba(22, 27, 34, 0.95);
     color: var(--text);
     border: 1px solid var(--accent);
     border-radius: 8px;
@@ -524,12 +758,17 @@
     transition: transform 0.3s, opacity 0.3s;
     pointer-events: none;
     z-index: 2000;
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
   }
   .toast.show {
     transform: translateX(-50%) translateY(0);
     opacity: 1;
   }
 
+  /* ============================================================
+     МОБИЛЬНАЯ ВЕРСИЯ
+     ============================================================ */
   @media (max-width: 640px) {
     body { padding: 16px 10px 40px; }
     .row {
@@ -540,11 +779,11 @@
     .name .limit { display: none; }
     .total-box .value { font-size: 28px; }
     .total-box { padding: 16px; }
-    header h1 { font-size: 22px; }
+    header h1 { font-size: 20px; }
     header p { font-size: 12.5px; }
     .bg-controls { top: 10px; right: 10px; }
     .bg-btn { padding: 6px 10px; font-size: 12px; }
-    .bg-menu { width: 250px; }
+    .bg-menu { width: 260px; }
     input[type="number"] { padding: 6px 4px; font-size: 13px; }
     .buttons { grid-template-columns: 1fr 1fr; }
     button { padding: 10px 12px; font-size: 13px; }
@@ -569,10 +808,12 @@
     .step-body { font-size: 13px; }
     .cta-btn { padding: 12px 22px; font-size: 14px; }
     .rules-list { grid-template-columns: 1fr; }
+    .bg-presets { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (prefers-reduced-motion: reduce) {
     body, body::before { animation: none !important; }
+    .tab-content.tab-content-active { animation: none; }
   }
 </style>
 </head>
@@ -610,8 +851,12 @@
 <div class="bg-controls">
   <button class="bg-btn" id="bg-menu-btn" type="button">🎨 Фон</button>
   <div class="bg-menu" id="bg-menu" hidden>
+    <div class="bg-section-label">Пресеты</div>
+    <div class="bg-presets" id="bg-presets"></div>
+
+    <div class="bg-section-label">Свои</div>
     <label class="bg-menu-item">
-      📁 Загрузить картинку (PNG, JPG, GIF, WEBP, SVG)
+      📁 Загрузить картинку
       <input type="file" id="bg-file"
              accept="image/png,image/jpeg,image/gif,image/webp,image/svg+xml" hidden>
     </label>
@@ -627,8 +872,8 @@
 <div class="container">
 
   <header>
-    <h1>Калькулятор баллов — PSID / PM / HAD</h1>
-    <p>Введите количество — итог пересчитается автоматически</p>
+    <h1>Калькулятор баллов — PSID / PM / DI / HAD</h1>
+    <p>Введите количество — итог и шкала обновятся автоматически</p>
   </header>
 
   <!-- ============================================================
@@ -638,11 +883,10 @@
 
     <div class="hero">
       <div class="hero-icon">🏥</div>
-      <h2 class="hero-title">Калькуляторы баллов для отделов PSID, PM и HAD</h2>
+      <h2 class="hero-title">Калькуляторы баллов для отделов</h2>
       <p class="hero-subtitle">
-        Инструмент для быстрого и точного подсчёта баллов за проделанную работу
-        сотрудников медицинских отделов. Всё считается прямо в браузере — без установок,
-        без интернета, с автоматическим сохранением.
+        Инструмент для подсчёта баллов сотрудников медицинских отделов.
+        Слева — визуальная шкала прогресса 100 → 1500 баллов с цветовой индикацией.
       </p>
     </div>
 
@@ -650,78 +894,48 @@
       <div class="section-title">Что умеет калькулятор</div>
       <div class="features">
         <div class="feature">
+          <div class="feature-icon">📊</div>
+          <div class="feature-body">
+            <h3>Шкала прогресса</h3>
+            <p>Слева каждой вкладки — визуальная шкала от 100 до 1500 баллов с цветом от красного к зелёному.</p>
+          </div>
+        </div>
+        <div class="feature">
           <div class="feature-icon">⚡</div>
           <div class="feature-body">
             <h3>Мгновенный подсчёт</h3>
-            <p>Итог обновляется автоматически при вводе количества — не нужно нажимать «Пересчитать».</p>
+            <p>Итог и шкала обновляются автоматически при вводе — с анимацией цифр.</p>
           </div>
         </div>
         <div class="feature">
           <div class="feature-icon">🧮</div>
           <div class="feature-body">
             <h3>Учёт лимитов</h3>
-            <p>Автоматически применяются ограничения: таблетки, ПМП, вакцины, медсправки и т.д.</p>
+            <p>Автоматически применяются ограничения на таблетки, ПМП, вакцины и медсправки.</p>
           </div>
         </div>
         <div class="feature">
-          <div class="feature-icon">🏥</div>
+          <div class="feature-icon">🎨</div>
           <div class="feature-body">
-            <h3>Три отдела</h3>
-            <p>Отдельные калькуляторы для PSID, PM и HAD — со своими системами баллов.</p>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">📋</div>
-          <div class="feature-body">
-            <h3>Готовый отчёт</h3>
-            <p>Одна кнопка — и подробный текстовый отчёт скопирован в буфер обмена.</p>
+            <h3>Пресеты фонов</h3>
+            <p>6 готовых фонов + загрузка своих картинок, GIF и сплошного цвета.</p>
           </div>
         </div>
         <div class="feature">
           <div class="feature-icon">💾</div>
           <div class="feature-body">
             <h3>Экспорт в CSV</h3>
-            <p>Скачивание отчёта в формате, который без проблем открывается в Excel.</p>
+            <p>Скачивание отчёта в формате Excel — с русскими буквами и BOM.</p>
           </div>
         </div>
         <div class="feature">
           <div class="feature-icon">🔒</div>
           <div class="feature-body">
             <h3>Автосохранение</h3>
-            <p>Данные и настройки баллов хранятся в браузере и не теряются при перезагрузке.</p>
+            <p>Все данные хранятся в браузере отдельно по каждому отделу.</p>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Как пользоваться</div>
-      <ol class="steps">
-        <li>
-          <span class="step-num">1</span>
-          <div class="step-body">
-            <b>Откройте нужный раздел</b> в панели справа — <b>PM</b>, <b>PSID</b> или <b>HAD</b>.
-          </div>
-        </li>
-        <li>
-          <span class="step-num">2</span>
-          <div class="step-body">
-            <b>Введите количество</b> напротив каждой услуги, которую сотрудник выполнил за отчётный период.
-          </div>
-        </li>
-        <li>
-          <span class="step-num">3</span>
-          <div class="step-body">
-            <b>Проверьте балл</b> — при необходимости его можно изменить вручную в столбце «Балл».
-          </div>
-        </li>
-        <li>
-          <span class="step-num">4</span>
-          <div class="step-body">
-            <b>Скопируйте отчёт</b> или скачайте CSV — готово, можно отправлять руководству.
-          </div>
-        </li>
-      </ol>
     </div>
 
     <div class="hero-cta">
@@ -733,216 +947,330 @@
   </section>
 
   <!-- ============================================================
-       РАЗДЕЛ 2: PM — калькулятор
+       РАЗДЕЛ 2: PM
        ============================================================ -->
   <section class="tab-content" id="content-pm">
+    <div class="content-layout">
+      <aside class="progress-rail" data-rail="pm">
+        <div class="progress-rail-title">PM</div>
+        <div class="progress-rail-value" data-rail-value>0</div>
+        <div class="progress-rail-scale">
+          <div class="progress-rail-fill" data-rail-fill></div>
+          <div class="progress-rail-ticks">
+            <div class="progress-rail-tick" style="bottom: 100%;">
+              <span class="progress-rail-tick-label">1500</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 66.66%;">
+              <span class="progress-rail-tick-label">1000</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 33.33%;">
+              <span class="progress-rail-tick-label">500</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 16.66%;">
+              <span class="progress-rail-tick-label">250</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 6.66%;">
+              <span class="progress-rail-tick-label">100</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-rail-status" data-rail-status>Начало</div>
+      </aside>
 
-    <div class="section">
-      <div class="section-title">🚑 ПМП</div>
-      <div class="row header-row">
-        <div class="cell">Действие</div>
-        <div class="cell">Кол-во</div>
-        <div class="cell">Балл</div>
-        <div class="cell">Итог</div>
+      <div>
+        <div class="section">
+          <div class="section-title">🚑 ПМП</div>
+          <div class="row header-row">
+            <div class="cell">Действие</div>
+            <div class="cell">Кол-во</div>
+            <div class="cell">Балл</div>
+            <div class="cell">Итог</div>
+          </div>
+          <div id="pm-pmp-items"></div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">💉 Вакцина</div>
+          <div class="row header-row">
+            <div class="cell">Больница</div>
+            <div class="cell">Кол-во</div>
+            <div class="cell">Балл</div>
+            <div class="cell">Итог</div>
+          </div>
+          <div id="pm-vax-items"></div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">💊 Таблетка</div>
+          <div class="row header-row">
+            <div class="cell">Больница</div>
+            <div class="cell">Кол-во</div>
+            <div class="cell">Балл</div>
+            <div class="cell">Итог</div>
+          </div>
+          <div id="pm-pill-items"></div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">🧾 Справка</div>
+          <div class="row header-row">
+            <div class="cell">Больница</div>
+            <div class="cell">Кол-во</div>
+            <div class="cell">Балл</div>
+            <div class="cell">Итог</div>
+          </div>
+          <div id="pm-med-items"></div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📝 Дополнительно</div>
+          <div class="row header-row">
+            <div class="cell">Действие</div>
+            <div class="cell">Кол-во</div>
+            <div class="cell">Балл</div>
+            <div class="cell">Итог</div>
+          </div>
+          <div id="pm-extra-items"></div>
+        </div>
+
+        <div class="total-box">
+          <span class="label">Итого баллов PM</span>
+          <span class="value" id="pm-total">0</span>
+        </div>
+
+        <div class="buttons">
+          <button class="primary" id="pm-btn-copy" type="button">📋 Копировать отчёт</button>
+          <button id="pm-btn-csv" type="button">💾 Скачать CSV</button>
+          <button class="danger" id="pm-btn-reset" type="button">↺ Сбросить PM</button>
+        </div>
+
+        <div class="report" id="pm-report"></div>
+
+        <div class="section" style="margin-top: 20px;">
+          <div class="section-title">🔃 Замены</div>
+          <ul class="rules-list">
+            <li><b>1 вакцина в любой больнице</b> <span class="arrow">=</span> 1 ПМП</li>
+            <li><b>1 ПМП</b> <span class="arrow">=</span> 1 вакцина</li>
+            <li><b>5 таблеток в любой больнице</b> <span class="arrow">=</span> 1 вакцина или 1 ПМП</li>
+          </ul>
+        </div>
       </div>
-      <div id="pm-pmp-items"></div>
     </div>
-
-    <div class="section">
-      <div class="section-title">💉 Вакцина</div>
-      <div class="row header-row">
-        <div class="cell">Больница</div>
-        <div class="cell">Кол-во</div>
-        <div class="cell">Балл</div>
-        <div class="cell">Итог</div>
-      </div>
-      <div id="pm-vax-items"></div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">💊 Таблетка</div>
-      <div class="row header-row">
-        <div class="cell">Больница</div>
-        <div class="cell">Кол-во</div>
-        <div class="cell">Балл</div>
-        <div class="cell">Итог</div>
-      </div>
-      <div id="pm-pill-items"></div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">🧾 Справка</div>
-      <div class="row header-row">
-        <div class="cell">Больница</div>
-        <div class="cell">Кол-во</div>
-        <div class="cell">Балл</div>
-        <div class="cell">Итог</div>
-      </div>
-      <div id="pm-med-items"></div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">📝 Дополнительно</div>
-      <div class="row header-row">
-        <div class="cell">Действие</div>
-        <div class="cell">Кол-во</div>
-        <div class="cell">Балл</div>
-        <div class="cell">Итог</div>
-      </div>
-      <div id="pm-extra-items"></div>
-    </div>
-
-    <div class="total-box">
-      <span class="label">Итого баллов PM</span>
-      <span class="value" id="pm-total">0</span>
-    </div>
-
-    <div class="buttons">
-      <button class="primary" id="pm-btn-copy" type="button">📋 Копировать отчёт</button>
-      <button id="pm-btn-csv" type="button">💾 Скачать CSV</button>
-      <button class="danger" id="pm-btn-reset" type="button">↺ Сбросить PM</button>
-    </div>
-
-    <div class="report" id="pm-report"></div>
-
-    <div class="section" style="margin-top: 20px;">
-      <div class="section-title">🔃 Замены</div>
-      <ul class="rules-list">
-        <li><b>1 вакцина в любой больнице</b> <span class="arrow">=</span> 1 ПМП</li>
-        <li><b>1 ПМП</b> <span class="arrow">=</span> 1 вакцина</li>
-        <li><b>5 таблеток в любой больнице</b> <span class="arrow">=</span> 1 вакцина или 1 ПМП</li>
-      </ul>
-    </div>
-
   </section>
 
   <!-- ============================================================
        РАЗДЕЛ 3: DI
        ============================================================ -->
   <section class="tab-content" id="content-di">
-    <div class="placeholder">
-      <span class="icon">📊</span>
-      <h2>DI</h2>
-      <p>Раздел пока пуст. Скоро здесь появится информация по DI.</p>
+    <div class="content-layout">
+      <aside class="progress-rail" data-rail="di">
+        <div class="progress-rail-title">DI</div>
+        <div class="progress-rail-value" data-rail-value>0</div>
+        <div class="progress-rail-scale">
+          <div class="progress-rail-fill" data-rail-fill></div>
+          <div class="progress-rail-ticks">
+            <div class="progress-rail-tick" style="bottom: 100%;">
+              <span class="progress-rail-tick-label">1500</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 66.66%;">
+              <span class="progress-rail-tick-label">1000</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 33.33%;">
+              <span class="progress-rail-tick-label">500</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 16.66%;">
+              <span class="progress-rail-tick-label">250</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 6.66%;">
+              <span class="progress-rail-tick-label">100</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-rail-status" data-rail-status>Начало</div>
+      </aside>
+
+      <div>
+        <div class="placeholder">
+          <span class="icon">📊</span>
+          <h2>DI</h2>
+          <p>Раздел пока пуст. Скоро здесь появится система баллов DI — шкала уже готова и ждёт данные.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ============================================================
-       РАЗДЕЛ 4: PSID — калькулятор
+       РАЗДЕЛ 4: PSID
        ============================================================ -->
   <section class="tab-content" id="content-psid">
+    <div class="content-layout">
+      <aside class="progress-rail" data-rail="psid">
+        <div class="progress-rail-title">PSID</div>
+        <div class="progress-rail-value" data-rail-value>0</div>
+        <div class="progress-rail-scale">
+          <div class="progress-rail-fill" data-rail-fill></div>
+          <div class="progress-rail-ticks">
+            <div class="progress-rail-tick" style="bottom: 100%;">
+              <span class="progress-rail-tick-label">1500</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 66.66%;">
+              <span class="progress-rail-tick-label">1000</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 33.33%;">
+              <span class="progress-rail-tick-label">500</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 16.66%;">
+              <span class="progress-rail-tick-label">250</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 6.66%;">
+              <span class="progress-rail-tick-label">100</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-rail-status" data-rail-status>Начало</div>
+      </aside>
 
-    <div class="section">
-      <div class="section-title">Основная система баллов</div>
-      <div class="row header-row">
-        <div class="cell">Услуга</div>
-        <div class="cell">Кол-во</div>
-        <div class="cell">Балл</div>
-        <div class="cell">Итог</div>
+      <div>
+        <div class="section">
+          <div class="section-title">Основная система баллов</div>
+          <div class="row header-row">
+            <div class="cell">Услуга</div>
+            <div class="cell">Кол-во</div>
+            <div class="cell">Балл</div>
+            <div class="cell">Итог</div>
+          </div>
+          <div id="main-items"></div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Доп. система — Инструкторы PSID</div>
+          <div class="row header-row">
+            <div class="cell">Услуга</div>
+            <div class="cell">Кол-во</div>
+            <div class="cell">Балл</div>
+            <div class="cell">Итог</div>
+          </div>
+          <div id="instr-items"></div>
+        </div>
+
+        <div class="total-box">
+          <span class="label">Итого баллов PSID</span>
+          <span class="value" id="total">0</span>
+        </div>
+
+        <div class="buttons">
+          <button class="primary" id="btn-copy" type="button">📋 Копировать отчёт</button>
+          <button id="btn-csv" type="button">💾 Скачать CSV</button>
+          <button id="btn-save" type="button">🔒 Сохранить баллы</button>
+          <button class="danger" id="btn-reset" type="button">↺ Сбросить PSID</button>
+        </div>
+
+        <div class="report" id="report"></div>
       </div>
-      <div id="main-items"></div>
     </div>
-
-    <div class="section">
-      <div class="section-title">Доп. система — Инструкторы PSID</div>
-      <div class="row header-row">
-        <div class="cell">Услуга</div>
-        <div class="cell">Кол-во</div>
-        <div class="cell">Балл</div>
-        <div class="cell">Итог</div>
-      </div>
-      <div id="instr-items"></div>
-    </div>
-
-    <div class="total-box">
-      <span class="label">Итого баллов PSID</span>
-      <span class="value" id="total">0</span>
-    </div>
-
-    <div class="buttons">
-      <button class="primary" id="btn-copy" type="button">📋 Копировать отчёт</button>
-      <button id="btn-csv" type="button">💾 Скачать CSV</button>
-      <button id="btn-save" type="button">🔒 Сохранить баллы</button>
-      <button class="danger" id="btn-reset" type="button">↺ Сбросить PSID</button>
-    </div>
-
-    <div class="report" id="report"></div>
-
   </section>
 
   <!-- ============================================================
-       РАЗДЕЛ 5: HAD — калькулятор
+       РАЗДЕЛ 5: HAD
        ============================================================ -->
   <section class="tab-content" id="content-had">
+    <div class="content-layout">
+      <aside class="progress-rail" data-rail="had">
+        <div class="progress-rail-title">HAD</div>
+        <div class="progress-rail-value" data-rail-value>0</div>
+        <div class="progress-rail-scale">
+          <div class="progress-rail-fill" data-rail-fill></div>
+          <div class="progress-rail-ticks">
+            <div class="progress-rail-tick" style="bottom: 100%;">
+              <span class="progress-rail-tick-label">1500</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 66.66%;">
+              <span class="progress-rail-tick-label">1000</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 33.33%;">
+              <span class="progress-rail-tick-label">500</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 16.66%;">
+              <span class="progress-rail-tick-label">250</span>
+            </div>
+            <div class="progress-rail-tick" style="bottom: 6.66%;">
+              <span class="progress-rail-tick-label">100</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-rail-status" data-rail-status>Начало</div>
+      </aside>
 
-    <div class="section">
-      <div class="section-title">Основные действия</div>
-      <div class="row header-row">
-        <div class="cell">Действие</div>
-        <div class="cell">Кол-во</div>
-        <div class="cell">Балл</div>
-        <div class="cell">Итог</div>
+      <div>
+        <div class="section">
+          <div class="section-title">Основные действия</div>
+          <div class="row header-row">
+            <div class="cell">Действие</div>
+            <div class="cell">Кол-во</div>
+            <div class="cell">Балл</div>
+            <div class="cell">Итог</div>
+          </div>
+          <div id="had-main-items"></div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Инструктор HAD</div>
+          <div class="row header-row">
+            <div class="cell">Действие</div>
+            <div class="cell">Кол-во</div>
+            <div class="cell">Балл</div>
+            <div class="cell">Итог</div>
+          </div>
+          <div id="had-instr-items"></div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Недельный отчёт</div>
+          <div class="row header-row">
+            <div class="cell">Услуга</div>
+            <div class="cell">Кол-во</div>
+            <div class="cell">Балл</div>
+            <div class="cell">Итог</div>
+          </div>
+          <div id="had-weekly-items"></div>
+        </div>
+
+        <div class="total-box">
+          <span class="label">Итого баллов HAD</span>
+          <span class="value" id="had-total">0</span>
+        </div>
+
+        <div class="buttons">
+          <button class="primary" id="had-btn-copy" type="button">📋 Копировать отчёт</button>
+          <button id="had-btn-csv" type="button">💾 Скачать CSV</button>
+          <button class="danger" id="had-btn-reset" type="button">↺ Сбросить HAD</button>
+        </div>
+
+        <div class="report" id="had-report"></div>
+
+        <div class="section" style="margin-top: 20px;">
+          <div class="section-title">Возможные замены</div>
+          <ul class="rules-list">
+            <li><b>2 выговора</b> <span class="arrow">→</span> 1 проверка перерывов/отпусков</li>
+            <li><b>2 выговора</b> <span class="arrow">→</span> 1 вызов сотрудника по 10-20</li>
+            <li><b>1 проверка на прогул</b> <span class="arrow">→</span> 1 брифинг</li>
+            <li><b>1 проверка склада</b> <span class="arrow">→</span> 2 выговора</li>
+            <li><b>1 брифинг</b> <span class="arrow">→</span> 1 проверка на прогул</li>
+            <li><b>5 выговоров</b> <span class="arrow">→</span> 1 брифинг</li>
+            <li><b>15 ПМП</b> <span class="arrow">→</span> 1 проверка на прогул</li>
+            <li><b>5 ПМП</b> <span class="arrow">→</span> 1 проверка отпусков</li>
+            <li><b>5 вызовов по рации</b> <span class="arrow">→</span> 1 проверка на прогул</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Замены для инструкторов</div>
+          <ul class="rules-list">
+            <li><b>1 отчёт на повышение</b> <span class="arrow">→</span> 30 минут дежурства в больнице</li>
+          </ul>
+        </div>
       </div>
-      <div id="had-main-items"></div>
     </div>
-
-    <div class="section">
-      <div class="section-title">Инструктор HAD</div>
-      <div class="row header-row">
-        <div class="cell">Действие</div>
-        <div class="cell">Кол-во</div>
-        <div class="cell">Балл</div>
-        <div class="cell">Итог</div>
-      </div>
-      <div id="had-instr-items"></div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Недельный отчёт</div>
-      <div class="row header-row">
-        <div class="cell">Услуга</div>
-        <div class="cell">Кол-во</div>
-        <div class="cell">Балл</div>
-        <div class="cell">Итог</div>
-      </div>
-      <div id="had-weekly-items"></div>
-    </div>
-
-    <div class="total-box">
-      <span class="label">Итого баллов HAD</span>
-      <span class="value" id="had-total">0</span>
-    </div>
-
-    <div class="buttons">
-      <button class="primary" id="had-btn-copy" type="button">📋 Копировать отчёт</button>
-      <button id="had-btn-csv" type="button">💾 Скачать CSV</button>
-      <button class="danger" id="had-btn-reset" type="button">↺ Сбросить HAD</button>
-    </div>
-
-    <div class="report" id="had-report"></div>
-
-    <div class="section" style="margin-top: 20px;">
-      <div class="section-title">Возможные замены</div>
-      <ul class="rules-list">
-        <li><b>2 выговора</b> <span class="arrow">→</span> 1 проверка перерывов/отпусков</li>
-        <li><b>2 выговора</b> <span class="arrow">→</span> 1 вызов сотрудника по 10-20</li>
-        <li><b>1 проверка на прогул</b> <span class="arrow">→</span> 1 брифинг</li>
-        <li><b>1 проверка склада</b> <span class="arrow">→</span> 2 выговора</li>
-        <li><b>1 брифинг</b> <span class="arrow">→</span> 1 проверка на прогул</li>
-        <li><b>5 выговоров</b> <span class="arrow">→</span> 1 брифинг</li>
-        <li><b>15 ПМП</b> <span class="arrow">→</span> 1 проверка на прогул</li>
-        <li><b>5 ПМП</b> <span class="arrow">→</span> 1 проверка отпусков</li>
-        <li><b>5 вызовов по рации</b> <span class="arrow">→</span> 1 проверка на прогул</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Замены для инструкторов</div>
-      <ul class="rules-list">
-        <li><b>1 отчёт на повышение</b> <span class="arrow">→</span> 30 минут дежурства в больнице</li>
-      </ul>
-    </div>
-
   </section>
 
 </div>
@@ -951,7 +1279,52 @@
 
 <script>
 /* ============================================================
-   PSID — СПИСОК УСЛУГ
+   ПРЕСЕТЫ ФОНОВ (data-URI SVG / CSS-градиенты — встроенные)
+   ============================================================ */
+const BG_PRESETS = [
+  {
+    id: "med-blue",
+    title: "Медицина",
+    css: "linear-gradient(135deg, #0a1f3d 0%, #0d2f4a 40%, #0a1f3d 100%)",
+  },
+  {
+    id: "med-soft",
+    title: "Soft",
+    css: "linear-gradient(160deg, #1a2a3a 0%, #0f1e2e 50%, #05111c 100%)",
+  },
+  {
+    id: "dots",
+    title: "Точки",
+    css:
+      "radial-gradient(circle at 25% 25%, rgba(88,166,255,0.12) 1px, transparent 2px) 0 0 / 24px 24px, " +
+      "radial-gradient(circle at 75% 75%, rgba(88,166,255,0.08) 1px, transparent 2px) 12px 12px / 24px 24px, " +
+      "linear-gradient(135deg, #0d1117, #0a0e14)",
+  },
+  {
+    id: "grid",
+    title: "Сетка",
+    css:
+      "linear-gradient(rgba(88,166,255,0.07) 1px, transparent 1px) 0 0 / 40px 40px, " +
+      "linear-gradient(90deg, rgba(88,166,255,0.07) 1px, transparent 1px) 0 0 / 40px 40px, " +
+      "linear-gradient(160deg, #0a0e14, #101828)",
+  },
+  {
+    id: "sunset",
+    title: "Закат",
+    css: "linear-gradient(160deg, #2a1830 0%, #3a1f2a 35%, #1a1428 100%)",
+  },
+  {
+    id: "aurora",
+    title: "Aurora",
+    css:
+      "radial-gradient(ellipse at 20% 20%, rgba(88,166,255,0.35), transparent 50%), " +
+      "radial-gradient(ellipse at 80% 70%, rgba(63,185,80,0.25), transparent 50%), " +
+      "linear-gradient(160deg, #05111c, #0d1117)",
+  },
+];
+
+/* ============================================================
+   СПИСКИ УСЛУГ
    ============================================================ */
 const ITEMS = [
   {key:"pill_day",       name:"Выдача таблетки днём",                   pts:2,  lim:100, sect:1},
@@ -980,12 +1353,193 @@ const ITEMS = [
   {key:"instr_psy_help", name:"Помощь в псих. помощи",                  pts:20, lim:0,   sect:2},
   {key:"instr_gov",      name:"Доп. проверка гос. структур",            pts:20, lim:0,   sect:2},
 ];
-
 const STORAGE_STATE    = "psid_calc_state_v1";
 const STORAGE_DEFAULTS = "psid_calc_defaults_v1";
 
+const PM_ITEMS = [
+  {key:"pm_pmp_day",      name:"ПМП днём",                              pts:3,   lim:0, sect:1},
+  {key:"pm_pmp_night",    name:"ПМП ночью",                             pts:5,   lim:0, sect:1},
+  {key:"pm_pmp_hospital", name:"ПМП в любой больнице и палатах",        pts:1,   lim:0, sect:1},
+  {key:"pm_pmp_rejected", name:"Отклонённый вызов",                     pts:1,   lim:0, sect:1},
+  {key:"pm_vax_elsh",     name:"Вакцина в ELSH",                        pts:3,   lim:0, sect:2},
+  {key:"pm_vax_ss",       name:"Вакцина в Sandy-Shores",                pts:4,   lim:0, sect:2},
+  {key:"pm_vax_pb",       name:"Вакцина в Paleto-Bay",                  pts:4,   lim:0, sect:2},
+  {key:"pm_pill_elsh",    name:"Таблетка в ELSH",                       pts:1,   lim:0, sect:3},
+  {key:"pm_pill_ss",      name:"Таблетка в Sandy-Shores",               pts:2,   lim:0, sect:3},
+  {key:"pm_pill_pb",      name:"Таблетка в Paleto-Bay",                 pts:2,   lim:0, sect:3},
+  {key:"pm_med_elsh",     name:"Справка в ELSH (каждая)",               pts:3,   lim:0, sect:4},
+  {key:"pm_med_ss",       name:"Справка в Sandy-Shores (каждая)",       pts:4,   lim:0, sect:4},
+  {key:"pm_med_pb",       name:"Справка в Paleto-Bay (каждая)",         pts:4,   lim:0, sect:4},
+  {key:"pm_q_therapist",  name:"Получение квалификации «Терапевт»",     pts:50,  lim:0, sect:5},
+  {key:"pm_q_surgeon",    name:"Получение квалификации «Хирург»",       pts:50,  lim:0, sect:5},
+  {key:"pm_q_vet",        name:"Получение квалификации «Ветеринар»",    pts:50,  lim:0, sect:5},
+  {key:"pm_q_recruiter",  name:"Получение квалификации «Рекрутер»",     pts:50,  lim:0, sect:5},
+  {key:"pm_lecture",      name:"Прослушивание лекции",                  pts:10,  lim:0, sect:5},
+  {key:"pm_exam",         name:"Прохождение экзамена",                  pts:10,  lim:0, sect:5},
+  {key:"pm_rp_op",        name:"Проведение 1 РП операции",              pts:100, lim:0, sect:5},
+  {key:"pm_recruit",      name:"Принятие 1 человека во фракцию",        pts:100, lim:0, sect:5},
+  {key:"pm_animal_check", name:"Проведение 1 осмотра служебных животных",pts:100,lim:0, sect:5},
+  {key:"pm_duty_elsh",    name:"Дежурство ELSH (30 минут)",             pts:10,  lim:0, sect:5},
+  {key:"pm_duty_ss",      name:"Дежурство Sandy-Shores (30 минут)",     pts:15,  lim:0, sect:5},
+  {key:"pm_duty_pb",      name:"Дежурство Paleto-Bay (30 минут)",       pts:15,  lim:0, sect:5},
+];
+const STORAGE_PM_STATE = "pm_calc_state_v1";
+
+const HAD_ITEMS = [
+  {key:"had_reprimand",    name:"Выдача выговоров",                          pts:5,  lim:0,   sect:1},
+  {key:"had_walk_check",   name:"Проверка на прогул",                        pts:5,  lim:0,   sect:1},
+  {key:"had_break_check",  name:"Проверка обедов / отпусков",                pts:3,  lim:0,   sect:1},
+  {key:"had_briefing",     name:"Проведение брифинга",                       pts:20, lim:0,   sect:1},
+  {key:"had_briefing_att", name:"Принять участие в брифинге",                pts:10, lim:0,   sect:1},
+  {key:"had_recert",       name:"Проверить переаттестацию",                  pts:5,  lim:0,   sect:1},
+  {key:"had_radio_call",   name:"Вызвать человека по рации (запрос 10-20)",  pts:3,  lim:0,   sect:1},
+  {key:"had_duty_check",   name:"Проверка дежурств",                         pts:15, lim:0,   sect:1},
+  {key:"had_hospital_duty",name:"Дежурство в больнице 30 мин",               pts:10, lim:0,   sect:1},
+  {key:"had_duty_accept",  name:"Принятие дежурств",                         pts:15, lim:0,   sect:1},
+  {key:"had_instr_promo",  name:"Проверка отчёта на повышение",              pts:20, lim:0,   sect:2},
+  {key:"had_instr_weekly", name:"Проверка недельного отчёта",                pts:25, lim:0,   sect:2},
+  {key:"had_w_duty",       name:"Дежурство в больнице 30 мин",               pts:10, lim:0,   sect:3},
+  {key:"had_w_accept",     name:"Принятие человека",                         pts:10, lim:0,   sect:3},
+  {key:"had_w_pmp_day",    name:"ПМП днём",                                  pts:2,  lim:100, sect:3},
+  {key:"had_w_pmp_night",  name:"ПМП ночью",                                 pts:4,  lim:100, sect:3},
+  {key:"had_w_vax",        name:"Вакцины",                                   pts:4,  lim:80,  sect:3},
+  {key:"had_w_pills",      name:"Таблетки",                                  pts:1,  lim:100, sect:3},
+  {key:"had_w_med_elsh",   name:"Медсправки в ELSH",                         pts:3,  lim:75,  sect:3},
+  {key:"had_w_med_ss_pb",  name:"Медсправки в SH/PB",                        pts:4,  lim:60,  sect:3},
+];
+const STORAGE_HAD_STATE = "had_calc_state_v1";
+
 /* ============================================================
-   PSID — генерация и пересчёт
+   ОБЩИЕ ХЕЛПЕРЫ
+   ============================================================ */
+function toast(msg) {
+  const el = document.getElementById("toast");
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove("show"), 2000);
+}
+
+function popIfChanged(el, oldText, newText) {
+  if (!el) return;
+  if (oldText !== newText) {
+    el.textContent = newText;
+    el.classList.remove("pop");
+    void el.offsetWidth;
+    el.classList.add("pop");
+  }
+}
+
+/* ============================================================
+   ШКАЛА ПРОГРЕССА
+   Шкала логарифмическая на отрезках:
+   0..100  -> 0..6.66%
+   100..250 -> 6.66..16.66%
+   250..500 -> 16.66..33.33%
+   500..1000 -> 33.33..66.66%
+   1000..1500 -> 66.66..100%
+   Цвет: красный → оранжевый → жёлтый → зелёный
+   ============================================================ */
+const RAIL_SEGMENTS = [
+  { from: 0,    to: 100,  posFrom: 0,      posTo: 6.66  },
+  { from: 100,  to: 250,  posFrom: 6.66,   posTo: 16.66 },
+  { from: 250,  to: 500,  posFrom: 16.66,  posTo: 33.33 },
+  { from: 500,  to: 1000, posFrom: 33.33,  posTo: 66.66 },
+  { from: 1000, to: 1500, posFrom: 66.66,  posTo: 100   },
+];
+
+function valueToPercent(total) {
+  if (total <= 0) return 0;
+  if (total >= 1500) return 100;
+  for (const s of RAIL_SEGMENTS) {
+    if (total >= s.from && total <= s.to) {
+      const t = (total - s.from) / (s.to - s.from);
+      return s.posFrom + t * (s.posTo - s.posFrom);
+    }
+  }
+  return 100;
+}
+
+function valueToColor(total) {
+  // ключевые точки цветов
+  const stops = [
+    { v: 0,    c: [248, 81, 73]  },   // red
+    { v: 100,  c: [248, 81, 73]  },   // red
+    { v: 250,  c: [248, 160, 73] },   // orange
+    { v: 500,  c: [210, 153, 34] },   // gold
+    { v: 1000, c: [120, 200, 100] },  // light green
+    { v: 1500, c: [63, 185, 80]  },   // success
+  ];
+  if (total <= 0) return "rgb(248, 81, 73)";
+  if (total >= 1500) return "rgb(63, 185, 80)";
+
+  for (let i = 0; i < stops.length - 1; i++) {
+    const a = stops[i];
+    const b = stops[i + 1];
+    if (total >= a.v && total <= b.v) {
+      const t = (total - a.v) / (b.v - a.v);
+      const r = Math.round(a.c[0] + (b.c[0] - a.c[0]) * t);
+      const g = Math.round(a.c[1] + (b.c[1] - a.c[1]) * t);
+      const bl = Math.round(a.c[2] + (b.c[2] - a.c[2]) * t);
+      return `rgb(${r}, ${g}, ${bl})`;
+    }
+  }
+  return "rgb(63, 185, 80)";
+}
+
+function statusText(total) {
+  if (total <= 0)      return "Начало";
+  if (total < 100)     return "Старт";
+  if (total < 250)     return "Норма";
+  if (total < 500)     return "Хорошо";
+  if (total < 1000)    return "Отлично";
+  if (total < 1500)    return "Супер";
+  return "Максимум";
+}
+
+function updateRail(sectionId, total) {
+  const section = document.getElementById(sectionId);
+  if (!section) return;
+  const rail = section.querySelector(".progress-rail");
+  if (!rail) return;
+
+  const valueEl = rail.querySelector("[data-rail-value]");
+  const fillEl  = rail.querySelector("[data-rail-fill]");
+  const statusEl = rail.querySelector("[data-rail-status]");
+
+  const percent = valueToPercent(total);
+  const color = valueToColor(total);
+
+  if (valueEl) {
+    const oldText = valueEl.textContent;
+    const newText = String(total);
+    if (oldText !== newText) {
+      valueEl.textContent = newText;
+      valueEl.style.color = color;
+    }
+  }
+
+  if (fillEl) {
+    // мобильная версия: ширина, десктоп: высота
+    const isMobile = window.matchMedia("(max-width: 900px)").matches;
+    if (isMobile) {
+      fillEl.style.width = percent + "%";
+    } else {
+      fillEl.style.height = percent + "%";
+    }
+    fillEl.style.background = color;
+    fillEl.style.boxShadow = `0 0 14px ${color}`;
+  }
+
+  if (statusEl) {
+    statusEl.textContent = statusText(total);
+    statusEl.style.color = color;
+  }
+}
+
+/* ============================================================
+   PSID
    ============================================================ */
 function renderItems() {
   const mainEl  = document.getElementById("main-items");
@@ -996,23 +1550,16 @@ function renderItems() {
     const row = document.createElement("div");
     row.className = "row";
     row.dataset.key = it.key;
-
-    const limitBadge = it.lim > 0 ? `<span class="limit">макс ${it.lim}</span>` : "";
-
+    const badge = it.lim > 0 ? `<span class="limit">макс ${it.lim}</span>` : "";
     row.innerHTML = `
-      <div class="name">${it.name}${limitBadge}</div>
-      <input type="number" min="0" step="1" placeholder="" data-role="count" data-key="${it.key}">
+      <div class="name">${it.name}${badge}</div>
+      <input type="number" min="0" step="1" data-role="count" data-key="${it.key}">
       <input type="number" min="0" step="1" value="${it.pts}" data-role="point" data-key="${it.key}">
       <div class="sum" data-role="sum" data-key="${it.key}">0</div>
     `;
-
-    if (it.sect === 1) mainEl.appendChild(row);
-    else               instrEl.appendChild(row);
+    (it.sect === 1 ? mainEl : instrEl).appendChild(row);
   });
-
-  document.querySelectorAll("#content-psid input[type=number]").forEach(inp => {
-    inp.addEventListener("input", recalc);
-  });
+  document.querySelectorAll("#content-psid input[type=number]").forEach(inp => inp.addEventListener("input", recalc));
 }
 
 function getValue(key, role) {
@@ -1033,23 +1580,20 @@ function recalc() {
 
     let count = getValue(it.key, "count");
     const point = getValue(it.key, "point");
-
-    const overLimit = it.lim > 0 && count > it.lim;
-    if (overLimit) count = it.lim;
-    countEl.classList.toggle("over-limit", overLimit);
+    const over = it.lim > 0 && count > it.lim;
+    if (over) count = it.lim;
+    countEl.classList.toggle("over-limit", over);
 
     const sum = count * point;
     total += sum;
-
-    sumEl.textContent = sum;
+    popIfChanged(sumEl, sumEl.textContent, String(sum));
     sumEl.classList.toggle("positive", sum > 0);
 
-    const row = countEl.closest(".row");
-    row.classList.toggle("active", count > 0);
+    countEl.closest(".row").classList.toggle("active", count > 0);
 
     if (count > 0) {
       const entry = {name: it.name, count, point, sum};
-      if (it.sect === 1) { details.main.push(entry);  details.mainSum += sum; }
+      if (it.sect === 1) { details.main.push(entry); details.mainSum += sum; }
       else               { details.instr.push(entry); details.instrSum += sum; }
     }
   });
@@ -1057,44 +1601,37 @@ function recalc() {
   const totalEl = document.getElementById("total");
   if (totalEl && parseInt(totalEl.textContent, 10) !== total) {
     totalEl.textContent = total;
+    totalEl.classList.remove("pulse");
+    void totalEl.offsetWidth;
     totalEl.classList.add("pulse");
-    setTimeout(() => totalEl.classList.remove("pulse"), 200);
   }
 
   const reportEl = document.getElementById("report");
-  if (!reportEl) return;
-  let report = "";
-  if (details.main.length) {
-    report += "── Основные услуги ──\n";
-    details.main.forEach(e => {
-      report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`;
-    });
-    report += `  Подытог: ${details.mainSum}\n\n`;
+  if (reportEl) {
+    let report = "";
+    if (details.main.length) {
+      report += "── Основные услуги ──\n";
+      details.main.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
+      report += `  Подытог: ${details.mainSum}\n\n`;
+    }
+    if (details.instr.length) {
+      report += "── Инструкторы ──\n";
+      details.instr.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
+      report += `  Подытог: ${details.instrSum}\n\n`;
+    }
+    if (total > 0) report += `ИТОГО PSID: ${total} баллов`;
+    reportEl.textContent = report;
   }
-  if (details.instr.length) {
-    report += "── Инструкторы ──\n";
-    details.instr.forEach(e => {
-      report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`;
-    });
-    report += `  Подытог: ${details.instrSum}\n\n`;
-  }
-  if (total > 0) report += `ИТОГО PSID: ${total} баллов`;
-  reportEl.textContent = report;
 
+  updateRail("content-psid", total);
   saveState();
 }
 
 function saveState() {
   const state = {};
-  ITEMS.forEach(it => {
-    state[it.key] = {
-      count: getValue(it.key, "count"),
-      point: getValue(it.key, "point"),
-    };
-  });
+  ITEMS.forEach(it => state[it.key] = { count: getValue(it.key, "count"), point: getValue(it.key, "point") });
   try { localStorage.setItem(STORAGE_STATE, JSON.stringify(state)); } catch (e) {}
 }
-
 function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_STATE);
@@ -1111,7 +1648,6 @@ function loadState() {
     });
   } catch (e) {}
 }
-
 function loadSavedDefaults() {
   try {
     const raw = localStorage.getItem(STORAGE_DEFAULTS);
@@ -1125,7 +1661,6 @@ function loadSavedDefaults() {
     });
   } catch (e) {}
 }
-
 function resetAll() {
   ITEMS.forEach(it => {
     const cEl = document.querySelector(`#content-psid input[data-role="count"][data-key="${it.key}"]`);
@@ -1136,96 +1671,36 @@ function resetAll() {
   recalc();
   toast("PSID сброшен");
 }
-
 function saveDefaults() {
   const pts = {};
-  ITEMS.forEach(it => { pts[it.key] = getValue(it.key, "point"); });
-  try {
-    localStorage.setItem(STORAGE_DEFAULTS, JSON.stringify(pts));
-    toast("Баллы PSID сохранены как новые по умолчанию");
-  } catch (e) {
-    toast("Не удалось сохранить");
-  }
+  ITEMS.forEach(it => pts[it.key] = getValue(it.key, "point"));
+  try { localStorage.setItem(STORAGE_DEFAULTS, JSON.stringify(pts)); toast("Баллы PSID сохранены"); }
+  catch (e) { toast("Не удалось сохранить"); }
 }
-
 function copyReport() {
   const report = document.getElementById("report").textContent;
   if (!report) { toast("Сначала введите данные"); return; }
-  const full = "=== ОТЧЁТ PSID ===\n\n" + report;
-  navigator.clipboard.writeText(full)
+  navigator.clipboard.writeText("=== ОТЧЁТ PSID ===\n\n" + report)
     .then(() => toast("Отчёт PSID скопирован"))
     .catch(() => toast("Не удалось скопировать"));
 }
-
 function downloadCSV() {
   const rows = [["Услуга", "Кол-во", "Балл", "Итог"]];
   let total = 0;
   ITEMS.forEach(it => {
-    let count = getValue(it.key, "count");
-    const point = getValue(it.key, "point");
-    if (it.lim > 0 && count > it.lim) count = it.lim;
-    if (count > 0) {
-      const sum = count * point;
-      total += sum;
-      rows.push([it.name, count, point, sum]);
-    }
+    let c = getValue(it.key, "count");
+    const p = getValue(it.key, "point");
+    if (it.lim > 0 && c > it.lim) c = it.lim;
+    if (c > 0) { const s = c * p; total += s; rows.push([it.name, c, p, s]); }
   });
-  rows.push([]);
-  rows.push(["", "", "ИТОГО PSID", total]);
-
-  const csv = "\uFEFF" + rows.map(r =>
-    r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(";")
-  ).join("\n");
-
-  const blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `psid_report_${new Date().toISOString().slice(0,10)}.csv`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  toast("CSV PSID скачан");
+  rows.push([]); rows.push(["", "", "ИТОГО PSID", total]);
+  const csv = "\uFEFF" + rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(";")).join("\n");
+  downloadBlob(csv, `psid_report_${new Date().toISOString().slice(0,10)}.csv`);
 }
 
 /* ============================================================
-   PM — СПИСОК ПУНКТОВ
+   PM
    ============================================================ */
-const PM_ITEMS = [
-  {key:"pm_pmp_day",        name:"ПМП днём",                                     pts:3,   lim:0, sect:1},
-  {key:"pm_pmp_night",      name:"ПМП ночью",                                    pts:5,   lim:0, sect:1},
-  {key:"pm_pmp_hospital",   name:"ПМП в любой больнице и палатах",               pts:1,   lim:0, sect:1},
-  {key:"pm_pmp_rejected",   name:"Отклонённый вызов",                            pts:1,   lim:0, sect:1},
-
-  {key:"pm_vax_elsh",       name:"Вакцина в ELSH",                               pts:3,   lim:0, sect:2},
-  {key:"pm_vax_ss",         name:"Вакцина в Sandy-Shores",                       pts:4,   lim:0, sect:2},
-  {key:"pm_vax_pb",         name:"Вакцина в Paleto-Bay",                         pts:4,   lim:0, sect:2},
-
-  {key:"pm_pill_elsh",      name:"Таблетка в ELSH",                              pts:1,   lim:0, sect:3},
-  {key:"pm_pill_ss",        name:"Таблетка в Sandy-Shores",                      pts:2,   lim:0, sect:3},
-  {key:"pm_pill_pb",        name:"Таблетка в Paleto-Bay",                        pts:2,   lim:0, sect:3},
-
-  {key:"pm_med_elsh",       name:"Справка в ELSH (каждая)",                      pts:3,   lim:0, sect:4},
-  {key:"pm_med_ss",         name:"Справка в Sandy-Shores (каждая)",              pts:4,   lim:0, sect:4},
-  {key:"pm_med_pb",         name:"Справка в Paleto-Bay (каждая)",                pts:4,   lim:0, sect:4},
-
-  {key:"pm_q_therapist",    name:"Получение квалификации «Терапевт»",            pts:50,  lim:0, sect:5},
-  {key:"pm_q_surgeon",      name:"Получение квалификации «Хирург»",              pts:50,  lim:0, sect:5},
-  {key:"pm_q_vet",          name:"Получение квалификации «Ветеринар»",           pts:50,  lim:0, sect:5},
-  {key:"pm_q_recruiter",    name:"Получение квалификации «Рекрутер»",            pts:50,  lim:0, sect:5},
-  {key:"pm_lecture",        name:"Прослушивание лекции",                         pts:10,  lim:0, sect:5},
-  {key:"pm_exam",           name:"Прохождение экзамена",                         pts:10,  lim:0, sect:5},
-  {key:"pm_rp_op",          name:"Проведение 1 РП операции",                     pts:100, lim:0, sect:5},
-  {key:"pm_recruit",        name:"Принятие 1 человека во фракцию",               pts:100, lim:0, sect:5},
-  {key:"pm_animal_check",   name:"Проведение 1 осмотра служебных животных",      pts:100, lim:0, sect:5},
-  {key:"pm_duty_elsh",      name:"Дежурство ELSH (30 минут)",                    pts:10,  lim:0, sect:5},
-  {key:"pm_duty_ss",        name:"Дежурство Sandy-Shores (30 минут)",            pts:15,  lim:0, sect:5},
-  {key:"pm_duty_pb",        name:"Дежурство Paleto-Bay (30 минут)",              pts:15,  lim:0, sect:5},
-];
-
-const STORAGE_PM_STATE = "pm_calc_state_v1";
-
 function renderPmItems() {
   const buckets = {
     1: document.getElementById("pm-pmp-items"),
@@ -1235,111 +1710,81 @@ function renderPmItems() {
     5: document.getElementById("pm-extra-items"),
   };
   if (!buckets[1]) return;
-
   PM_ITEMS.forEach(it => {
     const container = buckets[it.sect];
     if (!container) return;
-
     const row = document.createElement("div");
     row.className = "row";
     row.dataset.key = it.key;
-
-    const limitBadge = it.lim > 0 ? `<span class="limit">макс ${it.lim}</span>` : "";
-
     row.innerHTML = `
-      <div class="name">${it.name}${limitBadge}</div>
-      <input type="number" min="0" step="1" placeholder="" data-role="count" data-key="${it.key}">
+      <div class="name">${it.name}</div>
+      <input type="number" min="0" step="1" data-role="count" data-key="${it.key}">
       <input type="number" min="0" step="1" value="${it.pts}" data-role="point" data-key="${it.key}">
       <div class="sum" data-role="sum" data-key="${it.key}">0</div>
     `;
     container.appendChild(row);
   });
-
-  document.querySelectorAll("#content-pm input[type=number]").forEach(inp => {
-    inp.addEventListener("input", recalcPm);
-  });
+  document.querySelectorAll("#content-pm input[type=number]").forEach(inp => inp.addEventListener("input", recalcPm));
 }
-
 function getPmValue(key, role) {
   const el = document.querySelector(`#content-pm input[data-role="${role}"][data-key="${key}"]`);
   if (!el) return 0;
   const v = parseInt(el.value, 10);
   return isNaN(v) ? 0 : v;
 }
-
 function recalcPm() {
   let total = 0;
   const details = {
-    1: { title: "🚑 ПМП",            items: [], sum: 0 },
-    2: { title: "💉 Вакцина",        items: [], sum: 0 },
-    3: { title: "💊 Таблетка",       items: [], sum: 0 },
-    4: { title: "🧾 Справка",        items: [], sum: 0 },
-    5: { title: "📝 Дополнительно",  items: [], sum: 0 },
+    1: { title: "🚑 ПМП", items: [], sum: 0 },
+    2: { title: "💉 Вакцина", items: [], sum: 0 },
+    3: { title: "💊 Таблетка", items: [], sum: 0 },
+    4: { title: "🧾 Справка", items: [], sum: 0 },
+    5: { title: "📝 Дополнительно", items: [], sum: 0 },
   };
-
   PM_ITEMS.forEach(it => {
     const countEl = document.querySelector(`#content-pm input[data-role="count"][data-key="${it.key}"]`);
     const sumEl   = document.querySelector(`#content-pm div[data-role="sum"][data-key="${it.key}"]`);
     if (!countEl || !sumEl) return;
-
     let count = getPmValue(it.key, "count");
     const point = getPmValue(it.key, "point");
-
-    const overLimit = it.lim > 0 && count > it.lim;
-    if (overLimit) count = it.lim;
-    countEl.classList.toggle("over-limit", overLimit);
-
     const sum = count * point;
     total += sum;
-
-    sumEl.textContent = sum;
+    popIfChanged(sumEl, sumEl.textContent, String(sum));
     sumEl.classList.toggle("positive", sum > 0);
-
-    const row = countEl.closest(".row");
-    row.classList.toggle("active", count > 0);
-
+    countEl.closest(".row").classList.toggle("active", count > 0);
     if (count > 0) {
       details[it.sect].items.push({name: it.name, count, point, sum});
       details[it.sect].sum += sum;
     }
   });
-
   const totalEl = document.getElementById("pm-total");
   if (totalEl && parseInt(totalEl.textContent, 10) !== total) {
     totalEl.textContent = total;
+    totalEl.classList.remove("pulse");
+    void totalEl.offsetWidth;
     totalEl.classList.add("pulse");
-    setTimeout(() => totalEl.classList.remove("pulse"), 200);
   }
-
   const reportEl = document.getElementById("pm-report");
-  if (!reportEl) return;
-  let report = "";
-  [1, 2, 3, 4, 5].forEach(n => {
-    const d = details[n];
-    if (!d.items.length) return;
-    report += `── ${d.title} ──\n`;
-    d.items.forEach(e => {
-      report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`;
+  if (reportEl) {
+    let report = "";
+    [1,2,3,4,5].forEach(n => {
+      const d = details[n];
+      if (!d.items.length) return;
+      report += `── ${d.title} ──\n`;
+      d.items.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
+      report += `  Подытог: ${d.sum}\n\n`;
     });
-    report += `  Подытог: ${d.sum}\n\n`;
-  });
-  if (total > 0) report += `ИТОГО PM: ${total} баллов`;
-  reportEl.textContent = report;
-
+    if (total > 0) report += `ИТОГО PM: ${total} баллов`;
+    reportEl.textContent = report;
+  }
+  updateRail("content-pm", total);
   savePmState();
 }
-
 function savePmState() {
   const state = {};
-  PM_ITEMS.forEach(it => {
-    state[it.key] = {
-      count: getPmValue(it.key, "count"),
-      point: getPmValue(it.key, "point"),
-    };
-  });
+  PM_ITEMS.forEach(it => state[it.key] = { count: getPmValue(it.key, "count"), point: getPmValue(it.key, "point") });
   try { localStorage.setItem(STORAGE_PM_STATE, JSON.stringify(state)); } catch (e) {}
 }
-
 function loadPmState() {
   try {
     const raw = localStorage.getItem(STORAGE_PM_STATE);
@@ -1356,7 +1801,6 @@ function loadPmState() {
     });
   } catch (e) {}
 }
-
 function resetPm() {
   PM_ITEMS.forEach(it => {
     const cEl = document.querySelector(`#content-pm input[data-role="count"][data-key="${it.key}"]`);
@@ -1367,196 +1811,117 @@ function resetPm() {
   recalcPm();
   toast("PM сброшен");
 }
-
 function copyPmReport() {
   const report = document.getElementById("pm-report").textContent;
   if (!report) { toast("Сначала введите данные"); return; }
-  const full = "=== ОТЧЁТ PM ===\n\n" + report;
-  navigator.clipboard.writeText(full)
+  navigator.clipboard.writeText("=== ОТЧЁТ PM ===\n\n" + report)
     .then(() => toast("Отчёт PM скопирован"))
     .catch(() => toast("Не удалось скопировать"));
 }
-
 function downloadPmCsv() {
   const rows = [["Услуга", "Кол-во", "Балл", "Итог"]];
   let total = 0;
   PM_ITEMS.forEach(it => {
-    let count = getPmValue(it.key, "count");
-    const point = getPmValue(it.key, "point");
-    if (it.lim > 0 && count > it.lim) count = it.lim;
-    if (count > 0) {
-      const sum = count * point;
-      total += sum;
-      rows.push([it.name, count, point, sum]);
-    }
+    let c = getPmValue(it.key, "count");
+    const p = getPmValue(it.key, "point");
+    if (c > 0) { const s = c * p; total += s; rows.push([it.name, c, p, s]); }
   });
-  rows.push([]);
-  rows.push(["", "", "ИТОГО PM", total]);
-
-  const csv = "\uFEFF" + rows.map(r =>
-    r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(";")
-  ).join("\n");
-
-  const blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `pm_report_${new Date().toISOString().slice(0,10)}.csv`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  toast("CSV PM скачан");
+  rows.push([]); rows.push(["", "", "ИТОГО PM", total]);
+  const csv = "\uFEFF" + rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(";")).join("\n");
+  downloadBlob(csv, `pm_report_${new Date().toISOString().slice(0,10)}.csv`);
 }
 
 /* ============================================================
-   HAD — СПИСОК ПУНКТОВ
+   HAD
    ============================================================ */
-const HAD_ITEMS = [
-  {key:"had_reprimand",    name:"Выдача выговоров",                          pts:5,  lim:0,   sect:1},
-  {key:"had_walk_check",   name:"Проверка на прогул",                        pts:5,  lim:0,   sect:1},
-  {key:"had_break_check",  name:"Проверка обедов / отпусков",                pts:3,  lim:0,   sect:1},
-  {key:"had_briefing",     name:"Проведение брифинга",                       pts:20, lim:0,   sect:1},
-  {key:"had_briefing_att", name:"Принять участие в брифинге",                pts:10, lim:0,   sect:1},
-  {key:"had_recert",       name:"Проверить переаттестацию",                  pts:5,  lim:0,   sect:1},
-  {key:"had_radio_call",   name:"Вызвать человека по рации (запрос 10-20)",  pts:3,  lim:0,   sect:1},
-  {key:"had_duty_check",   name:"Проверка дежурств",                         pts:15, lim:0,   sect:1},
-  {key:"had_hospital_duty",name:"Дежурство в больнице 30 мин",               pts:10, lim:0,   sect:1},
-  {key:"had_duty_accept",  name:"Принятие дежурств",                         pts:15, lim:0,   sect:1},
-
-  {key:"had_instr_promo",  name:"Проверка отчёта на повышение",              pts:20, lim:0,   sect:2},
-  {key:"had_instr_weekly", name:"Проверка недельного отчёта",                pts:25, lim:0,   sect:2},
-
-  {key:"had_w_duty",       name:"Дежурство в больнице 30 мин",               pts:10, lim:0,   sect:3},
-  {key:"had_w_accept",     name:"Принятие человека",                         pts:10, lim:0,   sect:3},
-  {key:"had_w_pmp_day",    name:"ПМП днём",                                  pts:2,  lim:100, sect:3},
-  {key:"had_w_pmp_night",  name:"ПМП ночью",                                 pts:4,  lim:100, sect:3},
-  {key:"had_w_vax",        name:"Вакцины",                                   pts:4,  lim:80,  sect:3},
-  {key:"had_w_pills",      name:"Таблетки",                                  pts:1,  lim:100, sect:3},
-  {key:"had_w_med_elsh",   name:"Медсправки в ELSH",                         pts:3,  lim:75,  sect:3},
-  {key:"had_w_med_ss_pb",  name:"Медсправки в SH/PB",                        pts:4,  lim:60,  sect:3},
-];
-
-const STORAGE_HAD_STATE = "had_calc_state_v1";
-
 function renderHadItems() {
   const elMain = document.getElementById("had-main-items");
   const elIns  = document.getElementById("had-instr-items");
   const elWeek = document.getElementById("had-weekly-items");
   if (!elMain || !elIns || !elWeek) return;
-
   HAD_ITEMS.forEach(it => {
     const row = document.createElement("div");
     row.className = "row";
     row.dataset.key = it.key;
-
-    const limitBadge = it.lim > 0 ? `<span class="limit">макс ${it.lim}</span>` : "";
-
+    const badge = it.lim > 0 ? `<span class="limit">макс ${it.lim}</span>` : "";
     row.innerHTML = `
-      <div class="name">${it.name}${limitBadge}</div>
-      <input type="number" min="0" step="1" placeholder="" data-role="count" data-key="${it.key}">
+      <div class="name">${it.name}${badge}</div>
+      <input type="number" min="0" step="1" data-role="count" data-key="${it.key}">
       <input type="number" min="0" step="1" value="${it.pts}" data-role="point" data-key="${it.key}">
       <div class="sum" data-role="sum" data-key="${it.key}">0</div>
     `;
-
-    if (it.sect === 1)      elMain.appendChild(row);
+    if (it.sect === 1) elMain.appendChild(row);
     else if (it.sect === 2) elIns.appendChild(row);
-    else                    elWeek.appendChild(row);
+    else elWeek.appendChild(row);
   });
-
-  document.querySelectorAll("#content-had input[type=number]").forEach(inp => {
-    inp.addEventListener("input", recalcHad);
-  });
+  document.querySelectorAll("#content-had input[type=number]").forEach(inp => inp.addEventListener("input", recalcHad));
 }
-
 function getHadValue(key, role) {
   const el = document.querySelector(`#content-had input[data-role="${role}"][data-key="${key}"]`);
   if (!el) return 0;
   const v = parseInt(el.value, 10);
   return isNaN(v) ? 0 : v;
 }
-
 function recalcHad() {
   let total = 0;
   const details = { main: [], instr: [], weekly: [], mainSum: 0, instrSum: 0, weeklySum: 0 };
-
   HAD_ITEMS.forEach(it => {
     const countEl = document.querySelector(`#content-had input[data-role="count"][data-key="${it.key}"]`);
     const sumEl   = document.querySelector(`#content-had div[data-role="sum"][data-key="${it.key}"]`);
     if (!countEl || !sumEl) return;
-
     let count = getHadValue(it.key, "count");
     const point = getHadValue(it.key, "point");
-
-    const overLimit = it.lim > 0 && count > it.lim;
-    if (overLimit) count = it.lim;
-    countEl.classList.toggle("over-limit", overLimit);
-
+    const over = it.lim > 0 && count > it.lim;
+    if (over) count = it.lim;
+    countEl.classList.toggle("over-limit", over);
     const sum = count * point;
     total += sum;
-
-    sumEl.textContent = sum;
+    popIfChanged(sumEl, sumEl.textContent, String(sum));
     sumEl.classList.toggle("positive", sum > 0);
-
-    const row = countEl.closest(".row");
-    row.classList.toggle("active", count > 0);
-
+    countEl.closest(".row").classList.toggle("active", count > 0);
     if (count > 0) {
       const entry = {name: it.name, count, point, sum};
-      if (it.sect === 1)      { details.main.push(entry);   details.mainSum += sum; }
-      else if (it.sect === 2) { details.instr.push(entry);  details.instrSum += sum; }
-      else                    { details.weekly.push(entry); details.weeklySum += sum; }
+      if (it.sect === 1) { details.main.push(entry); details.mainSum += sum; }
+      else if (it.sect === 2) { details.instr.push(entry); details.instrSum += sum; }
+      else { details.weekly.push(entry); details.weeklySum += sum; }
     }
   });
-
   const totalEl = document.getElementById("had-total");
   if (totalEl && parseInt(totalEl.textContent, 10) !== total) {
     totalEl.textContent = total;
+    totalEl.classList.remove("pulse");
+    void totalEl.offsetWidth;
     totalEl.classList.add("pulse");
-    setTimeout(() => totalEl.classList.remove("pulse"), 200);
   }
-
   const reportEl = document.getElementById("had-report");
-  if (!reportEl) return;
-  let report = "";
-  if (details.main.length) {
-    report += "── Основные действия ──\n";
-    details.main.forEach(e => {
-      report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`;
-    });
-    report += `  Подытог: ${details.mainSum}\n\n`;
+  if (reportEl) {
+    let report = "";
+    if (details.main.length) {
+      report += "── Основные действия ──\n";
+      details.main.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
+      report += `  Подытог: ${details.mainSum}\n\n`;
+    }
+    if (details.instr.length) {
+      report += "── Инструктор HAD ──\n";
+      details.instr.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
+      report += `  Подытог: ${details.instrSum}\n\n`;
+    }
+    if (details.weekly.length) {
+      report += "── Недельный отчёт ──\n";
+      details.weekly.forEach(e => report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`);
+      report += `  Подытог: ${details.weeklySum}\n\n`;
+    }
+    if (total > 0) report += `ИТОГО HAD: ${total} баллов`;
+    reportEl.textContent = report;
   }
-  if (details.instr.length) {
-    report += "── Инструктор HAD ──\n";
-    details.instr.forEach(e => {
-      report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`;
-    });
-    report += `  Подытог: ${details.instrSum}\n\n`;
-  }
-  if (details.weekly.length) {
-    report += "── Недельный отчёт ──\n";
-    details.weekly.forEach(e => {
-      report += `  ${e.name}: ${e.count} × ${e.point} = ${e.sum}\n`;
-    });
-    report += `  Подытог: ${details.weeklySum}\n\n`;
-  }
-  if (total > 0) report += `ИТОГО HAD: ${total} баллов`;
-  reportEl.textContent = report;
-
+  updateRail("content-had", total);
   saveHadState();
 }
-
 function saveHadState() {
   const state = {};
-  HAD_ITEMS.forEach(it => {
-    state[it.key] = {
-      count: getHadValue(it.key, "count"),
-      point: getHadValue(it.key, "point"),
-    };
-  });
+  HAD_ITEMS.forEach(it => state[it.key] = { count: getHadValue(it.key, "count"), point: getHadValue(it.key, "point") });
   try { localStorage.setItem(STORAGE_HAD_STATE, JSON.stringify(state)); } catch (e) {}
 }
-
 function loadHadState() {
   try {
     const raw = localStorage.getItem(STORAGE_HAD_STATE);
@@ -1573,7 +1938,6 @@ function loadHadState() {
     });
   } catch (e) {}
 }
-
 function resetHad() {
   HAD_ITEMS.forEach(it => {
     const cEl = document.querySelector(`#content-had input[data-role="count"][data-key="${it.key}"]`);
@@ -1584,70 +1948,51 @@ function resetHad() {
   recalcHad();
   toast("HAD сброшен");
 }
-
 function copyHadReport() {
   const report = document.getElementById("had-report").textContent;
   if (!report) { toast("Сначала введите данные"); return; }
-  const full = "=== ОТЧЁТ HAD ===\n\n" + report;
-  navigator.clipboard.writeText(full)
+  navigator.clipboard.writeText("=== ОТЧЁТ HAD ===\n\n" + report)
     .then(() => toast("Отчёт HAD скопирован"))
     .catch(() => toast("Не удалось скопировать"));
 }
-
 function downloadHadCsv() {
   const rows = [["Услуга", "Кол-во", "Балл", "Итог"]];
   let total = 0;
   HAD_ITEMS.forEach(it => {
-    let count = getHadValue(it.key, "count");
-    const point = getHadValue(it.key, "point");
-    if (it.lim > 0 && count > it.lim) count = it.lim;
-    if (count > 0) {
-      const sum = count * point;
-      total += sum;
-      rows.push([it.name, count, point, sum]);
-    }
+    let c = getHadValue(it.key, "count");
+    const p = getHadValue(it.key, "point");
+    if (it.lim > 0 && c > it.lim) c = it.lim;
+    if (c > 0) { const s = c * p; total += s; rows.push([it.name, c, p, s]); }
   });
-  rows.push([]);
-  rows.push(["", "", "ИТОГО HAD", total]);
+  rows.push([]); rows.push(["", "", "ИТОГО HAD", total]);
+  const csv = "\uFEFF" + rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(";")).join("\n");
+  downloadBlob(csv, `had_report_${new Date().toISOString().slice(0,10)}.csv`);
+}
 
-  const csv = "\uFEFF" + rows.map(r =>
-    r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(";")
-  ).join("\n");
-
-  const blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+/* ============================================================
+   ОБЩИЙ СКАЧИВАТЕЛЬ BLOB
+   ============================================================ */
+function downloadBlob(content, filename) {
+  const blob = new Blob([content], {type: "text/csv;charset=utf-8"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `had_report_${new Date().toISOString().slice(0,10)}.csv`;
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  toast("CSV HAD скачан");
 }
 
 /* ============================================================
-   TOAST
-   ============================================================ */
-let toastTimer = null;
-function toast(msg) {
-  const el = document.getElementById("toast");
-  if (!el) return;
-  el.textContent = msg;
-  el.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove("show"), 2000);
-}
-
-/* ============================================================
-   ЗАГРУЗЧИК ФОНА
+   ФОН + ПРЕСЕТЫ
    ============================================================ */
 (function() {
-  const KEY = "psid_bg_v1";
+  const KEY = "psid_bg_v2";
   const body = document.body;
-
   const btnMenu    = document.getElementById("bg-menu-btn");
   const menu       = document.getElementById("bg-menu");
+  const presetsEl  = document.getElementById("bg-presets");
   const inputFile  = document.getElementById("bg-file");
   const inputColor = document.getElementById("bg-color");
   const btnGrad    = document.getElementById("bg-gradient");
@@ -1655,20 +2000,35 @@ function toast(msg) {
 
   if (!btnMenu || !menu) return;
 
+  // отрисовать пресеты
+  if (presetsEl) {
+    BG_PRESETS.forEach(p => {
+      const el = document.createElement("div");
+      el.className = "bg-preset";
+      el.title = p.title;
+      el.style.background = p.css;
+      el.innerHTML = `<div class="bg-preset-title">${p.title}</div>`;
+      el.addEventListener("click", () => {
+        applyBackground({type: "preset", id: p.id, css: p.css});
+        menu.hidden = true;
+      });
+      presetsEl.appendChild(el);
+    });
+  }
+
   btnMenu.addEventListener("click", (e) => {
     e.stopPropagation();
     menu.hidden = !menu.hidden;
   });
   document.addEventListener("click", (e) => {
-    if (!menu.hidden && !menu.contains(e.target) && e.target !== btnMenu) {
-      menu.hidden = true;
-    }
+    if (!menu.hidden && !menu.contains(e.target) && e.target !== btnMenu) menu.hidden = true;
   });
 
   function applyBackground(cfg, persist = true) {
     body.classList.remove("has-custom-bg");
     body.style.backgroundColor = "";
     body.style.backgroundImage = "";
+    body.style.animation = "";
 
     if (!cfg || cfg.type === "gradient") {
       if (persist) save({type: "gradient"});
@@ -1677,6 +2037,13 @@ function toast(msg) {
     if (cfg.type === "color") {
       body.style.backgroundImage = "none";
       body.style.backgroundColor = cfg.value;
+      body.style.animation = "none";
+      if (persist) save(cfg);
+      return;
+    }
+    if (cfg.type === "preset") {
+      body.classList.add("has-custom-bg");
+      body.style.backgroundImage = cfg.css;
       if (persist) save(cfg);
       return;
     }
@@ -1710,43 +2077,37 @@ function toast(msg) {
     reader.onerror = () => toast("Не удалось прочитать файл");
     reader.readAsDataURL(file);
   });
-
-  inputColor.addEventListener("input", (e) => {
-    applyBackground({type: "color", value: e.target.value});
-  });
-  btnGrad.addEventListener("click", () => {
-    applyBackground({type: "gradient"});
-    menu.hidden = true;
-  });
-  btnReset.addEventListener("click", () => {
-    applyBackground({type: "color", value: "#0d1117"});
-    menu.hidden = true;
-  });
+  inputColor.addEventListener("input", (e) => applyBackground({type: "color", value: e.target.value}));
+  btnGrad.addEventListener("click", () => { applyBackground({type: "gradient"}); menu.hidden = true; });
+  btnReset.addEventListener("click", () => { applyBackground({type: "color", value: "#0d1117"}); menu.hidden = true; });
 
   const saved = load();
   if (saved) applyBackground(saved, false);
 })();
 
 /* ============================================================
-   ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+   ВКЛАДКИ
    ============================================================ */
 (function() {
-  const KEY = "psid_active_tab_v1";
+  const KEY = "psid_active_tab_v2";
   const tabs = document.querySelectorAll(".tab");
   const contents = document.querySelectorAll(".tab-content");
 
   function activate(name) {
     tabs.forEach(t => t.classList.toggle("tab-active", t.dataset.tab === name));
-    contents.forEach(c => c.classList.toggle(
-      "tab-content-active",
-      c.id === "content-" + name
-    ));
+    contents.forEach(c => c.classList.toggle("tab-content-active", c.id === "content-" + name));
     try { localStorage.setItem(KEY, name); } catch (e) {}
+
+    // при переключении — обновить шкалу на случай, если она свёрнута
+    setTimeout(() => {
+      if (name === "psid")  recalc();
+      if (name === "pm")    recalcPm();
+      if (name === "had")   recalcHad();
+      if (name === "di")    updateRail("content-di", 0);
+    }, 30);
   }
 
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => activate(tab.dataset.tab));
-  });
+  tabs.forEach(tab => tab.addEventListener("click", () => activate(tab.dataset.tab)));
 
   try {
     const saved = localStorage.getItem(KEY);
@@ -1754,30 +2115,35 @@ function toast(msg) {
   } catch (e) {}
 })();
 
-/* ============================================================
-   КНОПКА "ПЕРЕЙТИ К PSID"
-   ============================================================ */
+/* ---- Кнопка "Перейти к PSID" ---- */
 (function() {
   const btn = document.getElementById("goto-psid");
   if (!btn) return;
   btn.addEventListener("click", () => {
-    const psidTab = document.querySelector('.tab[data-tab="psid"]');
-    if (psidTab) psidTab.click();
+    const t = document.querySelector('.tab[data-tab="psid"]');
+    if (t) t.click();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();
 
-/* ============================================================
-   ГОРЯЧИЕ КЛАВИШИ
-   ============================================================ */
+/* ---- Ctrl+S ---- */
 document.addEventListener("keydown", (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === "s") {
     e.preventDefault();
-    const activeId = document.querySelector(".tab-content.tab-content-active")?.id;
-    if (activeId === "content-had")       copyHadReport();
-    else if (activeId === "content-psid") copyReport();
-    else if (activeId === "content-pm")   copyPmReport();
+    const id = document.querySelector(".tab-content.tab-content-active")?.id;
+    if (id === "content-had")       copyHadReport();
+    else if (id === "content-psid") copyReport();
+    else if (id === "content-pm")   copyPmReport();
   }
+});
+
+/* ---- При изменении размера окна обновить ориентацию шкал ---- */
+let resizeT;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeT);
+  resizeT = setTimeout(() => {
+    recalc(); recalcPm(); recalcHad(); updateRail("content-di", 0);
+  }, 120);
 });
 
 /* ============================================================
@@ -1786,7 +2152,6 @@ document.addEventListener("keydown", (e) => {
 renderItems();
 loadSavedDefaults();
 loadState();
-
 document.getElementById("btn-copy").addEventListener("click", copyReport);
 document.getElementById("btn-csv").addEventListener("click", downloadCSV);
 document.getElementById("btn-save").addEventListener("click", saveDefaults);
@@ -1794,14 +2159,12 @@ document.getElementById("btn-reset").addEventListener("click", resetAll);
 
 renderPmItems();
 loadPmState();
-
 document.getElementById("pm-btn-copy").addEventListener("click", copyPmReport);
 document.getElementById("pm-btn-csv").addEventListener("click", downloadPmCsv);
 document.getElementById("pm-btn-reset").addEventListener("click", resetPm);
 
 renderHadItems();
 loadHadState();
-
 document.getElementById("had-btn-copy").addEventListener("click", copyHadReport);
 document.getElementById("had-btn-csv").addEventListener("click", downloadHadCsv);
 document.getElementById("had-btn-reset").addEventListener("click", resetHad);
@@ -1809,6 +2172,7 @@ document.getElementById("had-btn-reset").addEventListener("click", resetHad);
 recalc();
 recalcPm();
 recalcHad();
+updateRail("content-di", 0);
 </script>
 </body>
 </html>
